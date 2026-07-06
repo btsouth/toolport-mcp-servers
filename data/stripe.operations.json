@@ -1,0 +1,5561 @@
+{
+  "GetAccount": {
+    "method": "GET",
+    "path": "/v1/account",
+    "pathParams": [],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostAccountLinks": {
+    "method": "POST",
+    "path": "/v1/account_links",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostAccountSessions": {
+    "method": "POST",
+    "path": "/v1/account_sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetAccounts": {
+    "method": "GET",
+    "path": "/v1/accounts",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostAccounts": {
+    "method": "POST",
+    "path": "/v1/accounts",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteAccountsAccount": {
+    "method": "DELETE",
+    "path": "/v1/accounts/{account}",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccount": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostAccountsAccount": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "PostAccountsAccountBankAccounts": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/bank_accounts",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "DeleteAccountsAccountBankAccountsId": {
+    "method": "DELETE",
+    "path": "/v1/accounts/{account}/bank_accounts/{id}",
+    "pathParams": [
+      "account",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountBankAccountsId": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/bank_accounts/{id}",
+    "pathParams": [
+      "account",
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostAccountsAccountBankAccountsId": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/bank_accounts/{id}",
+    "pathParams": [
+      "account",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountCapabilities": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/capabilities",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetAccountsAccountCapabilitiesCapability": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/capabilities/{capability}",
+    "pathParams": [
+      "account",
+      "capability"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostAccountsAccountCapabilitiesCapability": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/capabilities/{capability}",
+    "pathParams": [
+      "account",
+      "capability"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountExternalAccounts": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/external_accounts",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "object",
+      "starting_after"
+    ]
+  },
+  "PostAccountsAccountExternalAccounts": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/external_accounts",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "DeleteAccountsAccountExternalAccountsId": {
+    "method": "DELETE",
+    "path": "/v1/accounts/{account}/external_accounts/{id}",
+    "pathParams": [
+      "account",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountExternalAccountsId": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/external_accounts/{id}",
+    "pathParams": [
+      "account",
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostAccountsAccountExternalAccountsId": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/external_accounts/{id}",
+    "pathParams": [
+      "account",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostAccountsAccountLoginLinks": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/login_links",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountPeople": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/people",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "relationship",
+      "starting_after"
+    ]
+  },
+  "PostAccountsAccountPeople": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/people",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "DeleteAccountsAccountPeoplePerson": {
+    "method": "DELETE",
+    "path": "/v1/accounts/{account}/people/{person}",
+    "pathParams": [
+      "account",
+      "person"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountPeoplePerson": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/people/{person}",
+    "pathParams": [
+      "account",
+      "person"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostAccountsAccountPeoplePerson": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/people/{person}",
+    "pathParams": [
+      "account",
+      "person"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountPersons": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/persons",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "relationship",
+      "starting_after"
+    ]
+  },
+  "PostAccountsAccountPersons": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/persons",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "DeleteAccountsAccountPersonsPerson": {
+    "method": "DELETE",
+    "path": "/v1/accounts/{account}/persons/{person}",
+    "pathParams": [
+      "account",
+      "person"
+    ],
+    "queryParams": []
+  },
+  "GetAccountsAccountPersonsPerson": {
+    "method": "GET",
+    "path": "/v1/accounts/{account}/persons/{person}",
+    "pathParams": [
+      "account",
+      "person"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostAccountsAccountPersonsPerson": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/persons/{person}",
+    "pathParams": [
+      "account",
+      "person"
+    ],
+    "queryParams": []
+  },
+  "PostAccountsAccountReject": {
+    "method": "POST",
+    "path": "/v1/accounts/{account}/reject",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "GetApplePayDomains": {
+    "method": "GET",
+    "path": "/v1/apple_pay/domains",
+    "pathParams": [],
+    "queryParams": [
+      "domain_name",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostApplePayDomains": {
+    "method": "POST",
+    "path": "/v1/apple_pay/domains",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteApplePayDomainsDomain": {
+    "method": "DELETE",
+    "path": "/v1/apple_pay/domains/{domain}",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": []
+  },
+  "GetApplePayDomainsDomain": {
+    "method": "GET",
+    "path": "/v1/apple_pay/domains/{domain}",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetApplicationFees": {
+    "method": "GET",
+    "path": "/v1/application_fees",
+    "pathParams": [],
+    "queryParams": [
+      "charge",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetApplicationFeesFeeRefundsId": {
+    "method": "GET",
+    "path": "/v1/application_fees/{fee}/refunds/{id}",
+    "pathParams": [
+      "fee",
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostApplicationFeesFeeRefundsId": {
+    "method": "POST",
+    "path": "/v1/application_fees/{fee}/refunds/{id}",
+    "pathParams": [
+      "fee",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetApplicationFeesId": {
+    "method": "GET",
+    "path": "/v1/application_fees/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostApplicationFeesIdRefund": {
+    "method": "POST",
+    "path": "/v1/application_fees/{id}/refund",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetApplicationFeesIdRefunds": {
+    "method": "GET",
+    "path": "/v1/application_fees/{id}/refunds",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostApplicationFeesIdRefunds": {
+    "method": "POST",
+    "path": "/v1/application_fees/{id}/refunds",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetAppsSecrets": {
+    "method": "GET",
+    "path": "/v1/apps/secrets",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "scope",
+      "starting_after"
+    ]
+  },
+  "PostAppsSecrets": {
+    "method": "POST",
+    "path": "/v1/apps/secrets",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostAppsSecretsDelete": {
+    "method": "POST",
+    "path": "/v1/apps/secrets/delete",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetAppsSecretsFind": {
+    "method": "GET",
+    "path": "/v1/apps/secrets/find",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "name",
+      "scope"
+    ]
+  },
+  "GetBalance": {
+    "method": "GET",
+    "path": "/v1/balance",
+    "pathParams": [],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetBalanceHistory": {
+    "method": "GET",
+    "path": "/v1/balance/history",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "currency",
+      "ending_before",
+      "expand",
+      "limit",
+      "payout",
+      "source",
+      "starting_after",
+      "type"
+    ]
+  },
+  "GetBalanceHistoryId": {
+    "method": "GET",
+    "path": "/v1/balance/history/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetBalanceSettings": {
+    "method": "GET",
+    "path": "/v1/balance_settings",
+    "pathParams": [],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostBalanceSettings": {
+    "method": "POST",
+    "path": "/v1/balance_settings",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetBalanceTransactions": {
+    "method": "GET",
+    "path": "/v1/balance_transactions",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "currency",
+      "ending_before",
+      "expand",
+      "limit",
+      "payout",
+      "source",
+      "starting_after",
+      "type"
+    ]
+  },
+  "GetBalanceTransactionsId": {
+    "method": "GET",
+    "path": "/v1/balance_transactions/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetBillingAlerts": {
+    "method": "GET",
+    "path": "/v1/billing/alerts",
+    "pathParams": [],
+    "queryParams": [
+      "alert_type",
+      "ending_before",
+      "expand",
+      "limit",
+      "meter",
+      "starting_after"
+    ]
+  },
+  "PostBillingAlerts": {
+    "method": "POST",
+    "path": "/v1/billing/alerts",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetBillingAlertsId": {
+    "method": "GET",
+    "path": "/v1/billing/alerts/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostBillingAlertsIdActivate": {
+    "method": "POST",
+    "path": "/v1/billing/alerts/{id}/activate",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostBillingAlertsIdArchive": {
+    "method": "POST",
+    "path": "/v1/billing/alerts/{id}/archive",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostBillingAlertsIdDeactivate": {
+    "method": "POST",
+    "path": "/v1/billing/alerts/{id}/deactivate",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetBillingCreditBalanceSummary": {
+    "method": "GET",
+    "path": "/v1/billing/credit_balance_summary",
+    "pathParams": [],
+    "queryParams": [
+      "customer",
+      "customer_account",
+      "expand",
+      "filter"
+    ]
+  },
+  "GetBillingCreditBalanceTransactions": {
+    "method": "GET",
+    "path": "/v1/billing/credit_balance_transactions",
+    "pathParams": [],
+    "queryParams": [
+      "credit_grant",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetBillingCreditBalanceTransactionsId": {
+    "method": "GET",
+    "path": "/v1/billing/credit_balance_transactions/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetBillingCreditGrants": {
+    "method": "GET",
+    "path": "/v1/billing/credit_grants",
+    "pathParams": [],
+    "queryParams": [
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostBillingCreditGrants": {
+    "method": "POST",
+    "path": "/v1/billing/credit_grants",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetBillingCreditGrantsId": {
+    "method": "GET",
+    "path": "/v1/billing/credit_grants/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostBillingCreditGrantsId": {
+    "method": "POST",
+    "path": "/v1/billing/credit_grants/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostBillingCreditGrantsIdExpire": {
+    "method": "POST",
+    "path": "/v1/billing/credit_grants/{id}/expire",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostBillingCreditGrantsIdVoid": {
+    "method": "POST",
+    "path": "/v1/billing/credit_grants/{id}/void",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostBillingMeterEventAdjustments": {
+    "method": "POST",
+    "path": "/v1/billing/meter_event_adjustments",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostBillingMeterEvents": {
+    "method": "POST",
+    "path": "/v1/billing/meter_events",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetBillingMeters": {
+    "method": "GET",
+    "path": "/v1/billing/meters",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostBillingMeters": {
+    "method": "POST",
+    "path": "/v1/billing/meters",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetBillingMetersId": {
+    "method": "GET",
+    "path": "/v1/billing/meters/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostBillingMetersId": {
+    "method": "POST",
+    "path": "/v1/billing/meters/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostBillingMetersIdDeactivate": {
+    "method": "POST",
+    "path": "/v1/billing/meters/{id}/deactivate",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetBillingMetersIdEventSummaries": {
+    "method": "GET",
+    "path": "/v1/billing/meters/{id}/event_summaries",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "customer",
+      "end_time",
+      "ending_before",
+      "expand",
+      "limit",
+      "start_time",
+      "starting_after",
+      "value_grouping_window"
+    ]
+  },
+  "PostBillingMetersIdReactivate": {
+    "method": "POST",
+    "path": "/v1/billing/meters/{id}/reactivate",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetBillingPortalConfigurations": {
+    "method": "GET",
+    "path": "/v1/billing_portal/configurations",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "ending_before",
+      "expand",
+      "is_default",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostBillingPortalConfigurations": {
+    "method": "POST",
+    "path": "/v1/billing_portal/configurations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetBillingPortalConfigurationsConfiguration": {
+    "method": "GET",
+    "path": "/v1/billing_portal/configurations/{configuration}",
+    "pathParams": [
+      "configuration"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostBillingPortalConfigurationsConfiguration": {
+    "method": "POST",
+    "path": "/v1/billing_portal/configurations/{configuration}",
+    "pathParams": [
+      "configuration"
+    ],
+    "queryParams": []
+  },
+  "PostBillingPortalSessions": {
+    "method": "POST",
+    "path": "/v1/billing_portal/sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetCharges": {
+    "method": "GET",
+    "path": "/v1/charges",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "customer",
+      "ending_before",
+      "expand",
+      "limit",
+      "payment_intent",
+      "starting_after",
+      "transfer_group"
+    ]
+  },
+  "PostCharges": {
+    "method": "POST",
+    "path": "/v1/charges",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetChargesSearch": {
+    "method": "GET",
+    "path": "/v1/charges/search",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "page",
+      "query"
+    ]
+  },
+  "GetChargesCharge": {
+    "method": "GET",
+    "path": "/v1/charges/{charge}",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostChargesCharge": {
+    "method": "POST",
+    "path": "/v1/charges/{charge}",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": []
+  },
+  "PostChargesChargeCapture": {
+    "method": "POST",
+    "path": "/v1/charges/{charge}/capture",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": []
+  },
+  "GetChargesChargeDispute": {
+    "method": "GET",
+    "path": "/v1/charges/{charge}/dispute",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostChargesChargeDispute": {
+    "method": "POST",
+    "path": "/v1/charges/{charge}/dispute",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": []
+  },
+  "PostChargesChargeDisputeClose": {
+    "method": "POST",
+    "path": "/v1/charges/{charge}/dispute/close",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": []
+  },
+  "PostChargesChargeRefund": {
+    "method": "POST",
+    "path": "/v1/charges/{charge}/refund",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": []
+  },
+  "GetChargesChargeRefunds": {
+    "method": "GET",
+    "path": "/v1/charges/{charge}/refunds",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostChargesChargeRefunds": {
+    "method": "POST",
+    "path": "/v1/charges/{charge}/refunds",
+    "pathParams": [
+      "charge"
+    ],
+    "queryParams": []
+  },
+  "GetChargesChargeRefundsRefund": {
+    "method": "GET",
+    "path": "/v1/charges/{charge}/refunds/{refund}",
+    "pathParams": [
+      "charge",
+      "refund"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostChargesChargeRefundsRefund": {
+    "method": "POST",
+    "path": "/v1/charges/{charge}/refunds/{refund}",
+    "pathParams": [
+      "charge",
+      "refund"
+    ],
+    "queryParams": []
+  },
+  "GetCheckoutSessions": {
+    "method": "GET",
+    "path": "/v1/checkout/sessions",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "customer",
+      "customer_account",
+      "customer_details",
+      "ending_before",
+      "expand",
+      "limit",
+      "payment_intent",
+      "payment_link",
+      "starting_after",
+      "status",
+      "subscription"
+    ]
+  },
+  "PostCheckoutSessions": {
+    "method": "POST",
+    "path": "/v1/checkout/sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetCheckoutSessionsSession": {
+    "method": "GET",
+    "path": "/v1/checkout/sessions/{session}",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCheckoutSessionsSession": {
+    "method": "POST",
+    "path": "/v1/checkout/sessions/{session}",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": []
+  },
+  "PostCheckoutSessionsSessionExpire": {
+    "method": "POST",
+    "path": "/v1/checkout/sessions/{session}/expire",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": []
+  },
+  "GetCheckoutSessionsSessionLineItems": {
+    "method": "GET",
+    "path": "/v1/checkout/sessions/{session}/line_items",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetClimateOrders": {
+    "method": "GET",
+    "path": "/v1/climate/orders",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostClimateOrders": {
+    "method": "POST",
+    "path": "/v1/climate/orders",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetClimateOrdersOrder": {
+    "method": "GET",
+    "path": "/v1/climate/orders/{order}",
+    "pathParams": [
+      "order"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostClimateOrdersOrder": {
+    "method": "POST",
+    "path": "/v1/climate/orders/{order}",
+    "pathParams": [
+      "order"
+    ],
+    "queryParams": []
+  },
+  "PostClimateOrdersOrderCancel": {
+    "method": "POST",
+    "path": "/v1/climate/orders/{order}/cancel",
+    "pathParams": [
+      "order"
+    ],
+    "queryParams": []
+  },
+  "GetClimateProducts": {
+    "method": "GET",
+    "path": "/v1/climate/products",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetClimateProductsProduct": {
+    "method": "GET",
+    "path": "/v1/climate/products/{product}",
+    "pathParams": [
+      "product"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetClimateSuppliers": {
+    "method": "GET",
+    "path": "/v1/climate/suppliers",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetClimateSuppliersSupplier": {
+    "method": "GET",
+    "path": "/v1/climate/suppliers/{supplier}",
+    "pathParams": [
+      "supplier"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetConfirmationTokensConfirmationToken": {
+    "method": "GET",
+    "path": "/v1/confirmation_tokens/{confirmation_token}",
+    "pathParams": [
+      "confirmation_token"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetCountrySpecs": {
+    "method": "GET",
+    "path": "/v1/country_specs",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetCountrySpecsCountry": {
+    "method": "GET",
+    "path": "/v1/country_specs/{country}",
+    "pathParams": [
+      "country"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetCoupons": {
+    "method": "GET",
+    "path": "/v1/coupons",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostCoupons": {
+    "method": "POST",
+    "path": "/v1/coupons",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteCouponsCoupon": {
+    "method": "DELETE",
+    "path": "/v1/coupons/{coupon}",
+    "pathParams": [
+      "coupon"
+    ],
+    "queryParams": []
+  },
+  "GetCouponsCoupon": {
+    "method": "GET",
+    "path": "/v1/coupons/{coupon}",
+    "pathParams": [
+      "coupon"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCouponsCoupon": {
+    "method": "POST",
+    "path": "/v1/coupons/{coupon}",
+    "pathParams": [
+      "coupon"
+    ],
+    "queryParams": []
+  },
+  "GetCreditNotes": {
+    "method": "GET",
+    "path": "/v1/credit_notes",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "invoice",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostCreditNotes": {
+    "method": "POST",
+    "path": "/v1/credit_notes",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetCreditNotesPreview": {
+    "method": "GET",
+    "path": "/v1/credit_notes/preview",
+    "pathParams": [],
+    "queryParams": [
+      "amount",
+      "credit_amount",
+      "effective_at",
+      "email_type",
+      "expand",
+      "invoice",
+      "lines",
+      "memo",
+      "metadata",
+      "out_of_band_amount",
+      "reason",
+      "refund_amount",
+      "refunds",
+      "shipping_cost"
+    ]
+  },
+  "GetCreditNotesPreviewLines": {
+    "method": "GET",
+    "path": "/v1/credit_notes/preview/lines",
+    "pathParams": [],
+    "queryParams": [
+      "amount",
+      "credit_amount",
+      "effective_at",
+      "email_type",
+      "ending_before",
+      "expand",
+      "invoice",
+      "limit",
+      "lines",
+      "memo",
+      "metadata",
+      "out_of_band_amount",
+      "reason",
+      "refund_amount",
+      "refunds",
+      "shipping_cost",
+      "starting_after"
+    ]
+  },
+  "GetCreditNotesCreditNoteLines": {
+    "method": "GET",
+    "path": "/v1/credit_notes/{credit_note}/lines",
+    "pathParams": [
+      "credit_note"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetCreditNotesId": {
+    "method": "GET",
+    "path": "/v1/credit_notes/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCreditNotesId": {
+    "method": "POST",
+    "path": "/v1/credit_notes/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostCreditNotesIdVoid": {
+    "method": "POST",
+    "path": "/v1/credit_notes/{id}/void",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostCustomerSessions": {
+    "method": "POST",
+    "path": "/v1/customer_sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetCustomers": {
+    "method": "GET",
+    "path": "/v1/customers",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "email",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "test_clock"
+    ]
+  },
+  "PostCustomers": {
+    "method": "POST",
+    "path": "/v1/customers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetCustomersSearch": {
+    "method": "GET",
+    "path": "/v1/customers/search",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "page",
+      "query"
+    ]
+  },
+  "DeleteCustomersCustomer": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomer": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomer": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerBalanceTransactions": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/balance_transactions",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "invoice",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostCustomersCustomerBalanceTransactions": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/balance_transactions",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerBalanceTransactionsTransaction": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/balance_transactions/{transaction}",
+    "pathParams": [
+      "customer",
+      "transaction"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomerBalanceTransactionsTransaction": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/balance_transactions/{transaction}",
+    "pathParams": [
+      "customer",
+      "transaction"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerBankAccounts": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/bank_accounts",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostCustomersCustomerBankAccounts": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/bank_accounts",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "DeleteCustomersCustomerBankAccountsId": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}/bank_accounts/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerBankAccountsId": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/bank_accounts/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomerBankAccountsId": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/bank_accounts/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostCustomersCustomerBankAccountsIdVerify": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/bank_accounts/{id}/verify",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerCards": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/cards",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostCustomersCustomerCards": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/cards",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "DeleteCustomersCustomerCardsId": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}/cards/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerCardsId": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/cards/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomerCardsId": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/cards/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerCashBalance": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/cash_balance",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomerCashBalance": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/cash_balance",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerCashBalanceTransactions": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/cash_balance_transactions",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetCustomersCustomerCashBalanceTransactionsTransaction": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/cash_balance_transactions/{transaction}",
+    "pathParams": [
+      "customer",
+      "transaction"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "DeleteCustomersCustomerDiscount": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}/discount",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerDiscount": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/discount",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomerFundingInstructions": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/funding_instructions",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerPaymentMethods": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/payment_methods",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "allow_redisplay",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "type"
+    ]
+  },
+  "GetCustomersCustomerPaymentMethodsPaymentMethod": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/payment_methods/{payment_method}",
+    "pathParams": [
+      "customer",
+      "payment_method"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetCustomersCustomerSources": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/sources",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "object",
+      "starting_after"
+    ]
+  },
+  "PostCustomersCustomerSources": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/sources",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "DeleteCustomersCustomerSourcesId": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}/sources/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerSourcesId": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/sources/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomerSourcesId": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/sources/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostCustomersCustomerSourcesIdVerify": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/sources/{id}/verify",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerSubscriptions": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/subscriptions",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostCustomersCustomerSubscriptions": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/subscriptions",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "DeleteCustomersCustomerSubscriptionsSubscriptionExposedId": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}",
+    "pathParams": [
+      "customer",
+      "subscription_exposed_id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerSubscriptionsSubscriptionExposedId": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}",
+    "pathParams": [
+      "customer",
+      "subscription_exposed_id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostCustomersCustomerSubscriptionsSubscriptionExposedId": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}",
+    "pathParams": [
+      "customer",
+      "subscription_exposed_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount",
+    "pathParams": [
+      "customer",
+      "subscription_exposed_id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount",
+    "pathParams": [
+      "customer",
+      "subscription_exposed_id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetCustomersCustomerTaxIds": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/tax_ids",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostCustomersCustomerTaxIds": {
+    "method": "POST",
+    "path": "/v1/customers/{customer}/tax_ids",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "DeleteCustomersCustomerTaxIdsId": {
+    "method": "DELETE",
+    "path": "/v1/customers/{customer}/tax_ids/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetCustomersCustomerTaxIdsId": {
+    "method": "GET",
+    "path": "/v1/customers/{customer}/tax_ids/{id}",
+    "pathParams": [
+      "customer",
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetDisputes": {
+    "method": "GET",
+    "path": "/v1/disputes",
+    "pathParams": [],
+    "queryParams": [
+      "charge",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "payment_intent",
+      "starting_after"
+    ]
+  },
+  "GetDisputesDispute": {
+    "method": "GET",
+    "path": "/v1/disputes/{dispute}",
+    "pathParams": [
+      "dispute"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostDisputesDispute": {
+    "method": "POST",
+    "path": "/v1/disputes/{dispute}",
+    "pathParams": [
+      "dispute"
+    ],
+    "queryParams": []
+  },
+  "PostDisputesDisputeClose": {
+    "method": "POST",
+    "path": "/v1/disputes/{dispute}/close",
+    "pathParams": [
+      "dispute"
+    ],
+    "queryParams": []
+  },
+  "GetEntitlementsActiveEntitlements": {
+    "method": "GET",
+    "path": "/v1/entitlements/active_entitlements",
+    "pathParams": [],
+    "queryParams": [
+      "customer",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetEntitlementsActiveEntitlementsId": {
+    "method": "GET",
+    "path": "/v1/entitlements/active_entitlements/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetEntitlementsFeatures": {
+    "method": "GET",
+    "path": "/v1/entitlements/features",
+    "pathParams": [],
+    "queryParams": [
+      "archived",
+      "ending_before",
+      "expand",
+      "limit",
+      "lookup_key",
+      "starting_after"
+    ]
+  },
+  "PostEntitlementsFeatures": {
+    "method": "POST",
+    "path": "/v1/entitlements/features",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetEntitlementsFeaturesId": {
+    "method": "GET",
+    "path": "/v1/entitlements/features/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostEntitlementsFeaturesId": {
+    "method": "POST",
+    "path": "/v1/entitlements/features/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostEphemeralKeys": {
+    "method": "POST",
+    "path": "/v1/ephemeral_keys",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteEphemeralKeysKey": {
+    "method": "DELETE",
+    "path": "/v1/ephemeral_keys/{key}",
+    "pathParams": [
+      "key"
+    ],
+    "queryParams": []
+  },
+  "GetEvents": {
+    "method": "GET",
+    "path": "/v1/events",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "delivery_success",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "type",
+      "types"
+    ]
+  },
+  "GetEventsId": {
+    "method": "GET",
+    "path": "/v1/events/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetExchangeRates": {
+    "method": "GET",
+    "path": "/v1/exchange_rates",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetExchangeRatesRateId": {
+    "method": "GET",
+    "path": "/v1/exchange_rates/{rate_id}",
+    "pathParams": [
+      "rate_id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostExternalAccountsId": {
+    "method": "POST",
+    "path": "/v1/external_accounts/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetFileLinks": {
+    "method": "GET",
+    "path": "/v1/file_links",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "expired",
+      "file",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostFileLinks": {
+    "method": "POST",
+    "path": "/v1/file_links",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetFileLinksLink": {
+    "method": "GET",
+    "path": "/v1/file_links/{link}",
+    "pathParams": [
+      "link"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostFileLinksLink": {
+    "method": "POST",
+    "path": "/v1/file_links/{link}",
+    "pathParams": [
+      "link"
+    ],
+    "queryParams": []
+  },
+  "GetFiles": {
+    "method": "GET",
+    "path": "/v1/files",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "purpose",
+      "starting_after"
+    ]
+  },
+  "PostFiles": {
+    "method": "POST",
+    "path": "/v1/files",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetFilesFile": {
+    "method": "GET",
+    "path": "/v1/files/{file}",
+    "pathParams": [
+      "file"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetFinancialConnectionsAccounts": {
+    "method": "GET",
+    "path": "/v1/financial_connections/accounts",
+    "pathParams": [],
+    "queryParams": [
+      "account_holder",
+      "ending_before",
+      "expand",
+      "limit",
+      "session",
+      "starting_after"
+    ]
+  },
+  "GetFinancialConnectionsAccountsAccount": {
+    "method": "GET",
+    "path": "/v1/financial_connections/accounts/{account}",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostFinancialConnectionsAccountsAccountDisconnect": {
+    "method": "POST",
+    "path": "/v1/financial_connections/accounts/{account}/disconnect",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "GetFinancialConnectionsAccountsAccountOwners": {
+    "method": "GET",
+    "path": "/v1/financial_connections/accounts/{account}/owners",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "ownership",
+      "starting_after"
+    ]
+  },
+  "PostFinancialConnectionsAccountsAccountRefresh": {
+    "method": "POST",
+    "path": "/v1/financial_connections/accounts/{account}/refresh",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "PostFinancialConnectionsAccountsAccountSubscribe": {
+    "method": "POST",
+    "path": "/v1/financial_connections/accounts/{account}/subscribe",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "PostFinancialConnectionsAccountsAccountUnsubscribe": {
+    "method": "POST",
+    "path": "/v1/financial_connections/accounts/{account}/unsubscribe",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "PostFinancialConnectionsSessions": {
+    "method": "POST",
+    "path": "/v1/financial_connections/sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetFinancialConnectionsSessionsSession": {
+    "method": "GET",
+    "path": "/v1/financial_connections/sessions/{session}",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetFinancialConnectionsTransactions": {
+    "method": "GET",
+    "path": "/v1/financial_connections/transactions",
+    "pathParams": [],
+    "queryParams": [
+      "account",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "transacted_at",
+      "transaction_refresh"
+    ]
+  },
+  "GetFinancialConnectionsTransactionsTransaction": {
+    "method": "GET",
+    "path": "/v1/financial_connections/transactions/{transaction}",
+    "pathParams": [
+      "transaction"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetForwardingRequests": {
+    "method": "GET",
+    "path": "/v1/forwarding/requests",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostForwardingRequests": {
+    "method": "POST",
+    "path": "/v1/forwarding/requests",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetForwardingRequestsId": {
+    "method": "GET",
+    "path": "/v1/forwarding/requests/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetIdentityVerificationReports": {
+    "method": "GET",
+    "path": "/v1/identity/verification_reports",
+    "pathParams": [],
+    "queryParams": [
+      "client_reference_id",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "type",
+      "verification_session"
+    ]
+  },
+  "GetIdentityVerificationReportsReport": {
+    "method": "GET",
+    "path": "/v1/identity/verification_reports/{report}",
+    "pathParams": [
+      "report"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetIdentityVerificationSessions": {
+    "method": "GET",
+    "path": "/v1/identity/verification_sessions",
+    "pathParams": [],
+    "queryParams": [
+      "client_reference_id",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "related_customer",
+      "related_customer_account",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostIdentityVerificationSessions": {
+    "method": "POST",
+    "path": "/v1/identity/verification_sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetIdentityVerificationSessionsSession": {
+    "method": "GET",
+    "path": "/v1/identity/verification_sessions/{session}",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIdentityVerificationSessionsSession": {
+    "method": "POST",
+    "path": "/v1/identity/verification_sessions/{session}",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": []
+  },
+  "PostIdentityVerificationSessionsSessionCancel": {
+    "method": "POST",
+    "path": "/v1/identity/verification_sessions/{session}/cancel",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": []
+  },
+  "PostIdentityVerificationSessionsSessionRedact": {
+    "method": "POST",
+    "path": "/v1/identity/verification_sessions/{session}/redact",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": []
+  },
+  "GetInvoicePayments": {
+    "method": "GET",
+    "path": "/v1/invoice_payments",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "invoice",
+      "limit",
+      "payment",
+      "starting_after",
+      "status"
+    ]
+  },
+  "GetInvoicePaymentsInvoicePayment": {
+    "method": "GET",
+    "path": "/v1/invoice_payments/{invoice_payment}",
+    "pathParams": [
+      "invoice_payment"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetInvoiceRenderingTemplates": {
+    "method": "GET",
+    "path": "/v1/invoice_rendering_templates",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "GetInvoiceRenderingTemplatesTemplate": {
+    "method": "GET",
+    "path": "/v1/invoice_rendering_templates/{template}",
+    "pathParams": [
+      "template"
+    ],
+    "queryParams": [
+      "expand",
+      "version"
+    ]
+  },
+  "PostInvoiceRenderingTemplatesTemplateArchive": {
+    "method": "POST",
+    "path": "/v1/invoice_rendering_templates/{template}/archive",
+    "pathParams": [
+      "template"
+    ],
+    "queryParams": []
+  },
+  "PostInvoiceRenderingTemplatesTemplateUnarchive": {
+    "method": "POST",
+    "path": "/v1/invoice_rendering_templates/{template}/unarchive",
+    "pathParams": [
+      "template"
+    ],
+    "queryParams": []
+  },
+  "GetInvoiceitems": {
+    "method": "GET",
+    "path": "/v1/invoiceitems",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "invoice",
+      "limit",
+      "pending",
+      "starting_after"
+    ]
+  },
+  "PostInvoiceitems": {
+    "method": "POST",
+    "path": "/v1/invoiceitems",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteInvoiceitemsInvoiceitem": {
+    "method": "DELETE",
+    "path": "/v1/invoiceitems/{invoiceitem}",
+    "pathParams": [
+      "invoiceitem"
+    ],
+    "queryParams": []
+  },
+  "GetInvoiceitemsInvoiceitem": {
+    "method": "GET",
+    "path": "/v1/invoiceitems/{invoiceitem}",
+    "pathParams": [
+      "invoiceitem"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostInvoiceitemsInvoiceitem": {
+    "method": "POST",
+    "path": "/v1/invoiceitems/{invoiceitem}",
+    "pathParams": [
+      "invoiceitem"
+    ],
+    "queryParams": []
+  },
+  "GetInvoices": {
+    "method": "GET",
+    "path": "/v1/invoices",
+    "pathParams": [],
+    "queryParams": [
+      "collection_method",
+      "created",
+      "customer",
+      "customer_account",
+      "due_date",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status",
+      "subscription"
+    ]
+  },
+  "PostInvoices": {
+    "method": "POST",
+    "path": "/v1/invoices",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostInvoicesCreatePreview": {
+    "method": "POST",
+    "path": "/v1/invoices/create_preview",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetInvoicesSearch": {
+    "method": "GET",
+    "path": "/v1/invoices/search",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "page",
+      "query"
+    ]
+  },
+  "DeleteInvoicesInvoice": {
+    "method": "DELETE",
+    "path": "/v1/invoices/{invoice}",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "GetInvoicesInvoice": {
+    "method": "GET",
+    "path": "/v1/invoices/{invoice}",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostInvoicesInvoice": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceAddLines": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/add_lines",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceAttachPayment": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/attach_payment",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceFinalize": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/finalize",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "GetInvoicesInvoiceLines": {
+    "method": "GET",
+    "path": "/v1/invoices/{invoice}/lines",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostInvoicesInvoiceLinesLineItemId": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/lines/{line_item_id}",
+    "pathParams": [
+      "invoice",
+      "line_item_id"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceMarkUncollectible": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/mark_uncollectible",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoicePay": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/pay",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceRemoveLines": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/remove_lines",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceSend": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/send",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceUpdateLines": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/update_lines",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "PostInvoicesInvoiceVoid": {
+    "method": "POST",
+    "path": "/v1/invoices/{invoice}/void",
+    "pathParams": [
+      "invoice"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingAuthorizations": {
+    "method": "GET",
+    "path": "/v1/issuing/authorizations",
+    "pathParams": [],
+    "queryParams": [
+      "card",
+      "cardholder",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "GetIssuingAuthorizationsAuthorization": {
+    "method": "GET",
+    "path": "/v1/issuing/authorizations/{authorization}",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingAuthorizationsAuthorization": {
+    "method": "POST",
+    "path": "/v1/issuing/authorizations/{authorization}",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostIssuingAuthorizationsAuthorizationApprove": {
+    "method": "POST",
+    "path": "/v1/issuing/authorizations/{authorization}/approve",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostIssuingAuthorizationsAuthorizationDecline": {
+    "method": "POST",
+    "path": "/v1/issuing/authorizations/{authorization}/decline",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingCardholders": {
+    "method": "GET",
+    "path": "/v1/issuing/cardholders",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "email",
+      "ending_before",
+      "expand",
+      "limit",
+      "phone_number",
+      "starting_after",
+      "status",
+      "type"
+    ]
+  },
+  "PostIssuingCardholders": {
+    "method": "POST",
+    "path": "/v1/issuing/cardholders",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetIssuingCardholdersCardholder": {
+    "method": "GET",
+    "path": "/v1/issuing/cardholders/{cardholder}",
+    "pathParams": [
+      "cardholder"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingCardholdersCardholder": {
+    "method": "POST",
+    "path": "/v1/issuing/cardholders/{cardholder}",
+    "pathParams": [
+      "cardholder"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingCards": {
+    "method": "GET",
+    "path": "/v1/issuing/cards",
+    "pathParams": [],
+    "queryParams": [
+      "cardholder",
+      "created",
+      "ending_before",
+      "exp_month",
+      "exp_year",
+      "expand",
+      "last4",
+      "limit",
+      "personalization_design",
+      "starting_after",
+      "status",
+      "type"
+    ]
+  },
+  "PostIssuingCards": {
+    "method": "POST",
+    "path": "/v1/issuing/cards",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetIssuingCardsCard": {
+    "method": "GET",
+    "path": "/v1/issuing/cards/{card}",
+    "pathParams": [
+      "card"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingCardsCard": {
+    "method": "POST",
+    "path": "/v1/issuing/cards/{card}",
+    "pathParams": [
+      "card"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingDisputes": {
+    "method": "GET",
+    "path": "/v1/issuing/disputes",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status",
+      "transaction"
+    ]
+  },
+  "PostIssuingDisputes": {
+    "method": "POST",
+    "path": "/v1/issuing/disputes",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetIssuingDisputesDispute": {
+    "method": "GET",
+    "path": "/v1/issuing/disputes/{dispute}",
+    "pathParams": [
+      "dispute"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingDisputesDispute": {
+    "method": "POST",
+    "path": "/v1/issuing/disputes/{dispute}",
+    "pathParams": [
+      "dispute"
+    ],
+    "queryParams": []
+  },
+  "PostIssuingDisputesDisputeSubmit": {
+    "method": "POST",
+    "path": "/v1/issuing/disputes/{dispute}/submit",
+    "pathParams": [
+      "dispute"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingPersonalizationDesigns": {
+    "method": "GET",
+    "path": "/v1/issuing/personalization_designs",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "lookup_keys",
+      "preferences",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostIssuingPersonalizationDesigns": {
+    "method": "POST",
+    "path": "/v1/issuing/personalization_designs",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetIssuingPersonalizationDesignsPersonalizationDesign": {
+    "method": "GET",
+    "path": "/v1/issuing/personalization_designs/{personalization_design}",
+    "pathParams": [
+      "personalization_design"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingPersonalizationDesignsPersonalizationDesign": {
+    "method": "POST",
+    "path": "/v1/issuing/personalization_designs/{personalization_design}",
+    "pathParams": [
+      "personalization_design"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingPhysicalBundles": {
+    "method": "GET",
+    "path": "/v1/issuing/physical_bundles",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status",
+      "type"
+    ]
+  },
+  "GetIssuingPhysicalBundlesPhysicalBundle": {
+    "method": "GET",
+    "path": "/v1/issuing/physical_bundles/{physical_bundle}",
+    "pathParams": [
+      "physical_bundle"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetIssuingSettlementsSettlement": {
+    "method": "GET",
+    "path": "/v1/issuing/settlements/{settlement}",
+    "pathParams": [
+      "settlement"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingSettlementsSettlement": {
+    "method": "POST",
+    "path": "/v1/issuing/settlements/{settlement}",
+    "pathParams": [
+      "settlement"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingTokens": {
+    "method": "GET",
+    "path": "/v1/issuing/tokens",
+    "pathParams": [],
+    "queryParams": [
+      "card",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "GetIssuingTokensToken": {
+    "method": "GET",
+    "path": "/v1/issuing/tokens/{token}",
+    "pathParams": [
+      "token"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingTokensToken": {
+    "method": "POST",
+    "path": "/v1/issuing/tokens/{token}",
+    "pathParams": [
+      "token"
+    ],
+    "queryParams": []
+  },
+  "GetIssuingTransactions": {
+    "method": "GET",
+    "path": "/v1/issuing/transactions",
+    "pathParams": [],
+    "queryParams": [
+      "card",
+      "cardholder",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "type"
+    ]
+  },
+  "GetIssuingTransactionsTransaction": {
+    "method": "GET",
+    "path": "/v1/issuing/transactions/{transaction}",
+    "pathParams": [
+      "transaction"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostIssuingTransactionsTransaction": {
+    "method": "POST",
+    "path": "/v1/issuing/transactions/{transaction}",
+    "pathParams": [
+      "transaction"
+    ],
+    "queryParams": []
+  },
+  "PostLinkAccountSessions": {
+    "method": "POST",
+    "path": "/v1/link_account_sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetLinkAccountSessionsSession": {
+    "method": "GET",
+    "path": "/v1/link_account_sessions/{session}",
+    "pathParams": [
+      "session"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetLinkedAccounts": {
+    "method": "GET",
+    "path": "/v1/linked_accounts",
+    "pathParams": [],
+    "queryParams": [
+      "account_holder",
+      "ending_before",
+      "expand",
+      "limit",
+      "session",
+      "starting_after"
+    ]
+  },
+  "GetLinkedAccountsAccount": {
+    "method": "GET",
+    "path": "/v1/linked_accounts/{account}",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostLinkedAccountsAccountDisconnect": {
+    "method": "POST",
+    "path": "/v1/linked_accounts/{account}/disconnect",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "GetLinkedAccountsAccountOwners": {
+    "method": "GET",
+    "path": "/v1/linked_accounts/{account}/owners",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "ownership",
+      "starting_after"
+    ]
+  },
+  "PostLinkedAccountsAccountRefresh": {
+    "method": "POST",
+    "path": "/v1/linked_accounts/{account}/refresh",
+    "pathParams": [
+      "account"
+    ],
+    "queryParams": []
+  },
+  "GetMandatesMandate": {
+    "method": "GET",
+    "path": "/v1/mandates/{mandate}",
+    "pathParams": [
+      "mandate"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetPaymentAttemptRecords": {
+    "method": "GET",
+    "path": "/v1/payment_attempt_records",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "payment_record",
+      "starting_after"
+    ]
+  },
+  "GetPaymentAttemptRecordsId": {
+    "method": "GET",
+    "path": "/v1/payment_attempt_records/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetPaymentIntents": {
+    "method": "GET",
+    "path": "/v1/payment_intents",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostPaymentIntents": {
+    "method": "POST",
+    "path": "/v1/payment_intents",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPaymentIntentsSearch": {
+    "method": "GET",
+    "path": "/v1/payment_intents/search",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "page",
+      "query"
+    ]
+  },
+  "GetPaymentIntentsIntent": {
+    "method": "GET",
+    "path": "/v1/payment_intents/{intent}",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": [
+      "client_secret",
+      "expand"
+    ]
+  },
+  "PostPaymentIntentsIntent": {
+    "method": "POST",
+    "path": "/v1/payment_intents/{intent}",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "GetPaymentIntentsIntentAmountDetailsLineItems": {
+    "method": "GET",
+    "path": "/v1/payment_intents/{intent}/amount_details_line_items",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostPaymentIntentsIntentApplyCustomerBalance": {
+    "method": "POST",
+    "path": "/v1/payment_intents/{intent}/apply_customer_balance",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentIntentsIntentCancel": {
+    "method": "POST",
+    "path": "/v1/payment_intents/{intent}/cancel",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentIntentsIntentCapture": {
+    "method": "POST",
+    "path": "/v1/payment_intents/{intent}/capture",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentIntentsIntentConfirm": {
+    "method": "POST",
+    "path": "/v1/payment_intents/{intent}/confirm",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentIntentsIntentIncrementAuthorization": {
+    "method": "POST",
+    "path": "/v1/payment_intents/{intent}/increment_authorization",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentIntentsIntentVerifyMicrodeposits": {
+    "method": "POST",
+    "path": "/v1/payment_intents/{intent}/verify_microdeposits",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "GetPaymentLinks": {
+    "method": "GET",
+    "path": "/v1/payment_links",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostPaymentLinks": {
+    "method": "POST",
+    "path": "/v1/payment_links",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPaymentLinksPaymentLink": {
+    "method": "GET",
+    "path": "/v1/payment_links/{payment_link}",
+    "pathParams": [
+      "payment_link"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPaymentLinksPaymentLink": {
+    "method": "POST",
+    "path": "/v1/payment_links/{payment_link}",
+    "pathParams": [
+      "payment_link"
+    ],
+    "queryParams": []
+  },
+  "GetPaymentLinksPaymentLinkLineItems": {
+    "method": "GET",
+    "path": "/v1/payment_links/{payment_link}/line_items",
+    "pathParams": [
+      "payment_link"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetPaymentMethodConfigurations": {
+    "method": "GET",
+    "path": "/v1/payment_method_configurations",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "application",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostPaymentMethodConfigurations": {
+    "method": "POST",
+    "path": "/v1/payment_method_configurations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPaymentMethodConfigurationsConfiguration": {
+    "method": "GET",
+    "path": "/v1/payment_method_configurations/{configuration}",
+    "pathParams": [
+      "configuration"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPaymentMethodConfigurationsConfiguration": {
+    "method": "POST",
+    "path": "/v1/payment_method_configurations/{configuration}",
+    "pathParams": [
+      "configuration"
+    ],
+    "queryParams": []
+  },
+  "GetPaymentMethodDomains": {
+    "method": "GET",
+    "path": "/v1/payment_method_domains",
+    "pathParams": [],
+    "queryParams": [
+      "domain_name",
+      "enabled",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostPaymentMethodDomains": {
+    "method": "POST",
+    "path": "/v1/payment_method_domains",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPaymentMethodDomainsPaymentMethodDomain": {
+    "method": "GET",
+    "path": "/v1/payment_method_domains/{payment_method_domain}",
+    "pathParams": [
+      "payment_method_domain"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPaymentMethodDomainsPaymentMethodDomain": {
+    "method": "POST",
+    "path": "/v1/payment_method_domains/{payment_method_domain}",
+    "pathParams": [
+      "payment_method_domain"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentMethodDomainsPaymentMethodDomainValidate": {
+    "method": "POST",
+    "path": "/v1/payment_method_domains/{payment_method_domain}/validate",
+    "pathParams": [
+      "payment_method_domain"
+    ],
+    "queryParams": []
+  },
+  "GetPaymentMethods": {
+    "method": "GET",
+    "path": "/v1/payment_methods",
+    "pathParams": [],
+    "queryParams": [
+      "allow_redisplay",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "type"
+    ]
+  },
+  "PostPaymentMethods": {
+    "method": "POST",
+    "path": "/v1/payment_methods",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPaymentMethodsPaymentMethod": {
+    "method": "GET",
+    "path": "/v1/payment_methods/{payment_method}",
+    "pathParams": [
+      "payment_method"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPaymentMethodsPaymentMethod": {
+    "method": "POST",
+    "path": "/v1/payment_methods/{payment_method}",
+    "pathParams": [
+      "payment_method"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentMethodsPaymentMethodAttach": {
+    "method": "POST",
+    "path": "/v1/payment_methods/{payment_method}/attach",
+    "pathParams": [
+      "payment_method"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentMethodsPaymentMethodDetach": {
+    "method": "POST",
+    "path": "/v1/payment_methods/{payment_method}/detach",
+    "pathParams": [
+      "payment_method"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentRecordsReportPayment": {
+    "method": "POST",
+    "path": "/v1/payment_records/report_payment",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPaymentRecordsId": {
+    "method": "GET",
+    "path": "/v1/payment_records/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPaymentRecordsIdReportPaymentAttempt": {
+    "method": "POST",
+    "path": "/v1/payment_records/{id}/report_payment_attempt",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentRecordsIdReportPaymentAttemptCanceled": {
+    "method": "POST",
+    "path": "/v1/payment_records/{id}/report_payment_attempt_canceled",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentRecordsIdReportPaymentAttemptFailed": {
+    "method": "POST",
+    "path": "/v1/payment_records/{id}/report_payment_attempt_failed",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentRecordsIdReportPaymentAttemptGuaranteed": {
+    "method": "POST",
+    "path": "/v1/payment_records/{id}/report_payment_attempt_guaranteed",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentRecordsIdReportPaymentAttemptInformational": {
+    "method": "POST",
+    "path": "/v1/payment_records/{id}/report_payment_attempt_informational",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostPaymentRecordsIdReportRefund": {
+    "method": "POST",
+    "path": "/v1/payment_records/{id}/report_refund",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetPayouts": {
+    "method": "GET",
+    "path": "/v1/payouts",
+    "pathParams": [],
+    "queryParams": [
+      "arrival_date",
+      "created",
+      "destination",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostPayouts": {
+    "method": "POST",
+    "path": "/v1/payouts",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPayoutsPayout": {
+    "method": "GET",
+    "path": "/v1/payouts/{payout}",
+    "pathParams": [
+      "payout"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPayoutsPayout": {
+    "method": "POST",
+    "path": "/v1/payouts/{payout}",
+    "pathParams": [
+      "payout"
+    ],
+    "queryParams": []
+  },
+  "PostPayoutsPayoutCancel": {
+    "method": "POST",
+    "path": "/v1/payouts/{payout}/cancel",
+    "pathParams": [
+      "payout"
+    ],
+    "queryParams": []
+  },
+  "PostPayoutsPayoutReverse": {
+    "method": "POST",
+    "path": "/v1/payouts/{payout}/reverse",
+    "pathParams": [
+      "payout"
+    ],
+    "queryParams": []
+  },
+  "GetPlans": {
+    "method": "GET",
+    "path": "/v1/plans",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "product",
+      "starting_after"
+    ]
+  },
+  "PostPlans": {
+    "method": "POST",
+    "path": "/v1/plans",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeletePlansPlan": {
+    "method": "DELETE",
+    "path": "/v1/plans/{plan}",
+    "pathParams": [
+      "plan"
+    ],
+    "queryParams": []
+  },
+  "GetPlansPlan": {
+    "method": "GET",
+    "path": "/v1/plans/{plan}",
+    "pathParams": [
+      "plan"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPlansPlan": {
+    "method": "POST",
+    "path": "/v1/plans/{plan}",
+    "pathParams": [
+      "plan"
+    ],
+    "queryParams": []
+  },
+  "GetPrices": {
+    "method": "GET",
+    "path": "/v1/prices",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "created",
+      "currency",
+      "ending_before",
+      "expand",
+      "limit",
+      "lookup_keys",
+      "product",
+      "recurring",
+      "starting_after",
+      "type"
+    ]
+  },
+  "PostPrices": {
+    "method": "POST",
+    "path": "/v1/prices",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPricesSearch": {
+    "method": "GET",
+    "path": "/v1/prices/search",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "page",
+      "query"
+    ]
+  },
+  "GetPricesPrice": {
+    "method": "GET",
+    "path": "/v1/prices/{price}",
+    "pathParams": [
+      "price"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPricesPrice": {
+    "method": "POST",
+    "path": "/v1/prices/{price}",
+    "pathParams": [
+      "price"
+    ],
+    "queryParams": []
+  },
+  "GetProducts": {
+    "method": "GET",
+    "path": "/v1/products",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "created",
+      "ending_before",
+      "expand",
+      "ids",
+      "limit",
+      "shippable",
+      "starting_after",
+      "url"
+    ]
+  },
+  "PostProducts": {
+    "method": "POST",
+    "path": "/v1/products",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetProductsSearch": {
+    "method": "GET",
+    "path": "/v1/products/search",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "page",
+      "query"
+    ]
+  },
+  "DeleteProductsId": {
+    "method": "DELETE",
+    "path": "/v1/products/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetProductsId": {
+    "method": "GET",
+    "path": "/v1/products/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostProductsId": {
+    "method": "POST",
+    "path": "/v1/products/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetProductsProductFeatures": {
+    "method": "GET",
+    "path": "/v1/products/{product}/features",
+    "pathParams": [
+      "product"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostProductsProductFeatures": {
+    "method": "POST",
+    "path": "/v1/products/{product}/features",
+    "pathParams": [
+      "product"
+    ],
+    "queryParams": []
+  },
+  "DeleteProductsProductFeaturesId": {
+    "method": "DELETE",
+    "path": "/v1/products/{product}/features/{id}",
+    "pathParams": [
+      "id",
+      "product"
+    ],
+    "queryParams": []
+  },
+  "GetProductsProductFeaturesId": {
+    "method": "GET",
+    "path": "/v1/products/{product}/features/{id}",
+    "pathParams": [
+      "id",
+      "product"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetPromotionCodes": {
+    "method": "GET",
+    "path": "/v1/promotion_codes",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "code",
+      "coupon",
+      "created",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostPromotionCodes": {
+    "method": "POST",
+    "path": "/v1/promotion_codes",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPromotionCodesPromotionCode": {
+    "method": "GET",
+    "path": "/v1/promotion_codes/{promotion_code}",
+    "pathParams": [
+      "promotion_code"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostPromotionCodesPromotionCode": {
+    "method": "POST",
+    "path": "/v1/promotion_codes/{promotion_code}",
+    "pathParams": [
+      "promotion_code"
+    ],
+    "queryParams": []
+  },
+  "GetQuotes": {
+    "method": "GET",
+    "path": "/v1/quotes",
+    "pathParams": [],
+    "queryParams": [
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status",
+      "test_clock"
+    ]
+  },
+  "PostQuotes": {
+    "method": "POST",
+    "path": "/v1/quotes",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetQuotesQuote": {
+    "method": "GET",
+    "path": "/v1/quotes/{quote}",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostQuotesQuote": {
+    "method": "POST",
+    "path": "/v1/quotes/{quote}",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": []
+  },
+  "PostQuotesQuoteAccept": {
+    "method": "POST",
+    "path": "/v1/quotes/{quote}/accept",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": []
+  },
+  "PostQuotesQuoteCancel": {
+    "method": "POST",
+    "path": "/v1/quotes/{quote}/cancel",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": []
+  },
+  "GetQuotesQuoteComputedUpfrontLineItems": {
+    "method": "GET",
+    "path": "/v1/quotes/{quote}/computed_upfront_line_items",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostQuotesQuoteFinalize": {
+    "method": "POST",
+    "path": "/v1/quotes/{quote}/finalize",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": []
+  },
+  "GetQuotesQuoteLineItems": {
+    "method": "GET",
+    "path": "/v1/quotes/{quote}/line_items",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetQuotesQuotePdf": {
+    "method": "GET",
+    "path": "/v1/quotes/{quote}/pdf",
+    "pathParams": [
+      "quote"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetRadarEarlyFraudWarnings": {
+    "method": "GET",
+    "path": "/v1/radar/early_fraud_warnings",
+    "pathParams": [],
+    "queryParams": [
+      "charge",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "payment_intent",
+      "starting_after"
+    ]
+  },
+  "GetRadarEarlyFraudWarningsEarlyFraudWarning": {
+    "method": "GET",
+    "path": "/v1/radar/early_fraud_warnings/{early_fraud_warning}",
+    "pathParams": [
+      "early_fraud_warning"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostRadarPaymentEvaluations": {
+    "method": "POST",
+    "path": "/v1/radar/payment_evaluations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetRadarValueListItems": {
+    "method": "GET",
+    "path": "/v1/radar/value_list_items",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "value",
+      "value_list"
+    ]
+  },
+  "PostRadarValueListItems": {
+    "method": "POST",
+    "path": "/v1/radar/value_list_items",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteRadarValueListItemsItem": {
+    "method": "DELETE",
+    "path": "/v1/radar/value_list_items/{item}",
+    "pathParams": [
+      "item"
+    ],
+    "queryParams": []
+  },
+  "GetRadarValueListItemsItem": {
+    "method": "GET",
+    "path": "/v1/radar/value_list_items/{item}",
+    "pathParams": [
+      "item"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetRadarValueLists": {
+    "method": "GET",
+    "path": "/v1/radar/value_lists",
+    "pathParams": [],
+    "queryParams": [
+      "alias",
+      "contains",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostRadarValueLists": {
+    "method": "POST",
+    "path": "/v1/radar/value_lists",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteRadarValueListsValueList": {
+    "method": "DELETE",
+    "path": "/v1/radar/value_lists/{value_list}",
+    "pathParams": [
+      "value_list"
+    ],
+    "queryParams": []
+  },
+  "GetRadarValueListsValueList": {
+    "method": "GET",
+    "path": "/v1/radar/value_lists/{value_list}",
+    "pathParams": [
+      "value_list"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostRadarValueListsValueList": {
+    "method": "POST",
+    "path": "/v1/radar/value_lists/{value_list}",
+    "pathParams": [
+      "value_list"
+    ],
+    "queryParams": []
+  },
+  "GetRefunds": {
+    "method": "GET",
+    "path": "/v1/refunds",
+    "pathParams": [],
+    "queryParams": [
+      "charge",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "payment_intent",
+      "starting_after"
+    ]
+  },
+  "PostRefunds": {
+    "method": "POST",
+    "path": "/v1/refunds",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetRefundsRefund": {
+    "method": "GET",
+    "path": "/v1/refunds/{refund}",
+    "pathParams": [
+      "refund"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostRefundsRefund": {
+    "method": "POST",
+    "path": "/v1/refunds/{refund}",
+    "pathParams": [
+      "refund"
+    ],
+    "queryParams": []
+  },
+  "PostRefundsRefundCancel": {
+    "method": "POST",
+    "path": "/v1/refunds/{refund}/cancel",
+    "pathParams": [
+      "refund"
+    ],
+    "queryParams": []
+  },
+  "GetReportingReportRuns": {
+    "method": "GET",
+    "path": "/v1/reporting/report_runs",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostReportingReportRuns": {
+    "method": "POST",
+    "path": "/v1/reporting/report_runs",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetReportingReportRunsReportRun": {
+    "method": "GET",
+    "path": "/v1/reporting/report_runs/{report_run}",
+    "pathParams": [
+      "report_run"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetReportingReportTypes": {
+    "method": "GET",
+    "path": "/v1/reporting/report_types",
+    "pathParams": [],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetReportingReportTypesReportType": {
+    "method": "GET",
+    "path": "/v1/reporting/report_types/{report_type}",
+    "pathParams": [
+      "report_type"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetReviews": {
+    "method": "GET",
+    "path": "/v1/reviews",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetReviewsReview": {
+    "method": "GET",
+    "path": "/v1/reviews/{review}",
+    "pathParams": [
+      "review"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostReviewsReviewApprove": {
+    "method": "POST",
+    "path": "/v1/reviews/{review}/approve",
+    "pathParams": [
+      "review"
+    ],
+    "queryParams": []
+  },
+  "GetSetupAttempts": {
+    "method": "GET",
+    "path": "/v1/setup_attempts",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "setup_intent",
+      "starting_after"
+    ]
+  },
+  "GetSetupIntents": {
+    "method": "GET",
+    "path": "/v1/setup_intents",
+    "pathParams": [],
+    "queryParams": [
+      "attach_to_self",
+      "created",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "payment_method",
+      "starting_after"
+    ]
+  },
+  "PostSetupIntents": {
+    "method": "POST",
+    "path": "/v1/setup_intents",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetSetupIntentsIntent": {
+    "method": "GET",
+    "path": "/v1/setup_intents/{intent}",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": [
+      "client_secret",
+      "expand"
+    ]
+  },
+  "PostSetupIntentsIntent": {
+    "method": "POST",
+    "path": "/v1/setup_intents/{intent}",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostSetupIntentsIntentCancel": {
+    "method": "POST",
+    "path": "/v1/setup_intents/{intent}/cancel",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostSetupIntentsIntentConfirm": {
+    "method": "POST",
+    "path": "/v1/setup_intents/{intent}/confirm",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "PostSetupIntentsIntentVerifyMicrodeposits": {
+    "method": "POST",
+    "path": "/v1/setup_intents/{intent}/verify_microdeposits",
+    "pathParams": [
+      "intent"
+    ],
+    "queryParams": []
+  },
+  "GetShippingRates": {
+    "method": "GET",
+    "path": "/v1/shipping_rates",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "created",
+      "currency",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostShippingRates": {
+    "method": "POST",
+    "path": "/v1/shipping_rates",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetShippingRatesShippingRateToken": {
+    "method": "GET",
+    "path": "/v1/shipping_rates/{shipping_rate_token}",
+    "pathParams": [
+      "shipping_rate_token"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostShippingRatesShippingRateToken": {
+    "method": "POST",
+    "path": "/v1/shipping_rates/{shipping_rate_token}",
+    "pathParams": [
+      "shipping_rate_token"
+    ],
+    "queryParams": []
+  },
+  "PostSigmaSavedQueriesId": {
+    "method": "POST",
+    "path": "/v1/sigma/saved_queries/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetSigmaScheduledQueryRuns": {
+    "method": "GET",
+    "path": "/v1/sigma/scheduled_query_runs",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetSigmaScheduledQueryRunsScheduledQueryRun": {
+    "method": "GET",
+    "path": "/v1/sigma/scheduled_query_runs/{scheduled_query_run}",
+    "pathParams": [
+      "scheduled_query_run"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostSources": {
+    "method": "POST",
+    "path": "/v1/sources",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetSourcesSource": {
+    "method": "GET",
+    "path": "/v1/sources/{source}",
+    "pathParams": [
+      "source"
+    ],
+    "queryParams": [
+      "client_secret",
+      "expand"
+    ]
+  },
+  "PostSourcesSource": {
+    "method": "POST",
+    "path": "/v1/sources/{source}",
+    "pathParams": [
+      "source"
+    ],
+    "queryParams": []
+  },
+  "GetSourcesSourceMandateNotificationsMandateNotification": {
+    "method": "GET",
+    "path": "/v1/sources/{source}/mandate_notifications/{mandate_notification}",
+    "pathParams": [
+      "mandate_notification",
+      "source"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetSourcesSourceSourceTransactions": {
+    "method": "GET",
+    "path": "/v1/sources/{source}/source_transactions",
+    "pathParams": [
+      "source"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetSourcesSourceSourceTransactionsSourceTransaction": {
+    "method": "GET",
+    "path": "/v1/sources/{source}/source_transactions/{source_transaction}",
+    "pathParams": [
+      "source",
+      "source_transaction"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostSourcesSourceVerify": {
+    "method": "POST",
+    "path": "/v1/sources/{source}/verify",
+    "pathParams": [
+      "source"
+    ],
+    "queryParams": []
+  },
+  "GetSubscriptionItems": {
+    "method": "GET",
+    "path": "/v1/subscription_items",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "subscription"
+    ]
+  },
+  "PostSubscriptionItems": {
+    "method": "POST",
+    "path": "/v1/subscription_items",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteSubscriptionItemsItem": {
+    "method": "DELETE",
+    "path": "/v1/subscription_items/{item}",
+    "pathParams": [
+      "item"
+    ],
+    "queryParams": []
+  },
+  "GetSubscriptionItemsItem": {
+    "method": "GET",
+    "path": "/v1/subscription_items/{item}",
+    "pathParams": [
+      "item"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostSubscriptionItemsItem": {
+    "method": "POST",
+    "path": "/v1/subscription_items/{item}",
+    "pathParams": [
+      "item"
+    ],
+    "queryParams": []
+  },
+  "GetSubscriptionSchedules": {
+    "method": "GET",
+    "path": "/v1/subscription_schedules",
+    "pathParams": [],
+    "queryParams": [
+      "canceled_at",
+      "completed_at",
+      "created",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "released_at",
+      "scheduled",
+      "starting_after"
+    ]
+  },
+  "PostSubscriptionSchedules": {
+    "method": "POST",
+    "path": "/v1/subscription_schedules",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetSubscriptionSchedulesSchedule": {
+    "method": "GET",
+    "path": "/v1/subscription_schedules/{schedule}",
+    "pathParams": [
+      "schedule"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostSubscriptionSchedulesSchedule": {
+    "method": "POST",
+    "path": "/v1/subscription_schedules/{schedule}",
+    "pathParams": [
+      "schedule"
+    ],
+    "queryParams": []
+  },
+  "PostSubscriptionSchedulesScheduleCancel": {
+    "method": "POST",
+    "path": "/v1/subscription_schedules/{schedule}/cancel",
+    "pathParams": [
+      "schedule"
+    ],
+    "queryParams": []
+  },
+  "PostSubscriptionSchedulesScheduleRelease": {
+    "method": "POST",
+    "path": "/v1/subscription_schedules/{schedule}/release",
+    "pathParams": [
+      "schedule"
+    ],
+    "queryParams": []
+  },
+  "GetSubscriptions": {
+    "method": "GET",
+    "path": "/v1/subscriptions",
+    "pathParams": [],
+    "queryParams": [
+      "automatic_tax",
+      "collection_method",
+      "created",
+      "current_period_end",
+      "current_period_start",
+      "customer",
+      "customer_account",
+      "ending_before",
+      "expand",
+      "limit",
+      "price",
+      "starting_after",
+      "status",
+      "test_clock"
+    ]
+  },
+  "PostSubscriptions": {
+    "method": "POST",
+    "path": "/v1/subscriptions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetSubscriptionsSearch": {
+    "method": "GET",
+    "path": "/v1/subscriptions/search",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "limit",
+      "page",
+      "query"
+    ]
+  },
+  "DeleteSubscriptionsSubscriptionExposedId": {
+    "method": "DELETE",
+    "path": "/v1/subscriptions/{subscription_exposed_id}",
+    "pathParams": [
+      "subscription_exposed_id"
+    ],
+    "queryParams": []
+  },
+  "GetSubscriptionsSubscriptionExposedId": {
+    "method": "GET",
+    "path": "/v1/subscriptions/{subscription_exposed_id}",
+    "pathParams": [
+      "subscription_exposed_id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostSubscriptionsSubscriptionExposedId": {
+    "method": "POST",
+    "path": "/v1/subscriptions/{subscription_exposed_id}",
+    "pathParams": [
+      "subscription_exposed_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteSubscriptionsSubscriptionExposedIdDiscount": {
+    "method": "DELETE",
+    "path": "/v1/subscriptions/{subscription_exposed_id}/discount",
+    "pathParams": [
+      "subscription_exposed_id"
+    ],
+    "queryParams": []
+  },
+  "PostSubscriptionsSubscriptionMigrate": {
+    "method": "POST",
+    "path": "/v1/subscriptions/{subscription}/migrate",
+    "pathParams": [
+      "subscription"
+    ],
+    "queryParams": []
+  },
+  "PostSubscriptionsSubscriptionResume": {
+    "method": "POST",
+    "path": "/v1/subscriptions/{subscription}/resume",
+    "pathParams": [
+      "subscription"
+    ],
+    "queryParams": []
+  },
+  "GetTaxAssociationsFind": {
+    "method": "GET",
+    "path": "/v1/tax/associations/find",
+    "pathParams": [],
+    "queryParams": [
+      "expand",
+      "payment_intent"
+    ]
+  },
+  "PostTaxCalculations": {
+    "method": "POST",
+    "path": "/v1/tax/calculations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTaxCalculationsCalculation": {
+    "method": "GET",
+    "path": "/v1/tax/calculations/{calculation}",
+    "pathParams": [
+      "calculation"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTaxCalculationsCalculationLineItems": {
+    "method": "GET",
+    "path": "/v1/tax/calculations/{calculation}/line_items",
+    "pathParams": [
+      "calculation"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetTaxRegistrations": {
+    "method": "GET",
+    "path": "/v1/tax/registrations",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTaxRegistrations": {
+    "method": "POST",
+    "path": "/v1/tax/registrations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTaxRegistrationsId": {
+    "method": "GET",
+    "path": "/v1/tax/registrations/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTaxRegistrationsId": {
+    "method": "POST",
+    "path": "/v1/tax/registrations/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetTaxSettings": {
+    "method": "GET",
+    "path": "/v1/tax/settings",
+    "pathParams": [],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTaxSettings": {
+    "method": "POST",
+    "path": "/v1/tax/settings",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTaxTransactionsCreateFromCalculation": {
+    "method": "POST",
+    "path": "/v1/tax/transactions/create_from_calculation",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTaxTransactionsCreateReversal": {
+    "method": "POST",
+    "path": "/v1/tax/transactions/create_reversal",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTaxTransactionsTransaction": {
+    "method": "GET",
+    "path": "/v1/tax/transactions/{transaction}",
+    "pathParams": [
+      "transaction"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTaxTransactionsTransactionLineItems": {
+    "method": "GET",
+    "path": "/v1/tax/transactions/{transaction}/line_items",
+    "pathParams": [
+      "transaction"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetTaxCodes": {
+    "method": "GET",
+    "path": "/v1/tax_codes",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "GetTaxCodesId": {
+    "method": "GET",
+    "path": "/v1/tax_codes/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTaxIds": {
+    "method": "GET",
+    "path": "/v1/tax_ids",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "owner",
+      "starting_after"
+    ]
+  },
+  "PostTaxIds": {
+    "method": "POST",
+    "path": "/v1/tax_ids",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteTaxIdsId": {
+    "method": "DELETE",
+    "path": "/v1/tax_ids/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetTaxIdsId": {
+    "method": "GET",
+    "path": "/v1/tax_ids/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTaxRates": {
+    "method": "GET",
+    "path": "/v1/tax_rates",
+    "pathParams": [],
+    "queryParams": [
+      "active",
+      "created",
+      "ending_before",
+      "expand",
+      "inclusive",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostTaxRates": {
+    "method": "POST",
+    "path": "/v1/tax_rates",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTaxRatesTaxRate": {
+    "method": "GET",
+    "path": "/v1/tax_rates/{tax_rate}",
+    "pathParams": [
+      "tax_rate"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTaxRatesTaxRate": {
+    "method": "POST",
+    "path": "/v1/tax_rates/{tax_rate}",
+    "pathParams": [
+      "tax_rate"
+    ],
+    "queryParams": []
+  },
+  "GetTerminalConfigurations": {
+    "method": "GET",
+    "path": "/v1/terminal/configurations",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "is_account_default",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostTerminalConfigurations": {
+    "method": "POST",
+    "path": "/v1/terminal/configurations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteTerminalConfigurationsConfiguration": {
+    "method": "DELETE",
+    "path": "/v1/terminal/configurations/{configuration}",
+    "pathParams": [
+      "configuration"
+    ],
+    "queryParams": []
+  },
+  "GetTerminalConfigurationsConfiguration": {
+    "method": "GET",
+    "path": "/v1/terminal/configurations/{configuration}",
+    "pathParams": [
+      "configuration"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTerminalConfigurationsConfiguration": {
+    "method": "POST",
+    "path": "/v1/terminal/configurations/{configuration}",
+    "pathParams": [
+      "configuration"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalConnectionTokens": {
+    "method": "POST",
+    "path": "/v1/terminal/connection_tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTerminalLocations": {
+    "method": "GET",
+    "path": "/v1/terminal/locations",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostTerminalLocations": {
+    "method": "POST",
+    "path": "/v1/terminal/locations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteTerminalLocationsLocation": {
+    "method": "DELETE",
+    "path": "/v1/terminal/locations/{location}",
+    "pathParams": [
+      "location"
+    ],
+    "queryParams": []
+  },
+  "GetTerminalLocationsLocation": {
+    "method": "GET",
+    "path": "/v1/terminal/locations/{location}",
+    "pathParams": [
+      "location"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTerminalLocationsLocation": {
+    "method": "POST",
+    "path": "/v1/terminal/locations/{location}",
+    "pathParams": [
+      "location"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalOnboardingLinks": {
+    "method": "POST",
+    "path": "/v1/terminal/onboarding_links",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTerminalReaders": {
+    "method": "GET",
+    "path": "/v1/terminal/readers",
+    "pathParams": [],
+    "queryParams": [
+      "device_type",
+      "ending_before",
+      "expand",
+      "limit",
+      "location",
+      "serial_number",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTerminalReaders": {
+    "method": "POST",
+    "path": "/v1/terminal/readers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteTerminalReadersReader": {
+    "method": "DELETE",
+    "path": "/v1/terminal/readers/{reader}",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "GetTerminalReadersReader": {
+    "method": "GET",
+    "path": "/v1/terminal/readers/{reader}",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTerminalReadersReader": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderCancelAction": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/cancel_action",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderCollectInputs": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/collect_inputs",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderCollectPaymentMethod": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/collect_payment_method",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderConfirmPaymentIntent": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/confirm_payment_intent",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderProcessPaymentIntent": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/process_payment_intent",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderProcessSetupIntent": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/process_setup_intent",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderRefundPayment": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/refund_payment",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalReadersReaderSetReaderDisplay": {
+    "method": "POST",
+    "path": "/v1/terminal/readers/{reader}/set_reader_display",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTerminalRefunds": {
+    "method": "POST",
+    "path": "/v1/terminal/refunds",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTestHelpersConfirmationTokens": {
+    "method": "POST",
+    "path": "/v1/test_helpers/confirmation_tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTestHelpersCustomersCustomerFundCashBalance": {
+    "method": "POST",
+    "path": "/v1/test_helpers/customers/{customer}/fund_cash_balance",
+    "pathParams": [
+      "customer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizations": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizationsAuthorizationCapture": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/capture",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizationsAuthorizationExpire": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/expire",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizationsAuthorizationIncrement": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/increment",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizationsAuthorizationReverse": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/reverse",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingCardsCardShippingDeliver": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/cards/{card}/shipping/deliver",
+    "pathParams": [
+      "card"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingCardsCardShippingFail": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/cards/{card}/shipping/fail",
+    "pathParams": [
+      "card"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingCardsCardShippingReturn": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/cards/{card}/shipping/return",
+    "pathParams": [
+      "card"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingCardsCardShippingShip": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/cards/{card}/shipping/ship",
+    "pathParams": [
+      "card"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingCardsCardShippingSubmit": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/cards/{card}/shipping/submit",
+    "pathParams": [
+      "card"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate",
+    "pathParams": [
+      "personalization_design"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate",
+    "pathParams": [
+      "personalization_design"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject",
+    "pathParams": [
+      "personalization_design"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingSettlements": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/settlements",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingSettlementsSettlementComplete": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/settlements/{settlement}/complete",
+    "pathParams": [
+      "settlement"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingTransactionsCreateForceCapture": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/transactions/create_force_capture",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingTransactionsCreateUnlinkedRefund": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingTransactionsTransactionRefund": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/transactions/{transaction}/refund",
+    "pathParams": [
+      "transaction"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersRefundsRefundExpire": {
+    "method": "POST",
+    "path": "/v1/test_helpers/refunds/{refund}/expire",
+    "pathParams": [
+      "refund"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTerminalReadersReaderPresentPaymentMethod": {
+    "method": "POST",
+    "path": "/v1/test_helpers/terminal/readers/{reader}/present_payment_method",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTerminalReadersReaderSucceedInputCollection": {
+    "method": "POST",
+    "path": "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTerminalReadersReaderTimeoutInputCollection": {
+    "method": "POST",
+    "path": "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection",
+    "pathParams": [
+      "reader"
+    ],
+    "queryParams": []
+  },
+  "GetTestHelpersTestClocks": {
+    "method": "GET",
+    "path": "/v1/test_helpers/test_clocks",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostTestHelpersTestClocks": {
+    "method": "POST",
+    "path": "/v1/test_helpers/test_clocks",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteTestHelpersTestClocksTestClock": {
+    "method": "DELETE",
+    "path": "/v1/test_helpers/test_clocks/{test_clock}",
+    "pathParams": [
+      "test_clock"
+    ],
+    "queryParams": []
+  },
+  "GetTestHelpersTestClocksTestClock": {
+    "method": "GET",
+    "path": "/v1/test_helpers/test_clocks/{test_clock}",
+    "pathParams": [
+      "test_clock"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTestHelpersTestClocksTestClockAdvance": {
+    "method": "POST",
+    "path": "/v1/test_helpers/test_clocks/{test_clock}/advance",
+    "pathParams": [
+      "test_clock"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryInboundTransfersIdFail": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/inbound_transfers/{id}/fail",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryInboundTransfersIdReturn": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/inbound_transfers/{id}/return",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryInboundTransfersIdSucceed": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundPaymentsId": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_payments/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundPaymentsIdFail": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_payments/{id}/fail",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundPaymentsIdPost": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_payments/{id}/post",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundPaymentsIdReturn": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_payments/{id}/return",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransfer": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryReceivedCredits": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/received_credits",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryReceivedDebits": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/received_debits",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "PostTokens": {
+    "method": "POST",
+    "path": "/v1/tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTokensToken": {
+    "method": "GET",
+    "path": "/v1/tokens/{token}",
+    "pathParams": [
+      "token"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTopups": {
+    "method": "GET",
+    "path": "/v1/topups",
+    "pathParams": [],
+    "queryParams": [
+      "amount",
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTopups": {
+    "method": "POST",
+    "path": "/v1/topups",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTopupsTopup": {
+    "method": "GET",
+    "path": "/v1/topups/{topup}",
+    "pathParams": [
+      "topup"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTopupsTopup": {
+    "method": "POST",
+    "path": "/v1/topups/{topup}",
+    "pathParams": [
+      "topup"
+    ],
+    "queryParams": []
+  },
+  "PostTopupsTopupCancel": {
+    "method": "POST",
+    "path": "/v1/topups/{topup}/cancel",
+    "pathParams": [
+      "topup"
+    ],
+    "queryParams": []
+  },
+  "GetTransfers": {
+    "method": "GET",
+    "path": "/v1/transfers",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "destination",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "transfer_group"
+    ]
+  },
+  "PostTransfers": {
+    "method": "POST",
+    "path": "/v1/transfers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTransfersIdReversals": {
+    "method": "GET",
+    "path": "/v1/transfers/{id}/reversals",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostTransfersIdReversals": {
+    "method": "POST",
+    "path": "/v1/transfers/{id}/reversals",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetTransfersTransfer": {
+    "method": "GET",
+    "path": "/v1/transfers/{transfer}",
+    "pathParams": [
+      "transfer"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTransfersTransfer": {
+    "method": "POST",
+    "path": "/v1/transfers/{transfer}",
+    "pathParams": [
+      "transfer"
+    ],
+    "queryParams": []
+  },
+  "GetTransfersTransferReversalsId": {
+    "method": "GET",
+    "path": "/v1/transfers/{transfer}/reversals/{id}",
+    "pathParams": [
+      "id",
+      "transfer"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTransfersTransferReversalsId": {
+    "method": "POST",
+    "path": "/v1/transfers/{transfer}/reversals/{id}",
+    "pathParams": [
+      "id",
+      "transfer"
+    ],
+    "queryParams": []
+  },
+  "GetTreasuryCreditReversals": {
+    "method": "GET",
+    "path": "/v1/treasury/credit_reversals",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "received_credit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTreasuryCreditReversals": {
+    "method": "POST",
+    "path": "/v1/treasury/credit_reversals",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTreasuryCreditReversalsCreditReversal": {
+    "method": "GET",
+    "path": "/v1/treasury/credit_reversals/{credit_reversal}",
+    "pathParams": [
+      "credit_reversal"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTreasuryDebitReversals": {
+    "method": "GET",
+    "path": "/v1/treasury/debit_reversals",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "received_debit",
+      "resolution",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTreasuryDebitReversals": {
+    "method": "POST",
+    "path": "/v1/treasury/debit_reversals",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTreasuryDebitReversalsDebitReversal": {
+    "method": "GET",
+    "path": "/v1/treasury/debit_reversals/{debit_reversal}",
+    "pathParams": [
+      "debit_reversal"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTreasuryFinancialAccounts": {
+    "method": "GET",
+    "path": "/v1/treasury/financial_accounts",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTreasuryFinancialAccounts": {
+    "method": "POST",
+    "path": "/v1/treasury/financial_accounts",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTreasuryFinancialAccountsFinancialAccount": {
+    "method": "GET",
+    "path": "/v1/treasury/financial_accounts/{financial_account}",
+    "pathParams": [
+      "financial_account"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTreasuryFinancialAccountsFinancialAccount": {
+    "method": "POST",
+    "path": "/v1/treasury/financial_accounts/{financial_account}",
+    "pathParams": [
+      "financial_account"
+    ],
+    "queryParams": []
+  },
+  "PostTreasuryFinancialAccountsFinancialAccountClose": {
+    "method": "POST",
+    "path": "/v1/treasury/financial_accounts/{financial_account}/close",
+    "pathParams": [
+      "financial_account"
+    ],
+    "queryParams": []
+  },
+  "GetTreasuryFinancialAccountsFinancialAccountFeatures": {
+    "method": "GET",
+    "path": "/v1/treasury/financial_accounts/{financial_account}/features",
+    "pathParams": [
+      "financial_account"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTreasuryFinancialAccountsFinancialAccountFeatures": {
+    "method": "POST",
+    "path": "/v1/treasury/financial_accounts/{financial_account}/features",
+    "pathParams": [
+      "financial_account"
+    ],
+    "queryParams": []
+  },
+  "GetTreasuryInboundTransfers": {
+    "method": "GET",
+    "path": "/v1/treasury/inbound_transfers",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTreasuryInboundTransfers": {
+    "method": "POST",
+    "path": "/v1/treasury/inbound_transfers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTreasuryInboundTransfersId": {
+    "method": "GET",
+    "path": "/v1/treasury/inbound_transfers/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTreasuryInboundTransfersInboundTransferCancel": {
+    "method": "POST",
+    "path": "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel",
+    "pathParams": [
+      "inbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "GetTreasuryOutboundPayments": {
+    "method": "GET",
+    "path": "/v1/treasury/outbound_payments",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "customer",
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTreasuryOutboundPayments": {
+    "method": "POST",
+    "path": "/v1/treasury/outbound_payments",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTreasuryOutboundPaymentsId": {
+    "method": "GET",
+    "path": "/v1/treasury/outbound_payments/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTreasuryOutboundPaymentsIdCancel": {
+    "method": "POST",
+    "path": "/v1/treasury/outbound_payments/{id}/cancel",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "GetTreasuryOutboundTransfers": {
+    "method": "GET",
+    "path": "/v1/treasury/outbound_transfers",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "PostTreasuryOutboundTransfers": {
+    "method": "POST",
+    "path": "/v1/treasury/outbound_transfers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetTreasuryOutboundTransfersOutboundTransfer": {
+    "method": "GET",
+    "path": "/v1/treasury/outbound_transfers/{outbound_transfer}",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostTreasuryOutboundTransfersOutboundTransferCancel": {
+    "method": "POST",
+    "path": "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "GetTreasuryReceivedCredits": {
+    "method": "GET",
+    "path": "/v1/treasury/received_credits",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "linked_flows",
+      "starting_after",
+      "status"
+    ]
+  },
+  "GetTreasuryReceivedCreditsId": {
+    "method": "GET",
+    "path": "/v1/treasury/received_credits/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTreasuryReceivedDebits": {
+    "method": "GET",
+    "path": "/v1/treasury/received_debits",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "starting_after",
+      "status"
+    ]
+  },
+  "GetTreasuryReceivedDebitsId": {
+    "method": "GET",
+    "path": "/v1/treasury/received_debits/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTreasuryTransactionEntries": {
+    "method": "GET",
+    "path": "/v1/treasury/transaction_entries",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "effective_at",
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "order_by",
+      "starting_after",
+      "transaction"
+    ]
+  },
+  "GetTreasuryTransactionEntriesId": {
+    "method": "GET",
+    "path": "/v1/treasury/transaction_entries/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetTreasuryTransactions": {
+    "method": "GET",
+    "path": "/v1/treasury/transactions",
+    "pathParams": [],
+    "queryParams": [
+      "created",
+      "ending_before",
+      "expand",
+      "financial_account",
+      "limit",
+      "order_by",
+      "starting_after",
+      "status",
+      "status_transitions"
+    ]
+  },
+  "GetTreasuryTransactionsId": {
+    "method": "GET",
+    "path": "/v1/treasury/transactions/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "GetWebhookEndpoints": {
+    "method": "GET",
+    "path": "/v1/webhook_endpoints",
+    "pathParams": [],
+    "queryParams": [
+      "ending_before",
+      "expand",
+      "limit",
+      "starting_after"
+    ]
+  },
+  "PostWebhookEndpoints": {
+    "method": "POST",
+    "path": "/v1/webhook_endpoints",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteWebhookEndpointsWebhookEndpoint": {
+    "method": "DELETE",
+    "path": "/v1/webhook_endpoints/{webhook_endpoint}",
+    "pathParams": [
+      "webhook_endpoint"
+    ],
+    "queryParams": []
+  },
+  "GetWebhookEndpointsWebhookEndpoint": {
+    "method": "GET",
+    "path": "/v1/webhook_endpoints/{webhook_endpoint}",
+    "pathParams": [
+      "webhook_endpoint"
+    ],
+    "queryParams": [
+      "expand"
+    ]
+  },
+  "PostWebhookEndpointsWebhookEndpoint": {
+    "method": "POST",
+    "path": "/v1/webhook_endpoints/{webhook_endpoint}",
+    "pathParams": [
+      "webhook_endpoint"
+    ],
+    "queryParams": []
+  }
+}

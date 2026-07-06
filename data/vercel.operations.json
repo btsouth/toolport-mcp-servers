@@ -1,0 +1,3734 @@
+{
+  "readAccessGroup": {
+    "method": "GET",
+    "path": "/v1/access-groups/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateAccessGroup": {
+    "method": "POST",
+    "path": "/v1/access-groups/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteAccessGroup": {
+    "method": "DELETE",
+    "path": "/v1/access-groups/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listAccessGroupMembers": {
+    "method": "GET",
+    "path": "/v1/access-groups/{idOrName}/members",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "limit",
+      "next",
+      "search",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listAccessGroups": {
+    "method": "GET",
+    "path": "/v1/access-groups",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "search",
+      "membersLimit",
+      "projectsLimit",
+      "limit",
+      "next",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createAccessGroup": {
+    "method": "POST",
+    "path": "/v1/access-groups",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listAccessGroupProjects": {
+    "method": "GET",
+    "path": "/v1/access-groups/{idOrName}/projects",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "limit",
+      "next",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createAccessGroupProject": {
+    "method": "POST",
+    "path": "/v1/access-groups/{accessGroupIdOrName}/projects",
+    "pathParams": [
+      "accessGroupIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "readAccessGroupProject": {
+    "method": "GET",
+    "path": "/v1/access-groups/{accessGroupIdOrName}/projects/{projectId}",
+    "pathParams": [
+      "accessGroupIdOrName",
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateAccessGroupProject": {
+    "method": "PATCH",
+    "path": "/v1/access-groups/{accessGroupIdOrName}/projects/{projectId}",
+    "pathParams": [
+      "accessGroupIdOrName",
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteAccessGroupProject": {
+    "method": "DELETE",
+    "path": "/v1/access-groups/{accessGroupIdOrName}/projects/{projectId}",
+    "pathParams": [
+      "accessGroupIdOrName",
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "recordEvents": {
+    "method": "POST",
+    "path": "/v8/artifacts/events",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "status": {
+    "method": "GET",
+    "path": "/v8/artifacts/status",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "uploadArtifact": {
+    "method": "PUT",
+    "path": "/v8/artifacts/{hash}",
+    "pathParams": [
+      "hash"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "downloadArtifact": {
+    "method": "GET",
+    "path": "/v8/artifacts/{hash}",
+    "pathParams": [
+      "hash"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "artifactExists": {
+    "method": "HEAD",
+    "path": "/v8/artifacts/{hash}",
+    "pathParams": [
+      "hash"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "artifactQuery": {
+    "method": "POST",
+    "path": "/v8/artifacts",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listBillingCharges": {
+    "method": "GET",
+    "path": "/v1/billing/charges",
+    "pathParams": [],
+    "queryParams": [
+      "from",
+      "to",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listContractCommitments": {
+    "method": "GET",
+    "path": "/v1/billing/contract-commitments",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "buyCredits": {
+    "method": "POST",
+    "path": "/v1/billing/buy",
+    "pathParams": [],
+    "queryParams": [
+      "source",
+      "teamId",
+      "slug"
+    ]
+  },
+  "stageRedirects": {
+    "method": "PUT",
+    "path": "/v1/bulk-redirects",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRedirects": {
+    "method": "GET",
+    "path": "/v1/bulk-redirects",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "versionId",
+      "q",
+      "diff",
+      "page",
+      "per_page",
+      "sort_by",
+      "sort_order",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteRedirects": {
+    "method": "DELETE",
+    "path": "/v1/bulk-redirects",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "editRedirect": {
+    "method": "PATCH",
+    "path": "/v1/bulk-redirects",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "restoreRedirects": {
+    "method": "POST",
+    "path": "/v1/bulk-redirects/restore",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getVersions": {
+    "method": "GET",
+    "path": "/v1/bulk-redirects/versions",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateVersion": {
+    "method": "POST",
+    "path": "/v1/bulk-redirects/versions",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listProjectChecks": {
+    "method": "GET",
+    "path": "/v2/projects/{projectIdOrName}/checks",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "blocks",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createProjectCheck": {
+    "method": "POST",
+    "path": "/v2/projects/{projectIdOrName}/checks",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProjectCheck": {
+    "method": "GET",
+    "path": "/v2/projects/{projectIdOrName}/checks/{checkId}",
+    "pathParams": [
+      "projectIdOrName",
+      "checkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateProjectCheck": {
+    "method": "PATCH",
+    "path": "/v2/projects/{projectIdOrName}/checks/{checkId}",
+    "pathParams": [
+      "projectIdOrName",
+      "checkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteProjectCheck": {
+    "method": "DELETE",
+    "path": "/v2/projects/{projectIdOrName}/checks/{checkId}",
+    "pathParams": [
+      "projectIdOrName",
+      "checkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listCheckRuns": {
+    "method": "GET",
+    "path": "/v2/projects/{projectIdOrName}/checks/{checkId}/runs",
+    "pathParams": [
+      "projectIdOrName",
+      "checkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listDeploymentCheckRuns": {
+    "method": "GET",
+    "path": "/v2/deployments/{deploymentId}/check-runs",
+    "pathParams": [
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createDeploymentCheckRun": {
+    "method": "POST",
+    "path": "/v2/deployments/{deploymentId}/check-runs",
+    "pathParams": [
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDeploymentCheckRun": {
+    "method": "GET",
+    "path": "/v2/deployments/{deploymentId}/check-runs/{checkRunId}",
+    "pathParams": [
+      "deploymentId",
+      "checkRunId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateDeploymentCheckRun": {
+    "method": "PATCH",
+    "path": "/v2/deployments/{deploymentId}/check-runs/{checkRunId}",
+    "pathParams": [
+      "deploymentId",
+      "checkRunId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createCheck": {
+    "method": "POST",
+    "path": "/v1/deployments/{deploymentId}/checks",
+    "pathParams": [
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getAllChecks": {
+    "method": "GET",
+    "path": "/v1/deployments/{deploymentId}/checks",
+    "pathParams": [
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getCheck": {
+    "method": "GET",
+    "path": "/v1/deployments/{deploymentId}/checks/{checkId}",
+    "pathParams": [
+      "deploymentId",
+      "checkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateCheck": {
+    "method": "PATCH",
+    "path": "/v1/deployments/{deploymentId}/checks/{checkId}",
+    "pathParams": [
+      "deploymentId",
+      "checkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "rerequestCheck": {
+    "method": "POST",
+    "path": "/v1/deployments/{deploymentId}/checks/{checkId}/rerequest",
+    "pathParams": [
+      "deploymentId",
+      "checkId"
+    ],
+    "queryParams": [
+      "autoUpdate",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listNetworks": {
+    "method": "GET",
+    "path": "/v1/connect/networks",
+    "pathParams": [],
+    "queryParams": [
+      "includeHostedZones",
+      "includePeeringConnections",
+      "includeProjects",
+      "search",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createNetwork": {
+    "method": "POST",
+    "path": "/v1/connect/networks",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteNetwork": {
+    "method": "DELETE",
+    "path": "/v1/connect/networks/{networkId}",
+    "pathParams": [
+      "networkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateNetwork": {
+    "method": "PATCH",
+    "path": "/v1/connect/networks/{networkId}",
+    "pathParams": [
+      "networkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "readNetwork": {
+    "method": "GET",
+    "path": "/v1/connect/networks/{networkId}",
+    "pathParams": [
+      "networkId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createConnector": {
+    "method": "POST",
+    "path": "/v1/connect/connectors",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "getConnectorToken": {
+    "method": "POST",
+    "path": "/v1/connect/token/{connector}",
+    "pathParams": [
+      "connector"
+    ],
+    "queryParams": []
+  },
+  "importConnectorTokens": {
+    "method": "POST",
+    "path": "/v1/connect/token/{connector}/import",
+    "pathParams": [
+      "connector"
+    ],
+    "queryParams": []
+  },
+  "createConnectorAuthorizationRequest": {
+    "method": "POST",
+    "path": "/v1/connect/authorize/{connector}",
+    "pathParams": [
+      "connector"
+    ],
+    "queryParams": []
+  },
+  "getDeploymentEvents": {
+    "method": "GET",
+    "path": "/v3/deployments/{idOrUrl}/events",
+    "pathParams": [
+      "idOrUrl"
+    ],
+    "queryParams": [
+      "direction",
+      "follow",
+      "limit",
+      "name",
+      "since",
+      "until",
+      "statusCode",
+      "delimiter",
+      "builds",
+      "teamId",
+      "slug"
+    ]
+  },
+  "update-integration-deployment-action": {
+    "method": "PATCH",
+    "path": "/v1/deployments/{deploymentId}/integrations/{integrationConfigurationId}/resources/{resourceId}/actions/{action}",
+    "pathParams": [
+      "deploymentId",
+      "integrationConfigurationId",
+      "resourceId",
+      "action"
+    ],
+    "queryParams": []
+  },
+  "getDeployment": {
+    "method": "GET",
+    "path": "/v13/deployments/{idOrUrl}",
+    "pathParams": [
+      "idOrUrl"
+    ],
+    "queryParams": [
+      "withGitRepoInfo",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createDeployment": {
+    "method": "POST",
+    "path": "/v13/deployments",
+    "pathParams": [],
+    "queryParams": [
+      "forceNew",
+      "skipAutoDetectionConfirmation",
+      "teamId",
+      "slug"
+    ]
+  },
+  "cancelDeployment": {
+    "method": "PATCH",
+    "path": "/v12/deployments/{id}/cancel",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRecords": {
+    "method": "GET",
+    "path": "/v5/domains/{domain}/records",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "limit",
+      "since",
+      "until",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createRecord": {
+    "method": "POST",
+    "path": "/v2/domains/{domain}/records",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateRecord": {
+    "method": "PATCH",
+    "path": "/v1/domains/records/{recordId}",
+    "pathParams": [
+      "recordId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "removeRecord": {
+    "method": "DELETE",
+    "path": "/v2/domains/{domain}/records/{recordId}",
+    "pathParams": [
+      "domain",
+      "recordId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSupportedTlds": {
+    "method": "GET",
+    "path": "/v1/registrar/tlds/supported",
+    "pathParams": [],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getTld": {
+    "method": "GET",
+    "path": "/v1/registrar/tlds/{tld}",
+    "pathParams": [
+      "tld"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getTldPrice": {
+    "method": "GET",
+    "path": "/v1/registrar/tlds/{tld}/price",
+    "pathParams": [
+      "tld"
+    ],
+    "queryParams": [
+      "years",
+      "teamId"
+    ]
+  },
+  "getDomainAvailability": {
+    "method": "GET",
+    "path": "/v1/registrar/domains/{domain}/availability",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getDomainPrice": {
+    "method": "GET",
+    "path": "/v1/registrar/domains/{domain}/price",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "years",
+      "teamId"
+    ]
+  },
+  "getBulkAvailability": {
+    "method": "POST",
+    "path": "/v1/registrar/domains/availability",
+    "pathParams": [],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getDomainAuthCode": {
+    "method": "GET",
+    "path": "/v1/registrar/domains/{domain}/auth-code",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "buySingleDomain": {
+    "method": "POST",
+    "path": "/v1/registrar/domains/{domain}/buy",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "buyDomains": {
+    "method": "POST",
+    "path": "/v1/registrar/domains/buy",
+    "pathParams": [],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "transferInDomain": {
+    "method": "POST",
+    "path": "/v1/registrar/domains/{domain}/transfer",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getDomainTransferIn": {
+    "method": "GET",
+    "path": "/v1/registrar/domains/{domain}/transfer",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "renewDomain": {
+    "method": "POST",
+    "path": "/v1/registrar/domains/{domain}/renew",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "updateDomainAutoRenew": {
+    "method": "PATCH",
+    "path": "/v1/registrar/domains/{domain}/auto-renew",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "updateDomainNameservers": {
+    "method": "PATCH",
+    "path": "/v1/registrar/domains/{domain}/nameservers",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getDomainContactVerification": {
+    "method": "GET",
+    "path": "/v1/registrar/domains/{domain}/contact-verification",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getContactInfoSchema": {
+    "method": "GET",
+    "path": "/v1/registrar/domains/{domain}/contact-info/schema",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getOrder": {
+    "method": "GET",
+    "path": "/v1/registrar/orders/{orderId}",
+    "pathParams": [
+      "orderId"
+    ],
+    "queryParams": [
+      "teamId"
+    ]
+  },
+  "getDomainConfig": {
+    "method": "GET",
+    "path": "/v6/domains/{domain}/config",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "projectIdOrName",
+      "strict",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDomainVerificationRecord": {
+    "method": "GET",
+    "path": "/v9/domains/{domain}/verification",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "claimDomainOwnership": {
+    "method": "POST",
+    "path": "/v9/domains/{domain}/claim",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDomainProjectDomains": {
+    "method": "GET",
+    "path": "/v1/domains/{domain}/project-domains",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "limit",
+      "since",
+      "until",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDomain": {
+    "method": "GET",
+    "path": "/v5/domains/{domain}",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDomains": {
+    "method": "GET",
+    "path": "/v5/domains",
+    "pathParams": [],
+    "queryParams": [
+      "limit",
+      "since",
+      "until",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createOrTransferDomain": {
+    "method": "POST",
+    "path": "/v7/domains",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "patchDomain": {
+    "method": "PATCH",
+    "path": "/v3/domains/{domain}",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteDomain": {
+    "method": "DELETE",
+    "path": "/v6/domains/{domain}",
+    "pathParams": [
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getConfigurableLogDrain": {
+    "method": "GET",
+    "path": "/v1/log-drains/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteConfigurableLogDrain": {
+    "method": "DELETE",
+    "path": "/v1/log-drains/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getAllLogDrains": {
+    "method": "GET",
+    "path": "/v1/log-drains",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "projectIdOrName",
+      "includeMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createConfigurableLogDrain": {
+    "method": "POST",
+    "path": "/v1/log-drains",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createDrain": {
+    "method": "POST",
+    "path": "/v1/drains",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDrains": {
+    "method": "GET",
+    "path": "/v1/drains",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "includeMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteDrain": {
+    "method": "DELETE",
+    "path": "/v1/drains/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDrain": {
+    "method": "GET",
+    "path": "/v1/drains/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateDrain": {
+    "method": "PATCH",
+    "path": "/v1/drains/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "testDrain": {
+    "method": "POST",
+    "path": "/v1/drains/test",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "invalidateByTags": {
+    "method": "POST",
+    "path": "/v1/edge-cache/invalidate-by-tags",
+    "pathParams": [],
+    "queryParams": [
+      "projectIdOrName",
+      "teamId",
+      "slug"
+    ]
+  },
+  "dangerouslyDeleteByTags": {
+    "method": "POST",
+    "path": "/v1/edge-cache/dangerously-delete-by-tags",
+    "pathParams": [],
+    "queryParams": [
+      "projectIdOrName",
+      "teamId",
+      "slug"
+    ]
+  },
+  "invalidateBySrcImages": {
+    "method": "POST",
+    "path": "/v1/edge-cache/invalidate-by-src-images",
+    "pathParams": [],
+    "queryParams": [
+      "projectIdOrName",
+      "teamId",
+      "slug"
+    ]
+  },
+  "dangerouslyDeleteBySrcImages": {
+    "method": "POST",
+    "path": "/v1/edge-cache/dangerously-delete-by-src-images",
+    "pathParams": [],
+    "queryParams": [
+      "projectIdOrName",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigs": {
+    "method": "GET",
+    "path": "/v1/edge-config",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createEdgeConfig": {
+    "method": "POST",
+    "path": "/v1/edge-config",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfig": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateEdgeConfig": {
+    "method": "PUT",
+    "path": "/v1/edge-config/{edgeConfigId}",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteEdgeConfig": {
+    "method": "DELETE",
+    "path": "/v1/edge-config/{edgeConfigId}",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigItems": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}/items",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "patchEdgeConfigItems": {
+    "method": "PATCH",
+    "path": "/v1/edge-config/{edgeConfigId}/items",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigSchema": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}/schema",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "patchEdgeConfigSchema": {
+    "method": "POST",
+    "path": "/v1/edge-config/{edgeConfigId}/schema",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "dryRun",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteEdgeConfigSchema": {
+    "method": "DELETE",
+    "path": "/v1/edge-config/{edgeConfigId}/schema",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigItem": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}/item/{edgeConfigItemKey}",
+    "pathParams": [
+      "edgeConfigId",
+      "edgeConfigItemKey"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigTokens": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}/tokens",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteEdgeConfigTokens": {
+    "method": "DELETE",
+    "path": "/v1/edge-config/{edgeConfigId}/tokens",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigToken": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}/token/{token}",
+    "pathParams": [
+      "edgeConfigId",
+      "token"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createEdgeConfigToken": {
+    "method": "POST",
+    "path": "/v1/edge-config/{edgeConfigId}/token",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigBackup": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}",
+    "pathParams": [
+      "edgeConfigId",
+      "edgeConfigBackupVersionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "restoreEdgeConfigBackup": {
+    "method": "POST",
+    "path": "/v1/edge-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}/restore",
+    "pathParams": [
+      "edgeConfigId",
+      "edgeConfigBackupVersionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getEdgeConfigBackups": {
+    "method": "GET",
+    "path": "/v1/edge-config/{edgeConfigId}/backups",
+    "pathParams": [
+      "edgeConfigId"
+    ],
+    "queryParams": [
+      "next",
+      "limit",
+      "metadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createSharedEnvVariable": {
+    "method": "POST",
+    "path": "/v1/env",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listSharedEnvVariable": {
+    "method": "GET",
+    "path": "/v1/env",
+    "pathParams": [],
+    "queryParams": [
+      "search",
+      "projectId",
+      "ids",
+      "exclude_ids",
+      "'exclude-ids'",
+      "exclude_projectId",
+      "'exclude-projectId'",
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateSharedEnvVariable": {
+    "method": "PATCH",
+    "path": "/v1/env",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteSharedEnvVariable": {
+    "method": "DELETE",
+    "path": "/v1/env",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSharedEnvVar": {
+    "method": "GET",
+    "path": "/v1/env/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "unlinkSharedEnvVariable": {
+    "method": "PATCH",
+    "path": "/v1/env/{id}/unlink/{projectId}",
+    "pathParams": [
+      "id",
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listUserEvents": {
+    "method": "GET",
+    "path": "/v3/events",
+    "pathParams": [],
+    "queryParams": [
+      "limit",
+      "since",
+      "until",
+      "types",
+      "userId",
+      "principalId",
+      "projectIds",
+      "withPayload",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listEventTypes": {
+    "method": "GET",
+    "path": "/v1/events/types",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listFlagsV2": {
+    "method": "GET",
+    "path": "/v2/projects/{projectIdOrName}/feature-flags/flags",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "state",
+      "limit",
+      "cursor",
+      "search",
+      "tags",
+      "createdBy",
+      "maintainerIds",
+      "includeMarketplaceFlags",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listFlags": {
+    "method": "GET",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/flags",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "state",
+      "withMetadata",
+      "limit",
+      "cursor",
+      "search",
+      "tags",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createFlag": {
+    "method": "PUT",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/flags",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getFlag": {
+    "method": "GET",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/flags/{flagIdOrSlug}",
+    "pathParams": [
+      "projectIdOrName",
+      "flagIdOrSlug"
+    ],
+    "queryParams": [
+      "ifMatch",
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateFlag": {
+    "method": "PATCH",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/flags/{flagIdOrSlug}",
+    "pathParams": [
+      "projectIdOrName",
+      "flagIdOrSlug"
+    ],
+    "queryParams": [
+      "ifMatch",
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteFlag": {
+    "method": "DELETE",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/flags/{flagIdOrSlug}",
+    "pathParams": [
+      "projectIdOrName",
+      "flagIdOrSlug"
+    ],
+    "queryParams": [
+      "ifMatch",
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listFlagVersions": {
+    "method": "GET",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/flags/{flagIdOrSlug}/versions",
+    "pathParams": [
+      "projectIdOrName",
+      "flagIdOrSlug"
+    ],
+    "queryParams": [
+      "limit",
+      "cursor",
+      "environment",
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getFlagSettings": {
+    "method": "GET",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/settings",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateFlagSettings": {
+    "method": "PATCH",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/settings",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listTeamFlagSettings": {
+    "method": "GET",
+    "path": "/v1/teams/{teamId}/feature-flags/settings",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "limit",
+      "cursor",
+      "slug"
+    ]
+  },
+  "listTeamFlagsV2": {
+    "method": "GET",
+    "path": "/v2/teams/{teamId}/feature-flags/flags",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "state",
+      "limit",
+      "cursor",
+      "search",
+      "kind",
+      "tags",
+      "createdBy",
+      "maintainerIds",
+      "includeMarketplaceFlags",
+      "slug"
+    ]
+  },
+  "listTeamFlags": {
+    "method": "GET",
+    "path": "/v1/teams/{teamId}/feature-flags/flags",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "state",
+      "withMetadata",
+      "limit",
+      "cursor",
+      "search",
+      "kind",
+      "tags",
+      "slug"
+    ]
+  },
+  "createFlagSegment": {
+    "method": "PUT",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/segments",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listFlagSegments": {
+    "method": "GET",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/segments",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getFlagSegment": {
+    "method": "GET",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/segments/{segmentIdOrSlug}",
+    "pathParams": [
+      "projectIdOrName",
+      "segmentIdOrSlug"
+    ],
+    "queryParams": [
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteFlagSegment": {
+    "method": "DELETE",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/segments/{segmentIdOrSlug}",
+    "pathParams": [
+      "projectIdOrName",
+      "segmentIdOrSlug"
+    ],
+    "queryParams": [
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateFlagSegment": {
+    "method": "PATCH",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/segments/{segmentIdOrSlug}",
+    "pathParams": [
+      "projectIdOrName",
+      "segmentIdOrSlug"
+    ],
+    "queryParams": [
+      "withMetadata",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDeploymentFeatureFlags": {
+    "method": "GET",
+    "path": "/v1/deployments/{deploymentId}/feature-flags",
+    "pathParams": [
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSdkKeys": {
+    "method": "GET",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/sdk-keys",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createSdkKey": {
+    "method": "PUT",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/sdk-keys",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteSdkKey": {
+    "method": "DELETE",
+    "path": "/v1/projects/{projectIdOrName}/feature-flags/sdk-keys/{hashKey}",
+    "pathParams": [
+      "projectIdOrName",
+      "hashKey"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "gitNamespaces": {
+    "method": "GET",
+    "path": "/v1/integrations/git-namespaces",
+    "pathParams": [],
+    "queryParams": [
+      "host",
+      "provider",
+      "viewerMetadata"
+    ]
+  },
+  "searchRepo": {
+    "method": "GET",
+    "path": "/v1/integrations/search-repo",
+    "pathParams": [],
+    "queryParams": [
+      "query",
+      "namespaceId",
+      "provider",
+      "installationId",
+      "host",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getBillingPlans": {
+    "method": "GET",
+    "path": "/v1/integrations/integration/{integrationIdOrSlug}/products/{productIdOrSlug}/plans",
+    "pathParams": [
+      "integrationIdOrSlug",
+      "productIdOrSlug"
+    ],
+    "queryParams": [
+      "integrationConfigurationId",
+      "metadata",
+      "source",
+      "teamId",
+      "slug"
+    ]
+  },
+  "connectIntegrationResourceToProject": {
+    "method": "POST",
+    "path": "/v1/integrations/installations/{integrationConfigurationId}/resources/{resourceId}/connections",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "update-installation": {
+    "method": "PATCH",
+    "path": "/v1/installations/{integrationConfigurationId}",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "get-account-info": {
+    "method": "GET",
+    "path": "/v1/installations/{integrationConfigurationId}/account",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "get-member": {
+    "method": "GET",
+    "path": "/v1/installations/{integrationConfigurationId}/member/{memberId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "memberId"
+    ],
+    "queryParams": []
+  },
+  "create-event": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/events",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "get-integration-resources": {
+    "method": "GET",
+    "path": "/v1/installations/{integrationConfigurationId}/resources",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "get-integration-resource": {
+    "method": "GET",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "delete-integration-resource": {
+    "method": "DELETE",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "import-resource": {
+    "method": "PUT",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "update-resource": {
+    "method": "PATCH",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "submit-billing-data": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/billing",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "submit-invoice": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/billing/invoices",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "finalize-installation": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/billing/finalize",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "get-invoice": {
+    "method": "GET",
+    "path": "/v1/installations/{integrationConfigurationId}/billing/invoices/{invoiceId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "invoiceId"
+    ],
+    "queryParams": []
+  },
+  "update-invoice": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/billing/invoices/{invoiceId}/actions",
+    "pathParams": [
+      "integrationConfigurationId",
+      "invoiceId"
+    ],
+    "queryParams": []
+  },
+  "submit-prepayment-balances": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/billing/balance",
+    "pathParams": [
+      "integrationConfigurationId"
+    ],
+    "queryParams": []
+  },
+  "update-resource-secrets": {
+    "method": "PUT",
+    "path": "/v1/installations/{integrationConfigurationId}/products/{integrationProductIdOrSlug}/resources/{resourceId}/secrets",
+    "pathParams": [
+      "integrationConfigurationId",
+      "integrationProductIdOrSlug",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "update-resource-secrets-by-id": {
+    "method": "PUT",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/secrets",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "getConfigurations": {
+    "method": "GET",
+    "path": "/v1/integrations/configurations",
+    "pathParams": [],
+    "queryParams": [
+      "view",
+      "installationType",
+      "integrationIdOrSlug",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getConfiguration": {
+    "method": "GET",
+    "path": "/v1/integrations/configuration/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteConfiguration": {
+    "method": "DELETE",
+    "path": "/v1/integrations/configuration/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getConfigurationProducts": {
+    "method": "GET",
+    "path": "/v1/integrations/configuration/{id}/products",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "exchange-sso-token": {
+    "method": "POST",
+    "path": "/v1/integrations/sso/token",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "getIntegrationLogDrains": {
+    "method": "GET",
+    "path": "/v2/integrations/log-drains",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createLogDrain": {
+    "method": "POST",
+    "path": "/v2/integrations/log-drains",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteIntegrationLogDrain": {
+    "method": "DELETE",
+    "path": "/v1/integrations/log-drains/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRuntimeLogs": {
+    "method": "GET",
+    "path": "/v1/projects/{projectId}/deployments/{deploymentId}/runtime-logs",
+    "pathParams": [
+      "projectId",
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItems": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": {
+    "method": "PATCH",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items/{itemId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId",
+      "itemId"
+    ],
+    "queryParams": []
+  },
+  "deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": {
+    "method": "DELETE",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items/{itemId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId",
+      "itemId"
+    ],
+    "queryParams": []
+  },
+  "headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
+    "method": "HEAD",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
+    "method": "GET",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
+    "method": "PUT",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "getMicrofrontendsGroups": {
+    "method": "GET",
+    "path": "/v1/microfrontends/groups",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getMicrofrontendsInGroup": {
+    "method": "GET",
+    "path": "/v1/microfrontends/groups/{groupId}/projects",
+    "pathParams": [
+      "groupId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getMicrofrontendsConfig": {
+    "method": "GET",
+    "path": "/v1/microfrontends/{deploymentId}/config",
+    "pathParams": [
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getMicrofrontendsConfigForProject": {
+    "method": "GET",
+    "path": "/v1/microfrontends/projects/{projectIdOrName}/production-mfe-config",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createMicrofrontendsGroupWithApplications": {
+    "method": "POST",
+    "path": "/v1/microfrontends/group",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getObservabilityConfigurationProjects": {
+    "method": "GET",
+    "path": "/v1/observability/manage/configuration/projects",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateObservabilityConfigurationProject": {
+    "method": "PUT",
+    "path": "/v1/observability/manage/configuration/projects/{projectIdOrName}",
+    "pathParams": [
+      "projectIdOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProjectMembers": {
+    "method": "GET",
+    "path": "/v1/projects/{idOrName}/members",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "limit",
+      "since",
+      "until",
+      "search",
+      "teamId",
+      "slug"
+    ]
+  },
+  "addProjectMember": {
+    "method": "POST",
+    "path": "/v1/projects/{idOrName}/members",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "removeProjectMember": {
+    "method": "DELETE",
+    "path": "/v1/projects/{idOrName}/members/{uid}",
+    "pathParams": [
+      "idOrName",
+      "uid"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRoutes": {
+    "method": "GET",
+    "path": "/v1/projects/{projectId}/routes",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "versionId",
+      "q",
+      "filter",
+      "diff",
+      "teamId",
+      "slug"
+    ]
+  },
+  "stageRoutes": {
+    "method": "PUT",
+    "path": "/v1/projects/{projectId}/routes",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "addRoute": {
+    "method": "POST",
+    "path": "/v1/projects/{projectId}/routes",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteRoutes": {
+    "method": "DELETE",
+    "path": "/v1/projects/{projectId}/routes",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "editRoute": {
+    "method": "PATCH",
+    "path": "/v1/projects/{projectId}/routes/{routeId}",
+    "pathParams": [
+      "projectId",
+      "routeId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "generateRoute": {
+    "method": "POST",
+    "path": "/v1/projects/{projectId}/routes/generate",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRouteVersions": {
+    "method": "GET",
+    "path": "/v1/projects/{projectId}/routes/versions",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateRouteVersions": {
+    "method": "POST",
+    "path": "/v1/projects/{projectId}/routes/versions",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProjects": {
+    "method": "GET",
+    "path": "/v10/projects",
+    "pathParams": [],
+    "queryParams": [
+      "from",
+      "gitForkProtection",
+      "limit",
+      "search",
+      "repo",
+      "repoId",
+      "repoUrl",
+      "excludeRepos",
+      "edgeConfigId",
+      "edgeConfigTokenId",
+      "deprecated",
+      "elasticConcurrencyEnabled",
+      "staticIpsEnabled",
+      "buildMachineTypes",
+      "buildQueueConfiguration",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createProject": {
+    "method": "POST",
+    "path": "/v11/projects",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProject": {
+    "method": "GET",
+    "path": "/v9/projects/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateProject": {
+    "method": "PATCH",
+    "path": "/v9/projects/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteProject": {
+    "method": "DELETE",
+    "path": "/v9/projects/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "uploadProjectAvatar": {
+    "method": "POST",
+    "path": "/v1/projects/{idOrName}/avatar",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateStaticIps": {
+    "method": "PATCH",
+    "path": "/v1/projects/{idOrName}/shared-connect-links",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createCustomEnvironment": {
+    "method": "POST",
+    "path": "/v9/projects/{idOrName}/custom-environments",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProjectsByIdOrNameCustomEnvironments": {
+    "method": "GET",
+    "path": "/v9/projects/{idOrName}/custom-environments",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "gitBranch",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getCustomEnvironment": {
+    "method": "GET",
+    "path": "/v9/projects/{idOrName}/custom-environments/{environmentSlugOrId}",
+    "pathParams": [
+      "idOrName",
+      "environmentSlugOrId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateCustomEnvironment": {
+    "method": "PATCH",
+    "path": "/v9/projects/{idOrName}/custom-environments/{environmentSlugOrId}",
+    "pathParams": [
+      "idOrName",
+      "environmentSlugOrId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "removeCustomEnvironment": {
+    "method": "DELETE",
+    "path": "/v9/projects/{idOrName}/custom-environments/{environmentSlugOrId}",
+    "pathParams": [
+      "idOrName",
+      "environmentSlugOrId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProjectDomains": {
+    "method": "GET",
+    "path": "/v9/projects/{idOrName}/domains",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "production",
+      "target",
+      "customEnvironmentId",
+      "gitBranch",
+      "redirects",
+      "redirect",
+      "verified",
+      "limit",
+      "since",
+      "until",
+      "order",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProjectDomain": {
+    "method": "GET",
+    "path": "/v9/projects/{idOrName}/domains/{domain}",
+    "pathParams": [
+      "idOrName",
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateProjectDomain": {
+    "method": "PATCH",
+    "path": "/v9/projects/{idOrName}/domains/{domain}",
+    "pathParams": [
+      "idOrName",
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "removeProjectDomain": {
+    "method": "DELETE",
+    "path": "/v9/projects/{idOrName}/domains/{domain}",
+    "pathParams": [
+      "idOrName",
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "addProjectDomain": {
+    "method": "POST",
+    "path": "/v10/projects/{idOrName}/domains",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "moveProjectDomain": {
+    "method": "POST",
+    "path": "/v1/projects/{idOrName}/domains/{domain}/move",
+    "pathParams": [
+      "idOrName",
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "verifyProjectDomain": {
+    "method": "POST",
+    "path": "/v9/projects/{idOrName}/domains/{domain}/verify",
+    "pathParams": [
+      "idOrName",
+      "domain"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "filterProjectEnvs": {
+    "method": "GET",
+    "path": "/v10/projects/{idOrName}/env",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "gitBranch",
+      "decrypt",
+      "source",
+      "customEnvironmentId",
+      "customEnvironmentSlug",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createProjectEnv": {
+    "method": "POST",
+    "path": "/v10/projects/{idOrName}/env",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "upsert",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getProjectEnv": {
+    "method": "GET",
+    "path": "/v1/projects/{idOrName}/env/{id}",
+    "pathParams": [
+      "idOrName",
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "removeProjectEnv": {
+    "method": "DELETE",
+    "path": "/v9/projects/{idOrName}/env/{id}",
+    "pathParams": [
+      "idOrName",
+      "id"
+    ],
+    "queryParams": [
+      "customEnvironmentId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "editProjectEnv": {
+    "method": "PATCH",
+    "path": "/v9/projects/{idOrName}/env/{id}",
+    "pathParams": [
+      "idOrName",
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "batchRemoveProjectEnv": {
+    "method": "DELETE",
+    "path": "/v1/projects/{idOrName}/env",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRollingReleaseBillingStatus": {
+    "method": "GET",
+    "path": "/v1/projects/{idOrName}/rolling-release/billing",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRollingReleaseConfig": {
+    "method": "GET",
+    "path": "/v1/projects/{idOrName}/rolling-release/config",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteRollingReleaseConfig": {
+    "method": "DELETE",
+    "path": "/v1/projects/{idOrName}/rolling-release/config",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateRollingReleaseConfig": {
+    "method": "PATCH",
+    "path": "/v1/projects/{idOrName}/rolling-release/config",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRollingRelease": {
+    "method": "GET",
+    "path": "/v1/projects/{idOrName}/rolling-release",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "state",
+      "teamId",
+      "slug"
+    ]
+  },
+  "approveRollingReleaseStage": {
+    "method": "POST",
+    "path": "/v1/projects/{idOrName}/rolling-release/approve-stage",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "startRollingRelease": {
+    "method": "POST",
+    "path": "/v1/projects/{idOrName}/rolling-release/start",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "completeRollingRelease": {
+    "method": "POST",
+    "path": "/v1/projects/{idOrName}/rolling-release/complete",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createProjectTransferRequest": {
+    "method": "POST",
+    "path": "/projects/{idOrName}/transfer-request",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "acceptProjectTransferRequest": {
+    "method": "PUT",
+    "path": "/projects/transfer-request/{code}",
+    "pathParams": [
+      "code"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateProjectProtectionBypass": {
+    "method": "PATCH",
+    "path": "/v1/projects/{idOrName}/protection-bypass",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "requestRollback": {
+    "method": "POST",
+    "path": "/v1/projects/{projectId}/rollback/{deploymentId}",
+    "pathParams": [
+      "projectId",
+      "deploymentId"
+    ],
+    "queryParams": [
+      "description",
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescription": {
+    "method": "PATCH",
+    "path": "/v1/projects/{projectId}/rollback/{deploymentId}/update-description",
+    "pathParams": [
+      "projectId",
+      "deploymentId"
+    ],
+    "queryParams": []
+  },
+  "updateMicrofrontends": {
+    "method": "PATCH",
+    "path": "/v1/projects/{projectId}/microfrontends",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "requestPromote": {
+    "method": "POST",
+    "path": "/v10/projects/{projectId}/promote/{deploymentId}",
+    "pathParams": [
+      "projectId",
+      "deploymentId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listPromoteAliases": {
+    "method": "GET",
+    "path": "/v1/projects/{projectId}/promote/aliases",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "limit",
+      "since",
+      "until",
+      "failedOnly",
+      "teamId",
+      "slug"
+    ]
+  },
+  "pauseProject": {
+    "method": "POST",
+    "path": "/v1/projects/{projectId}/pause",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "unpauseProject": {
+    "method": "POST",
+    "path": "/v1/projects/{projectId}/unpause",
+    "pathParams": [
+      "projectId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listSandboxes": {
+    "method": "GET",
+    "path": "/v2/sandboxes",
+    "pathParams": [],
+    "queryParams": [
+      "project",
+      "limit",
+      "sortBy",
+      "namePrefix",
+      "cursor",
+      "sortOrder",
+      "tags",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createSandboxes": {
+    "method": "POST",
+    "path": "/v2/sandboxes",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listDrives": {
+    "method": "GET",
+    "path": "/v2/sandboxes/drives",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "limit",
+      "cursor",
+      "sortBy",
+      "namePrefix",
+      "sortOrder",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getOrCreateDrive": {
+    "method": "POST",
+    "path": "/v2/sandboxes/drives/{name}",
+    "pathParams": [
+      "name"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteDrive": {
+    "method": "DELETE",
+    "path": "/v2/sandboxes/drives/{name}",
+    "pathParams": [
+      "name"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listSessionSnapshots": {
+    "method": "GET",
+    "path": "/v2/sandboxes/snapshots",
+    "pathParams": [],
+    "queryParams": [
+      "project",
+      "name",
+      "limit",
+      "cursor",
+      "sortOrder",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSessionSnapshot": {
+    "method": "GET",
+    "path": "/v2/sandboxes/snapshots/{snapshotId}",
+    "pathParams": [
+      "snapshotId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteSessionSnapshot": {
+    "method": "DELETE",
+    "path": "/v2/sandboxes/snapshots/{snapshotId}",
+    "pathParams": [
+      "snapshotId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listSessions": {
+    "method": "GET",
+    "path": "/v2/sandboxes/sessions",
+    "pathParams": [],
+    "queryParams": [
+      "project",
+      "name",
+      "limit",
+      "cursor",
+      "sortOrder",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSession": {
+    "method": "GET",
+    "path": "/v2/sandboxes/sessions/{sessionId}",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getNamedSandbox": {
+    "method": "GET",
+    "path": "/v2/sandboxes/{name}",
+    "pathParams": [
+      "name"
+    ],
+    "queryParams": [
+      "projectId",
+      "resume",
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateSandbox": {
+    "method": "PATCH",
+    "path": "/v2/sandboxes/{name}",
+    "pathParams": [
+      "name"
+    ],
+    "queryParams": [
+      "projectId",
+      "resume",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteSandbox": {
+    "method": "DELETE",
+    "path": "/v2/sandboxes/{name}",
+    "pathParams": [
+      "name"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listSessionCommands": {
+    "method": "GET",
+    "path": "/v2/sandboxes/sessions/{sessionId}/cmd",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "runSessionCommand": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/cmd",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "cmdId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSessionCommand": {
+    "method": "GET",
+    "path": "/v2/sandboxes/sessions/{sessionId}/cmd/{cmdId}",
+    "pathParams": [
+      "sessionId",
+      "cmdId"
+    ],
+    "queryParams": [
+      "wait",
+      "teamId",
+      "slug"
+    ]
+  },
+  "killSessionCommand": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/cmd/{cmdId}/kill",
+    "pathParams": [
+      "cmdId",
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSessionCommandLogs": {
+    "method": "GET",
+    "path": "/v2/sandboxes/sessions/{sessionId}/cmd/{cmdId}/logs",
+    "pathParams": [
+      "sessionId",
+      "cmdId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "stopSession": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/stop",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "extendSessionTimeout": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/extend-timeout",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateSessionNetworkPolicy": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/network-policy",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "readSessionFile": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/fs/read",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createSessionDirectory": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/fs/mkdir",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "writeSessionFiles": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/fs/write",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "createSessionSnapshot": {
+    "method": "POST",
+    "path": "/v2/sandboxes/sessions/{sessionId}/snapshot",
+    "pathParams": [
+      "sessionId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateAttackChallengeMode": {
+    "method": "POST",
+    "path": "/v1/security/attack-mode",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "putFirewallConfig": {
+    "method": "PUT",
+    "path": "/v1/security/firewall/config",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "updateFirewallConfig": {
+    "method": "PATCH",
+    "path": "/v1/security/firewall/config",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getFirewallConfig": {
+    "method": "GET",
+    "path": "/v1/security/firewall/config/{configVersion}",
+    "pathParams": [
+      "configVersion"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getActiveAttackStatus": {
+    "method": "GET",
+    "path": "/v1/security/firewall/attack-status",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "since",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getBypassIp": {
+    "method": "GET",
+    "path": "/v1/security/firewall/bypass",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "limit",
+      "sourceIp",
+      "domain",
+      "projectScope",
+      "offset",
+      "teamId",
+      "slug"
+    ]
+  },
+  "addBypassIp": {
+    "method": "POST",
+    "path": "/v1/security/firewall/bypass",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "removeBypassIp": {
+    "method": "DELETE",
+    "path": "/v1/security/firewall/bypass",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getSecurityFirewallEvents": {
+    "method": "GET",
+    "path": "/v1/security/firewall/events",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "startTimestamp",
+      "endTimestamp",
+      "hosts"
+    ]
+  },
+  "createIntegrationStoreDirect": {
+    "method": "POST",
+    "path": "/v1/storage/stores/integration/direct",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getTeamMembers": {
+    "method": "GET",
+    "path": "/v3/teams/{teamId}/members",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "limit",
+      "since",
+      "until",
+      "search",
+      "role",
+      "excludeProject",
+      "eligibleMembersForProjectId",
+      "slug"
+    ]
+  },
+  "inviteUserToTeam": {
+    "method": "POST",
+    "path": "/v2/teams/{teamId}/members",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "slug"
+    ]
+  },
+  "requestAccessToTeam": {
+    "method": "POST",
+    "path": "/v1/teams/{teamId}/request",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": []
+  },
+  "getTeamAccessRequest": {
+    "method": "GET",
+    "path": "/v1/teams/{teamId}/request/{userId}",
+    "pathParams": [
+      "userId",
+      "teamId"
+    ],
+    "queryParams": []
+  },
+  "joinTeam": {
+    "method": "POST",
+    "path": "/v1/teams/{teamId}/members/teams/join",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": []
+  },
+  "updateTeamMember": {
+    "method": "PATCH",
+    "path": "/v1/teams/{teamId}/members/{uid}",
+    "pathParams": [
+      "uid",
+      "teamId"
+    ],
+    "queryParams": []
+  },
+  "removeTeamMember": {
+    "method": "DELETE",
+    "path": "/v1/teams/{teamId}/members/{uid}",
+    "pathParams": [
+      "uid",
+      "teamId"
+    ],
+    "queryParams": [
+      "newDefaultTeamId"
+    ]
+  },
+  "getTeam": {
+    "method": "GET",
+    "path": "/v2/teams/{teamId}",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "slug"
+    ]
+  },
+  "patchTeam": {
+    "method": "PATCH",
+    "path": "/v2/teams/{teamId}",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "slug"
+    ]
+  },
+  "getTeams": {
+    "method": "GET",
+    "path": "/v2/teams",
+    "pathParams": [],
+    "queryParams": [
+      "limit",
+      "since",
+      "until"
+    ]
+  },
+  "createTeam": {
+    "method": "POST",
+    "path": "/v1/teams",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "postTeamDsyncRoles": {
+    "method": "POST",
+    "path": "/v1/teams/{teamId}/dsync-roles",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "slug"
+    ]
+  },
+  "deleteTeam": {
+    "method": "DELETE",
+    "path": "/v1/teams/{teamId}",
+    "pathParams": [
+      "teamId"
+    ],
+    "queryParams": [
+      "newDefaultTeamId",
+      "slug"
+    ]
+  },
+  "deleteTeamInviteCode": {
+    "method": "DELETE",
+    "path": "/v1/teams/{teamId}/invites/{inviteId}",
+    "pathParams": [
+      "inviteId",
+      "teamId"
+    ],
+    "queryParams": []
+  },
+  "updateMicrofrontendsGroup": {
+    "method": "PATCH",
+    "path": "/v1/teams/{teamId}/microfrontends/{groupId}",
+    "pathParams": [
+      "groupId",
+      "teamId"
+    ],
+    "queryParams": [
+      "slug"
+    ]
+  },
+  "deleteMicrofrontendsGroup": {
+    "method": "DELETE",
+    "path": "/v1/teams/{teamId}/microfrontends/{groupId}",
+    "pathParams": [
+      "groupId",
+      "teamId"
+    ],
+    "queryParams": [
+      "slug"
+    ]
+  },
+  "uploadFile": {
+    "method": "POST",
+    "path": "/v2/files",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listAuthTokens": {
+    "method": "GET",
+    "path": "/v6/user/tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "createAuthToken": {
+    "method": "POST",
+    "path": "/v3/user/tokens",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getAuthToken": {
+    "method": "GET",
+    "path": "/v5/user/tokens/{tokenId}",
+    "pathParams": [
+      "tokenId"
+    ],
+    "queryParams": []
+  },
+  "deleteAuthToken": {
+    "method": "DELETE",
+    "path": "/v3/user/tokens/{tokenId}",
+    "pathParams": [
+      "tokenId"
+    ],
+    "queryParams": []
+  },
+  "getAuthUser": {
+    "method": "GET",
+    "path": "/v2/user",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "requestDelete": {
+    "method": "DELETE",
+    "path": "/v1/user",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "createRepository": {
+    "method": "POST",
+    "path": "/v1/vcr/repository",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listRepositories": {
+    "method": "GET",
+    "path": "/v1/vcr/repository",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "limit",
+      "cursor",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRepository": {
+    "method": "GET",
+    "path": "/v1/vcr/repository/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteRepository": {
+    "method": "DELETE",
+    "path": "/v1/vcr/repository/{idOrName}",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listRepositoryImages": {
+    "method": "GET",
+    "path": "/v1/vcr/repository/{idOrName}/images",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "projectId",
+      "limit",
+      "cursor",
+      "untagged",
+      "teamId",
+      "slug"
+    ]
+  },
+  "listRepositoryTags": {
+    "method": "GET",
+    "path": "/v1/vcr/repository/{idOrName}/tags",
+    "pathParams": [
+      "idOrName"
+    ],
+    "queryParams": [
+      "projectId",
+      "limit",
+      "cursor",
+      "sortBy",
+      "sortOrder",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRepositoryTag": {
+    "method": "GET",
+    "path": "/v1/vcr/repository/{idOrName}/tags/{tag}",
+    "pathParams": [
+      "idOrName",
+      "tag"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getRepositoryImage": {
+    "method": "GET",
+    "path": "/v1/vcr/repository/{idOrName}/images/{imageId}",
+    "pathParams": [
+      "idOrName",
+      "imageId"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteRepositoryImage": {
+    "method": "DELETE",
+    "path": "/v1/vcr/repository/{idOrName}/images/{imageId}",
+    "pathParams": [
+      "idOrName",
+      "imageId"
+    ],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "aggregatePageviews": {
+    "method": "GET",
+    "path": "/v1/query/web-analytics/visits/aggregate",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "by",
+      "since",
+      "until",
+      "limit",
+      "filter",
+      "teamId",
+      "slug"
+    ]
+  },
+  "aggregateEvents": {
+    "method": "GET",
+    "path": "/v1/query/web-analytics/events/aggregate",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "by",
+      "since",
+      "until",
+      "limit",
+      "filter",
+      "teamId",
+      "slug"
+    ]
+  },
+  "countPageviews": {
+    "method": "GET",
+    "path": "/v1/query/web-analytics/visits/count",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "since",
+      "until",
+      "filter",
+      "teamId",
+      "slug"
+    ]
+  },
+  "countEvents": {
+    "method": "GET",
+    "path": "/v1/query/web-analytics/events/count",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "since",
+      "until",
+      "filter",
+      "teamId",
+      "slug"
+    ]
+  },
+  "createWebhook": {
+    "method": "POST",
+    "path": "/v1/webhooks",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getWebhooks": {
+    "method": "GET",
+    "path": "/v1/webhooks",
+    "pathParams": [],
+    "queryParams": [
+      "projectId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getWebhook": {
+    "method": "GET",
+    "path": "/v1/webhooks/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteWebhook": {
+    "method": "DELETE",
+    "path": "/v1/webhooks/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listDeploymentAliases": {
+    "method": "GET",
+    "path": "/v2/deployments/{id}/aliases",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "assignAlias": {
+    "method": "POST",
+    "path": "/v2/deployments/{id}/aliases",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listAliases": {
+    "method": "GET",
+    "path": "/v4/aliases",
+    "pathParams": [],
+    "queryParams": [
+      "domain",
+      "from",
+      "limit",
+      "projectId",
+      "since",
+      "until",
+      "rollbackDeploymentId",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getAlias": {
+    "method": "GET",
+    "path": "/v4/aliases/{idOrAlias}",
+    "pathParams": [
+      "idOrAlias"
+    ],
+    "queryParams": [
+      "from",
+      "projectId",
+      "since",
+      "until",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteAlias": {
+    "method": "DELETE",
+    "path": "/v2/aliases/{aliasId}",
+    "pathParams": [
+      "aliasId"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "patchUrlProtectionBypass": {
+    "method": "PATCH",
+    "path": "/aliases/{id}/protection-bypass",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getCertById": {
+    "method": "GET",
+    "path": "/v8/certs/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "removeCert": {
+    "method": "DELETE",
+    "path": "/v8/certs/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "issueCert": {
+    "method": "POST",
+    "path": "/v8/certs",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "uploadCert": {
+    "method": "PUT",
+    "path": "/v8/certs",
+    "pathParams": [],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "listDeploymentFiles": {
+    "method": "GET",
+    "path": "/v6/deployments/{id}/files",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDeploymentFileContents": {
+    "method": "GET",
+    "path": "/v8/deployments/{id}/files/{fileId}",
+    "pathParams": [
+      "id",
+      "fileId"
+    ],
+    "queryParams": [
+      "path",
+      "teamId",
+      "slug"
+    ]
+  },
+  "getDeployments": {
+    "method": "GET",
+    "path": "/v7/deployments",
+    "pathParams": [],
+    "queryParams": [
+      "app",
+      "from",
+      "limit",
+      "projectId",
+      "projectIds",
+      "target",
+      "to",
+      "users",
+      "since",
+      "until",
+      "state",
+      "rollbackCandidate",
+      "branch",
+      "sha",
+      "teamId",
+      "slug"
+    ]
+  },
+  "deleteDeployment": {
+    "method": "DELETE",
+    "path": "/v13/deployments/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": [
+      "url",
+      "teamId",
+      "slug"
+    ]
+  }
+}

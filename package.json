@@ -1,0 +1,45 @@
+{
+  "name": "toolport-mcp-servers",
+  "version": "0.1.0",
+  "description": "Curated, full-API MCP servers generated from official OpenAPI specs: Stripe (587 tools), Vercel (333), Clerk (224). One npx command, intent-friendly tool names. Unofficial.",
+  "license": "MIT",
+  "author": "tsouth89",
+  "type": "commonjs",
+  "bin": {
+    "toolport-mcp-servers": "bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "vendors",
+    "data",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node bin/cli.js",
+    "test": "node --test",
+    "prep:clerk": "bash scripts/prep-clerk.sh",
+    "prep:vercel": "bash scripts/prep-vercel.sh"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "stripe",
+    "vercel",
+    "clerk",
+    "openapi",
+    "ai-agents",
+    "claude",
+    "cursor",
+    "llm-tools"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsouth89/toolport-mcp-servers.git"
+  },
+  "homepage": "https://toolport.app"
+}

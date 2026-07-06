@@ -1,0 +1,1831 @@
+{
+  "GetPublicInterstitial": {
+    "method": "GET",
+    "path": "/public/interstitial",
+    "pathParams": [],
+    "queryParams": [
+      "frontendApi",
+      "frontend_api",
+      "publishable_key",
+      "proxy_url",
+      "domain",
+      "sign_in_url",
+      "use_domain_for_script"
+    ]
+  },
+  "GetJWKS": {
+    "method": "GET",
+    "path": "/jwks",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetClientList": {
+    "method": "GET",
+    "path": "/clients",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "VerifyClient": {
+    "method": "POST",
+    "path": "/clients/verify",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetClient": {
+    "method": "GET",
+    "path": "/clients/{client_id}",
+    "pathParams": [
+      "client_id"
+    ],
+    "queryParams": []
+  },
+  "CreateEmailAddress": {
+    "method": "POST",
+    "path": "/email_addresses",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetEmailAddress": {
+    "method": "GET",
+    "path": "/email_addresses/{email_address_id}",
+    "pathParams": [
+      "email_address_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteEmailAddress": {
+    "method": "DELETE",
+    "path": "/email_addresses/{email_address_id}",
+    "pathParams": [
+      "email_address_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateEmailAddress": {
+    "method": "PATCH",
+    "path": "/email_addresses/{email_address_id}",
+    "pathParams": [
+      "email_address_id"
+    ],
+    "queryParams": []
+  },
+  "PrepareEmailAddressVerification": {
+    "method": "POST",
+    "path": "/email_addresses/{email_address_id}/prepare_verification",
+    "pathParams": [
+      "email_address_id"
+    ],
+    "queryParams": []
+  },
+  "AttemptEmailAddressVerification": {
+    "method": "POST",
+    "path": "/email_addresses/{email_address_id}/attempt_verification",
+    "pathParams": [
+      "email_address_id"
+    ],
+    "queryParams": []
+  },
+  "ReplaceUserEmailAddress": {
+    "method": "PUT",
+    "path": "/users/{user_id}/email_address",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "CreatePhoneNumber": {
+    "method": "POST",
+    "path": "/phone_numbers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetPhoneNumber": {
+    "method": "GET",
+    "path": "/phone_numbers/{phone_number_id}",
+    "pathParams": [
+      "phone_number_id"
+    ],
+    "queryParams": []
+  },
+  "DeletePhoneNumber": {
+    "method": "DELETE",
+    "path": "/phone_numbers/{phone_number_id}",
+    "pathParams": [
+      "phone_number_id"
+    ],
+    "queryParams": []
+  },
+  "UpdatePhoneNumber": {
+    "method": "PATCH",
+    "path": "/phone_numbers/{phone_number_id}",
+    "pathParams": [
+      "phone_number_id"
+    ],
+    "queryParams": []
+  },
+  "PreparePhoneNumberVerification": {
+    "method": "POST",
+    "path": "/phone_numbers/{phone_number_id}/prepare_verification",
+    "pathParams": [
+      "phone_number_id"
+    ],
+    "queryParams": []
+  },
+  "AttemptPhoneNumberVerification": {
+    "method": "POST",
+    "path": "/phone_numbers/{phone_number_id}/attempt_verification",
+    "pathParams": [
+      "phone_number_id"
+    ],
+    "queryParams": []
+  },
+  "ReplaceUserPhoneNumber": {
+    "method": "PUT",
+    "path": "/users/{user_id}/phone_number",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "GetSessionList": {
+    "method": "GET",
+    "path": "/sessions",
+    "pathParams": [],
+    "queryParams": [
+      "client_id",
+      "user_id",
+      "status"
+    ]
+  },
+  "createSession": {
+    "method": "POST",
+    "path": "/sessions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetSession": {
+    "method": "GET",
+    "path": "/sessions/{session_id}",
+    "pathParams": [
+      "session_id"
+    ],
+    "queryParams": []
+  },
+  "RefreshSession": {
+    "method": "POST",
+    "path": "/sessions/{session_id}/refresh",
+    "pathParams": [
+      "session_id"
+    ],
+    "queryParams": []
+  },
+  "RevokeSession": {
+    "method": "POST",
+    "path": "/sessions/{session_id}/revoke",
+    "pathParams": [
+      "session_id"
+    ],
+    "queryParams": []
+  },
+  "CreateSessionToken": {
+    "method": "POST",
+    "path": "/sessions/{session_id}/tokens",
+    "pathParams": [
+      "session_id"
+    ],
+    "queryParams": []
+  },
+  "CreateSessionTokenFromTemplate": {
+    "method": "POST",
+    "path": "/sessions/{session_id}/tokens/{template_name}",
+    "pathParams": [
+      "session_id",
+      "template_name"
+    ],
+    "queryParams": []
+  },
+  "GetTemplateList": {
+    "method": "GET",
+    "path": "/templates/{template_type}",
+    "pathParams": [
+      "template_type"
+    ],
+    "queryParams": []
+  },
+  "GetTemplate": {
+    "method": "GET",
+    "path": "/templates/{template_type}/{slug}",
+    "pathParams": [
+      "template_type",
+      "slug"
+    ],
+    "queryParams": []
+  },
+  "UpsertTemplate": {
+    "method": "PUT",
+    "path": "/templates/{template_type}/{slug}",
+    "pathParams": [
+      "template_type",
+      "slug"
+    ],
+    "queryParams": []
+  },
+  "RevertTemplate": {
+    "method": "POST",
+    "path": "/templates/{template_type}/{slug}/revert",
+    "pathParams": [
+      "template_type",
+      "slug"
+    ],
+    "queryParams": []
+  },
+  "PreviewTemplate": {
+    "method": "POST",
+    "path": "/templates/{template_type}/{slug}/preview",
+    "pathParams": [
+      "template_type",
+      "slug"
+    ],
+    "queryParams": []
+  },
+  "ToggleTemplateDelivery": {
+    "method": "POST",
+    "path": "/templates/{template_type}/{slug}/toggle_delivery",
+    "pathParams": [
+      "template_type",
+      "slug"
+    ],
+    "queryParams": []
+  },
+  "GetUserList": {
+    "method": "GET",
+    "path": "/users",
+    "pathParams": [],
+    "queryParams": [
+      "email_address",
+      "phone_number",
+      "external_id",
+      "username",
+      "web3_wallet",
+      "user_id",
+      "organization_id",
+      "query",
+      "email_address_query",
+      "phone_number_query",
+      "username_query",
+      "name_query",
+      "banned",
+      "last_active_at_before",
+      "last_active_at_after",
+      "last_active_at_since",
+      "created_at_before",
+      "created_at_after",
+      "last_sign_in_at_before",
+      "last_sign_in_at_after",
+      "provider",
+      "provider_user_id",
+      "order_by"
+    ]
+  },
+  "CreateUser": {
+    "method": "POST",
+    "path": "/users",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetUsersCount": {
+    "method": "GET",
+    "path": "/users/count",
+    "pathParams": [],
+    "queryParams": [
+      "email_address",
+      "phone_number",
+      "external_id",
+      "username",
+      "web3_wallet",
+      "user_id",
+      "organization_id",
+      "query",
+      "email_address_query",
+      "phone_number_query",
+      "username_query",
+      "name_query",
+      "banned",
+      "last_active_at_before",
+      "last_active_at_after",
+      "last_active_at_since",
+      "created_at_before",
+      "created_at_after",
+      "last_sign_in_at_before",
+      "last_sign_in_at_after",
+      "provider",
+      "provider_user_id"
+    ]
+  },
+  "GetUser": {
+    "method": "GET",
+    "path": "/users/{user_id}",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateUser": {
+    "method": "PATCH",
+    "path": "/users/{user_id}",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteUser": {
+    "method": "DELETE",
+    "path": "/users/{user_id}",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "BanUser": {
+    "method": "POST",
+    "path": "/users/{user_id}/ban",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UnbanUser": {
+    "method": "POST",
+    "path": "/users/{user_id}/unban",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UsersBan": {
+    "method": "POST",
+    "path": "/users/ban",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UsersUnban": {
+    "method": "POST",
+    "path": "/users/unban",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "LockUser": {
+    "method": "POST",
+    "path": "/users/{user_id}/lock",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UnlockUser": {
+    "method": "POST",
+    "path": "/users/{user_id}/unlock",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "SetUserProfileImage": {
+    "method": "POST",
+    "path": "/users/{user_id}/profile_image",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteUserProfileImage": {
+    "method": "DELETE",
+    "path": "/users/{user_id}/profile_image",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateUserMetadata": {
+    "method": "PATCH",
+    "path": "/users/{user_id}/metadata",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "ReplaceUserMetadata": {
+    "method": "PUT",
+    "path": "/users/{user_id}/metadata",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "GetUserBillingSubscription": {
+    "method": "GET",
+    "path": "/users/{user_id}/billing/subscription",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "GetUserBillingCreditBalance": {
+    "method": "GET",
+    "path": "/users/{user_id}/billing/credits",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "AdjustUserBillingCreditBalance": {
+    "method": "POST",
+    "path": "/users/{user_id}/billing/credits",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "GetOAuthAccessToken": {
+    "method": "GET",
+    "path": "/users/{user_id}/oauth_access_tokens/{provider}",
+    "pathParams": [
+      "user_id",
+      "provider"
+    ],
+    "queryParams": []
+  },
+  "UsersGetOrganizationMemberships": {
+    "method": "GET",
+    "path": "/users/{user_id}/organization_memberships",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UsersGetOrganizationInvitations": {
+    "method": "GET",
+    "path": "/users/{user_id}/organization_invitations",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": [
+      "status"
+    ]
+  },
+  "VerifyPassword": {
+    "method": "POST",
+    "path": "/users/{user_id}/verify_password",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "VerifyTOTP": {
+    "method": "POST",
+    "path": "/users/{user_id}/verify_totp",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "DisableMFA": {
+    "method": "DELETE",
+    "path": "/users/{user_id}/mfa",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteBackupCode": {
+    "method": "DELETE",
+    "path": "/users/{user_id}/backup_code",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UserPasskeyDelete": {
+    "method": "DELETE",
+    "path": "/users/{user_id}/passkeys/{passkey_identification_id}",
+    "pathParams": [
+      "user_id",
+      "passkey_identification_id"
+    ],
+    "queryParams": []
+  },
+  "UserWeb3WalletDelete": {
+    "method": "DELETE",
+    "path": "/users/{user_id}/web3_wallets/{web3_wallet_identification_id}",
+    "pathParams": [
+      "user_id",
+      "web3_wallet_identification_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteTOTP": {
+    "method": "DELETE",
+    "path": "/users/{user_id}/totp",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteExternalAccount": {
+    "method": "DELETE",
+    "path": "/users/{user_id}/external_accounts/{external_account_id}",
+    "pathParams": [
+      "user_id",
+      "external_account_id"
+    ],
+    "queryParams": []
+  },
+  "SetUserPasswordCompromised": {
+    "method": "POST",
+    "path": "/users/{user_id}/password/set_compromised",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UnsetUserPasswordCompromised": {
+    "method": "POST",
+    "path": "/users/{user_id}/password/unset_compromised",
+    "pathParams": [
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "CreateInvitation": {
+    "method": "POST",
+    "path": "/invitations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "ListInvitations": {
+    "method": "GET",
+    "path": "/invitations",
+    "pathParams": [],
+    "queryParams": [
+      "status",
+      "query",
+      "order_by"
+    ]
+  },
+  "CreateBulkInvitations": {
+    "method": "POST",
+    "path": "/invitations/bulk",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "RevokeInvitation": {
+    "method": "POST",
+    "path": "/invitations/{invitation_id}/revoke",
+    "pathParams": [
+      "invitation_id"
+    ],
+    "queryParams": []
+  },
+  "ListInstanceOrganizationInvitations": {
+    "method": "GET",
+    "path": "/organization_invitations",
+    "pathParams": [],
+    "queryParams": [
+      "order_by",
+      "status",
+      "query"
+    ]
+  },
+  "ListAllowlistIdentifiers": {
+    "method": "GET",
+    "path": "/allowlist_identifiers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateAllowlistIdentifier": {
+    "method": "POST",
+    "path": "/allowlist_identifiers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteAllowlistIdentifier": {
+    "method": "DELETE",
+    "path": "/allowlist_identifiers/{identifier_id}",
+    "pathParams": [
+      "identifier_id"
+    ],
+    "queryParams": []
+  },
+  "ListBlocklistIdentifiers": {
+    "method": "GET",
+    "path": "/blocklist_identifiers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateBlocklistIdentifier": {
+    "method": "POST",
+    "path": "/blocklist_identifiers",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteBlocklistIdentifier": {
+    "method": "DELETE",
+    "path": "/blocklist_identifiers/{identifier_id}",
+    "pathParams": [
+      "identifier_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateInstanceAuthConfig": {
+    "method": "PATCH",
+    "path": "/beta_features/instance_settings",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UpdateProductionInstanceDomain": {
+    "method": "PUT",
+    "path": "/beta_features/domain",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateActorToken": {
+    "method": "POST",
+    "path": "/actor_tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "RevokeActorToken": {
+    "method": "POST",
+    "path": "/actor_tokens/{actor_token_id}/revoke",
+    "pathParams": [
+      "actor_token_id"
+    ],
+    "queryParams": []
+  },
+  "ListDomains": {
+    "method": "GET",
+    "path": "/domains",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "AddDomain": {
+    "method": "POST",
+    "path": "/domains",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteDomain": {
+    "method": "DELETE",
+    "path": "/domains/{domain_id}",
+    "pathParams": [
+      "domain_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateDomain": {
+    "method": "PATCH",
+    "path": "/domains/{domain_id}",
+    "pathParams": [
+      "domain_id"
+    ],
+    "queryParams": []
+  },
+  "GetInstance": {
+    "method": "GET",
+    "path": "/instance",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UpdateInstance": {
+    "method": "PATCH",
+    "path": "/instance",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UpdateInstanceRestrictions": {
+    "method": "PATCH",
+    "path": "/instance/restrictions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetInstanceProtect": {
+    "method": "GET",
+    "path": "/instance/protect",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UpdateInstanceProtect": {
+    "method": "PATCH",
+    "path": "/instance/protect",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetInstanceCommunication": {
+    "method": "GET",
+    "path": "/instance/communication",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UpdateInstanceCommunication": {
+    "method": "PATCH",
+    "path": "/instance/communication",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetInstanceOAuthApplicationSettings": {
+    "method": "GET",
+    "path": "/instance/oauth_application_settings",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UpdateInstanceOAuthApplicationSettings": {
+    "method": "PATCH",
+    "path": "/instance/oauth_application_settings",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "ChangeProductionInstanceDomain": {
+    "method": "POST",
+    "path": "/instance/change_domain",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetInstanceOrganizationSettings": {
+    "method": "GET",
+    "path": "/instance/organization_settings",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "UpdateInstanceOrganizationSettings": {
+    "method": "PATCH",
+    "path": "/instance/organization_settings",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateSvixApp": {
+    "method": "POST",
+    "path": "/webhooks/svix",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteSvixApp": {
+    "method": "DELETE",
+    "path": "/webhooks/svix",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GenerateSvixAuthURL": {
+    "method": "POST",
+    "path": "/webhooks/svix_url",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "ListJWTTemplates": {
+    "method": "GET",
+    "path": "/jwt_templates",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateJWTTemplate": {
+    "method": "POST",
+    "path": "/jwt_templates",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetJWTTemplate": {
+    "method": "GET",
+    "path": "/jwt_templates/{template_id}",
+    "pathParams": [
+      "template_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateJWTTemplate": {
+    "method": "PATCH",
+    "path": "/jwt_templates/{template_id}",
+    "pathParams": [
+      "template_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteJWTTemplate": {
+    "method": "DELETE",
+    "path": "/jwt_templates/{template_id}",
+    "pathParams": [
+      "template_id"
+    ],
+    "queryParams": []
+  },
+  "ListMachines": {
+    "method": "GET",
+    "path": "/machines",
+    "pathParams": [],
+    "queryParams": [
+      "query",
+      "order_by"
+    ]
+  },
+  "CreateMachine": {
+    "method": "POST",
+    "path": "/machines",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetMachine": {
+    "method": "GET",
+    "path": "/machines/{machine_id}",
+    "pathParams": [
+      "machine_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateMachine": {
+    "method": "PATCH",
+    "path": "/machines/{machine_id}",
+    "pathParams": [
+      "machine_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteMachine": {
+    "method": "DELETE",
+    "path": "/machines/{machine_id}",
+    "pathParams": [
+      "machine_id"
+    ],
+    "queryParams": []
+  },
+  "GetMachineSecretKey": {
+    "method": "GET",
+    "path": "/machines/{machine_id}/secret_key",
+    "pathParams": [
+      "machine_id"
+    ],
+    "queryParams": []
+  },
+  "RotateMachineSecretKey": {
+    "method": "POST",
+    "path": "/machines/{machine_id}/secret_key/rotate",
+    "pathParams": [
+      "machine_id"
+    ],
+    "queryParams": []
+  },
+  "CreateMachineScope": {
+    "method": "POST",
+    "path": "/machines/{machine_id}/scopes",
+    "pathParams": [
+      "machine_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteMachineScope": {
+    "method": "DELETE",
+    "path": "/machines/{machine_id}/scopes/{other_machine_id}",
+    "pathParams": [
+      "machine_id",
+      "other_machine_id"
+    ],
+    "queryParams": []
+  },
+  "ListOrganizations": {
+    "method": "GET",
+    "path": "/organizations",
+    "pathParams": [],
+    "queryParams": [
+      "include_members_count",
+      "include_missing_member_with_elevated_permissions",
+      "query",
+      "user_id",
+      "organization_id",
+      "order_by"
+    ]
+  },
+  "CreateOrganization": {
+    "method": "POST",
+    "path": "/organizations",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetOrganization": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": [
+      "include_members_count",
+      "include_missing_member_with_elevated_permissions"
+    ]
+  },
+  "UpdateOrganization": {
+    "method": "PATCH",
+    "path": "/organizations/{organization_id}",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteOrganization": {
+    "method": "DELETE",
+    "path": "/organizations/{organization_id}",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "MergeOrganizationMetadata": {
+    "method": "PATCH",
+    "path": "/organizations/{organization_id}/metadata",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "ReplaceOrganizationMetadata": {
+    "method": "PUT",
+    "path": "/organizations/{organization_id}/metadata",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "UploadOrganizationLogo": {
+    "method": "PUT",
+    "path": "/organizations/{organization_id}/logo",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteOrganizationLogo": {
+    "method": "DELETE",
+    "path": "/organizations/{organization_id}/logo",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "GetOrganizationBillingSubscription": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}/billing/subscription",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "GetOrganizationBillingCreditBalance": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}/billing/credits",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "AdjustOrganizationBillingCreditBalance": {
+    "method": "POST",
+    "path": "/organizations/{organization_id}/billing/credits",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "CreateOrganizationInvitation": {
+    "method": "POST",
+    "path": "/organizations/{organization_id}/invitations",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "ListOrganizationInvitations": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}/invitations",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": [
+      "status",
+      "email_address",
+      "order_by"
+    ]
+  },
+  "CreateOrganizationInvitationBulk": {
+    "method": "POST",
+    "path": "/organizations/{organization_id}/invitations/bulk",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "ListPendingOrganizationInvitations": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}/invitations/pending",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "GetOrganizationInvitation": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}/invitations/{invitation_id}",
+    "pathParams": [
+      "organization_id",
+      "invitation_id"
+    ],
+    "queryParams": []
+  },
+  "RevokeOrganizationInvitation": {
+    "method": "POST",
+    "path": "/organizations/{organization_id}/invitations/{invitation_id}/revoke",
+    "pathParams": [
+      "organization_id",
+      "invitation_id"
+    ],
+    "queryParams": []
+  },
+  "ListOrganizationRoles": {
+    "method": "GET",
+    "path": "/organization_roles",
+    "pathParams": [],
+    "queryParams": [
+      "query",
+      "order_by"
+    ]
+  },
+  "CreateOrganizationRole": {
+    "method": "POST",
+    "path": "/organization_roles",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetOrganizationRole": {
+    "method": "GET",
+    "path": "/organization_roles/{organization_role_id}",
+    "pathParams": [
+      "organization_role_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateOrganizationRole": {
+    "method": "PATCH",
+    "path": "/organization_roles/{organization_role_id}",
+    "pathParams": [
+      "organization_role_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteOrganizationRole": {
+    "method": "DELETE",
+    "path": "/organization_roles/{organization_role_id}",
+    "pathParams": [
+      "organization_role_id"
+    ],
+    "queryParams": []
+  },
+  "AssignPermissionToOrganizationRole": {
+    "method": "POST",
+    "path": "/organization_roles/{organization_role_id}/permissions/{permission_id}",
+    "pathParams": [
+      "organization_role_id",
+      "permission_id"
+    ],
+    "queryParams": []
+  },
+  "RemovePermissionFromOrganizationRole": {
+    "method": "DELETE",
+    "path": "/organization_roles/{organization_role_id}/permissions/{permission_id}",
+    "pathParams": [
+      "organization_role_id",
+      "permission_id"
+    ],
+    "queryParams": []
+  },
+  "CreateOrganizationMembership": {
+    "method": "POST",
+    "path": "/organizations/{organization_id}/memberships",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "ListOrganizationMemberships": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}/memberships",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": [
+      "order_by",
+      "user_id",
+      "email_address",
+      "phone_number",
+      "username",
+      "web3_wallet",
+      "role",
+      "query",
+      "email_address_query",
+      "phone_number_query",
+      "username_query",
+      "name_query",
+      "last_active_at_before",
+      "last_active_at_after",
+      "created_at_before",
+      "created_at_after"
+    ]
+  },
+  "UpdateOrganizationMembership": {
+    "method": "PATCH",
+    "path": "/organizations/{organization_id}/memberships/{user_id}",
+    "pathParams": [
+      "organization_id",
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteOrganizationMembership": {
+    "method": "DELETE",
+    "path": "/organizations/{organization_id}/memberships/{user_id}",
+    "pathParams": [
+      "organization_id",
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateOrganizationMembershipMetadata": {
+    "method": "PATCH",
+    "path": "/organizations/{organization_id}/memberships/{user_id}/metadata",
+    "pathParams": [
+      "organization_id",
+      "user_id"
+    ],
+    "queryParams": []
+  },
+  "CreateOrganizationDomain": {
+    "method": "POST",
+    "path": "/organizations/{organization_id}/domains",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": []
+  },
+  "ListOrganizationDomains": {
+    "method": "GET",
+    "path": "/organizations/{organization_id}/domains",
+    "pathParams": [
+      "organization_id"
+    ],
+    "queryParams": [
+      "verified",
+      "enrollment_mode"
+    ]
+  },
+  "UpdateOrganizationDomain": {
+    "method": "PATCH",
+    "path": "/organizations/{organization_id}/domains/{domain_id}",
+    "pathParams": [
+      "organization_id",
+      "domain_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteOrganizationDomain": {
+    "method": "DELETE",
+    "path": "/organizations/{organization_id}/domains/{domain_id}",
+    "pathParams": [
+      "organization_id",
+      "domain_id"
+    ],
+    "queryParams": []
+  },
+  "VerifyOrganizationDomainOwnership": {
+    "method": "POST",
+    "path": "/organizations/{organization_id}/domains/{domain_id}/verify_ownership",
+    "pathParams": [
+      "organization_id",
+      "domain_id"
+    ],
+    "queryParams": []
+  },
+  "ListAllOrganizationDomains": {
+    "method": "GET",
+    "path": "/organization_domains",
+    "pathParams": [],
+    "queryParams": [
+      "organization_id",
+      "verified",
+      "enrollment_mode",
+      "query",
+      "domains",
+      "order_by"
+    ]
+  },
+  "VerifyDomainProxy": {
+    "method": "POST",
+    "path": "/proxy_checks",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "ListRedirectURLs": {
+    "method": "GET",
+    "path": "/redirect_urls",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateRedirectURL": {
+    "method": "POST",
+    "path": "/redirect_urls",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetRedirectURL": {
+    "method": "GET",
+    "path": "/redirect_urls/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "DeleteRedirectURL": {
+    "method": "DELETE",
+    "path": "/redirect_urls/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "CreateSignInToken": {
+    "method": "POST",
+    "path": "/sign_in_tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "RevokeSignInToken": {
+    "method": "POST",
+    "path": "/sign_in_tokens/{sign_in_token_id}/revoke",
+    "pathParams": [
+      "sign_in_token_id"
+    ],
+    "queryParams": []
+  },
+  "GetSignUp": {
+    "method": "GET",
+    "path": "/sign_ups/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "UpdateSignUp": {
+    "method": "PATCH",
+    "path": "/sign_ups/{id}",
+    "pathParams": [
+      "id"
+    ],
+    "queryParams": []
+  },
+  "ListOAuthApplications": {
+    "method": "GET",
+    "path": "/oauth_applications",
+    "pathParams": [],
+    "queryParams": [
+      "order_by",
+      "name_query"
+    ]
+  },
+  "CreateOAuthApplication": {
+    "method": "POST",
+    "path": "/oauth_applications",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetOAuthApplication": {
+    "method": "GET",
+    "path": "/oauth_applications/{oauth_application_id}",
+    "pathParams": [
+      "oauth_application_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateOAuthApplication": {
+    "method": "PATCH",
+    "path": "/oauth_applications/{oauth_application_id}",
+    "pathParams": [
+      "oauth_application_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteOAuthApplication": {
+    "method": "DELETE",
+    "path": "/oauth_applications/{oauth_application_id}",
+    "pathParams": [
+      "oauth_application_id"
+    ],
+    "queryParams": []
+  },
+  "UploadOAuthApplicationLogo": {
+    "method": "PUT",
+    "path": "/oauth_applications/{oauth_application_id}/logo",
+    "pathParams": [
+      "oauth_application_id"
+    ],
+    "queryParams": []
+  },
+  "RotateOAuthApplicationSecret": {
+    "method": "POST",
+    "path": "/oauth_applications/{oauth_application_id}/rotate_secret",
+    "pathParams": [
+      "oauth_application_id"
+    ],
+    "queryParams": []
+  },
+  "RevokeOAuthApplicationToken": {
+    "method": "POST",
+    "path": "/oauth_applications/{oauth_application_id}/revoke_token",
+    "pathParams": [
+      "oauth_application_id"
+    ],
+    "queryParams": []
+  },
+  "ListSAMLConnections": {
+    "method": "GET",
+    "path": "/saml_connections",
+    "pathParams": [],
+    "queryParams": [
+      "query",
+      "order_by",
+      "organization_id"
+    ]
+  },
+  "CreateSAMLConnection": {
+    "method": "POST",
+    "path": "/saml_connections",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetSAMLConnection": {
+    "method": "GET",
+    "path": "/saml_connections/{saml_connection_id}",
+    "pathParams": [
+      "saml_connection_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateSAMLConnection": {
+    "method": "PATCH",
+    "path": "/saml_connections/{saml_connection_id}",
+    "pathParams": [
+      "saml_connection_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteSAMLConnection": {
+    "method": "DELETE",
+    "path": "/saml_connections/{saml_connection_id}",
+    "pathParams": [
+      "saml_connection_id"
+    ],
+    "queryParams": []
+  },
+  "ListEnterpriseConnections": {
+    "method": "GET",
+    "path": "/enterprise_connections",
+    "pathParams": [],
+    "queryParams": [
+      "organization_id",
+      "active"
+    ]
+  },
+  "CreateEnterpriseConnection": {
+    "method": "POST",
+    "path": "/enterprise_connections",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetEnterpriseConnection": {
+    "method": "GET",
+    "path": "/enterprise_connections/{enterprise_connection_id}",
+    "pathParams": [
+      "enterprise_connection_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateEnterpriseConnection": {
+    "method": "PATCH",
+    "path": "/enterprise_connections/{enterprise_connection_id}",
+    "pathParams": [
+      "enterprise_connection_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteEnterpriseConnection": {
+    "method": "DELETE",
+    "path": "/enterprise_connections/{enterprise_connection_id}",
+    "pathParams": [
+      "enterprise_connection_id"
+    ],
+    "queryParams": []
+  },
+  "ListEnterpriseConnectionTestRuns": {
+    "method": "GET",
+    "path": "/enterprise_connections/{enterprise_connection_id}/test_runs",
+    "pathParams": [
+      "enterprise_connection_id"
+    ],
+    "queryParams": [
+      "status"
+    ]
+  },
+  "CreateEnterpriseConnectionTestRun": {
+    "method": "POST",
+    "path": "/enterprise_connections/{enterprise_connection_id}/test_runs",
+    "pathParams": [
+      "enterprise_connection_id"
+    ],
+    "queryParams": []
+  },
+  "CreateTestingToken": {
+    "method": "POST",
+    "path": "/testing_tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateAgentTask": {
+    "method": "POST",
+    "path": "/agents/tasks",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "RevokeAgentTask": {
+    "method": "POST",
+    "path": "/agents/tasks/{agent_task_id}/revoke",
+    "pathParams": [
+      "agent_task_id"
+    ],
+    "queryParams": []
+  },
+  "InstanceGetOrganizationMemberships": {
+    "method": "GET",
+    "path": "/organization_memberships",
+    "pathParams": [],
+    "queryParams": [
+      "order_by"
+    ]
+  },
+  "ListWaitlistEntries": {
+    "method": "GET",
+    "path": "/waitlist_entries",
+    "pathParams": [],
+    "queryParams": [
+      "query",
+      "status",
+      "order_by"
+    ]
+  },
+  "CreateWaitlistEntry": {
+    "method": "POST",
+    "path": "/waitlist_entries",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "CreateBulkWaitlistEntries": {
+    "method": "POST",
+    "path": "/waitlist_entries/bulk",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "DeleteWaitlistEntry": {
+    "method": "DELETE",
+    "path": "/waitlist_entries/{waitlist_entry_id}",
+    "pathParams": [
+      "waitlist_entry_id"
+    ],
+    "queryParams": []
+  },
+  "InviteWaitlistEntry": {
+    "method": "POST",
+    "path": "/waitlist_entries/{waitlist_entry_id}/invite",
+    "pathParams": [
+      "waitlist_entry_id"
+    ],
+    "queryParams": []
+  },
+  "RejectWaitlistEntry": {
+    "method": "POST",
+    "path": "/waitlist_entries/{waitlist_entry_id}/reject",
+    "pathParams": [
+      "waitlist_entry_id"
+    ],
+    "queryParams": []
+  },
+  "GetCommercePlanList": {
+    "method": "GET",
+    "path": "/billing/plans",
+    "pathParams": [],
+    "queryParams": [
+      "payer_type"
+    ]
+  },
+  "GetBillingPriceList": {
+    "method": "GET",
+    "path": "/billing/prices",
+    "pathParams": [],
+    "queryParams": [
+      "plan_id"
+    ]
+  },
+  "CreateBillingPrice": {
+    "method": "POST",
+    "path": "/billing/prices",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetCommerceSubscriptionItemList": {
+    "method": "GET",
+    "path": "/billing/subscription_items",
+    "pathParams": [],
+    "queryParams": [
+      "status",
+      "payer_type",
+      "plan_id",
+      "include_free",
+      "query"
+    ]
+  },
+  "CancelCommerceSubscriptionItem": {
+    "method": "DELETE",
+    "path": "/billing/subscription_items/{subscription_item_id}",
+    "pathParams": [
+      "subscription_item_id"
+    ],
+    "queryParams": [
+      "end_now"
+    ]
+  },
+  "ExtendBillingSubscriptionItemFreeTrial": {
+    "method": "POST",
+    "path": "/billing/subscription_items/{subscription_item_id}/extend_free_trial",
+    "pathParams": [
+      "subscription_item_id"
+    ],
+    "queryParams": []
+  },
+  "CreateBillingPriceTransition": {
+    "method": "POST",
+    "path": "/billing/subscription_items/{subscription_item_id}/price_transition",
+    "pathParams": [
+      "subscription_item_id"
+    ],
+    "queryParams": []
+  },
+  "GetBillingStatementList": {
+    "method": "GET",
+    "path": "/billing/statements",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetBillingStatement": {
+    "method": "GET",
+    "path": "/billing/statements/{statementID}",
+    "pathParams": [
+      "statementID"
+    ],
+    "queryParams": []
+  },
+  "GetBillingStatementPaymentAttempts": {
+    "method": "GET",
+    "path": "/billing/statements/{statementID}/payment_attempts",
+    "pathParams": [
+      "statementID"
+    ],
+    "queryParams": []
+  },
+  "ListOrganizationPermissions": {
+    "method": "GET",
+    "path": "/organization_permissions",
+    "pathParams": [],
+    "queryParams": [
+      "query",
+      "order_by"
+    ]
+  },
+  "CreateOrganizationPermission": {
+    "method": "POST",
+    "path": "/organization_permissions",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetOrganizationPermission": {
+    "method": "GET",
+    "path": "/organization_permissions/{permission_id}",
+    "pathParams": [
+      "permission_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateOrganizationPermission": {
+    "method": "PATCH",
+    "path": "/organization_permissions/{permission_id}",
+    "pathParams": [
+      "permission_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteOrganizationPermission": {
+    "method": "DELETE",
+    "path": "/organization_permissions/{permission_id}",
+    "pathParams": [
+      "permission_id"
+    ],
+    "queryParams": []
+  },
+  "ListRoleSets": {
+    "method": "GET",
+    "path": "/role_sets",
+    "pathParams": [],
+    "queryParams": [
+      "query",
+      "order_by"
+    ]
+  },
+  "CreateRoleSet": {
+    "method": "POST",
+    "path": "/role_sets",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "GetRoleSet": {
+    "method": "GET",
+    "path": "/role_sets/{role_set_key_or_id}",
+    "pathParams": [
+      "role_set_key_or_id"
+    ],
+    "queryParams": []
+  },
+  "UpdateRoleSet": {
+    "method": "PATCH",
+    "path": "/role_sets/{role_set_key_or_id}",
+    "pathParams": [
+      "role_set_key_or_id"
+    ],
+    "queryParams": []
+  },
+  "ReplaceRoleSet": {
+    "method": "POST",
+    "path": "/role_sets/{role_set_key_or_id}/replace",
+    "pathParams": [
+      "role_set_key_or_id"
+    ],
+    "queryParams": []
+  },
+  "AddRolesToRoleSet": {
+    "method": "POST",
+    "path": "/role_sets/{role_set_key_or_id}/roles",
+    "pathParams": [
+      "role_set_key_or_id"
+    ],
+    "queryParams": []
+  },
+  "ReplaceRoleInRoleSet": {
+    "method": "POST",
+    "path": "/role_sets/{role_set_key_or_id}/roles/replace",
+    "pathParams": [
+      "role_set_key_or_id"
+    ],
+    "queryParams": []
+  },
+  "ListSCIMGroupRoleMappings": {
+    "method": "GET",
+    "path": "/scim_directories/{scim_directory_id}/group_role_mappings",
+    "pathParams": [
+      "scim_directory_id"
+    ],
+    "queryParams": []
+  },
+  "DeleteSCIMGroupRoleMapping": {
+    "method": "DELETE",
+    "path": "/scim_directories/{scim_directory_id}/group_role_mappings/{mapping_id}",
+    "pathParams": [
+      "scim_directory_id",
+      "mapping_id"
+    ],
+    "queryParams": []
+  },
+  "createAdminPortalLinkToken": {
+    "method": "POST",
+    "path": "/admin_portal_link_tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "revokeAdminPortalLinkToken": {
+    "method": "POST",
+    "path": "/admin_portal_link_tokens/{adminPortalLinkTokenID}/revoke",
+    "pathParams": [
+      "adminPortalLinkTokenID"
+    ],
+    "queryParams": []
+  },
+  "createApiKey": {
+    "method": "POST",
+    "path": "/api_keys",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "getApiKeys": {
+    "method": "GET",
+    "path": "/api_keys",
+    "pathParams": [],
+    "queryParams": [
+      "type",
+      "subject",
+      "include_invalid",
+      "limit",
+      "offset",
+      "query"
+    ]
+  },
+  "getApiKey": {
+    "method": "GET",
+    "path": "/api_keys/{apiKeyID}",
+    "pathParams": [
+      "apiKeyID"
+    ],
+    "queryParams": []
+  },
+  "updateApiKey": {
+    "method": "PATCH",
+    "path": "/api_keys/{apiKeyID}",
+    "pathParams": [
+      "apiKeyID"
+    ],
+    "queryParams": []
+  },
+  "deleteApiKey": {
+    "method": "DELETE",
+    "path": "/api_keys/{apiKeyID}",
+    "pathParams": [
+      "apiKeyID"
+    ],
+    "queryParams": []
+  },
+  "getApiKeySecret": {
+    "method": "GET",
+    "path": "/api_keys/{apiKeyID}/secret",
+    "pathParams": [
+      "apiKeyID"
+    ],
+    "queryParams": []
+  },
+  "revokeApiKey": {
+    "method": "POST",
+    "path": "/api_keys/{apiKeyID}/revoke",
+    "pathParams": [
+      "apiKeyID"
+    ],
+    "queryParams": []
+  },
+  "verifyApiKey": {
+    "method": "POST",
+    "path": "/api_keys/verify",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "createM2MToken": {
+    "method": "POST",
+    "path": "/m2m_tokens",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "getM2MTokens": {
+    "method": "GET",
+    "path": "/m2m_tokens",
+    "pathParams": [],
+    "queryParams": [
+      "subject",
+      "revoked",
+      "expired",
+      "limit",
+      "offset"
+    ]
+  },
+  "revokeM2MToken": {
+    "method": "POST",
+    "path": "/m2m_tokens/{m2m_token_id}/revoke",
+    "pathParams": [
+      "m2m_token_id"
+    ],
+    "queryParams": []
+  },
+  "verifyM2MToken": {
+    "method": "POST",
+    "path": "/m2m_tokens/verify",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "verifyOAuthAccessToken": {
+    "method": "POST",
+    "path": "/oauth_applications/access_tokens/verify",
+    "pathParams": [],
+    "queryParams": []
+  }
+}
