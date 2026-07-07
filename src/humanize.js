@@ -212,4 +212,98 @@ function humanizeVerb(op) {
   };
 }
 
-module.exports = { humanize, humanizeVerb, singularizeWord, splitCamel };
+// ---- Path-style operations (Cloudflare, and other kebab/snake specs) ---------------
+// Cloudflare operationIds are messy kebab (dns-records-for-a-zone-create-dns-record,
+// zones-0-get, ...-dns-record-details) where the verb is a prefix, a suffix, or a bare
+// HTTP method, and item-vs-collection hides in a numeric segment - so naming from the id
+// is lossy. The METHOD + PATH is unambiguous, so name from that instead:
+//   GET    /zones                                        -> list_zones
+//   POST   /zones                                        -> create_zone
+//   GET    /zones/{zone_id}                              -> get_zone
+//   GET    /zones/{zone_id}/dns_records                  -> list_dns_records
+//   POST   /zones/{zone_id}/dns_records                  -> create_dns_record
+//   GET    /zones/{zone_id}/dns_records/{dns_record_id}  -> get_dns_record
+//   POST   /zones/{zone_id}/dns_records/batch            -> batch_dns_records
+//   POST   /accounts/{account_id}/email/routing/addresses-> create_email_routing_address
+//   POST   /accounts/{account_id}/email/routing/enable   -> enable_email_routing
+
+// Leading path containers that SCOPE a resource (drop them when they only qualify a deeper
+// resource; never strip the terminal resource itself).
+const PATH_SCOPES = new Set(['accounts', 'zones', 'organizations', 'memberships']);
+// Trailing path segments that are ACTIONS on the preceding resource, not a sub-collection.
+const PATH_ACTIONS = new Set([
+  'enable', 'disable', 'activate', 'deactivate', 'verify', 'validate', 'purge', 'rotate',
+  'scan', 'batch', 'plan', 'review', 'apply', 'trigger', 'preview', 'retry', 'cancel',
+  'publish', 'duplicate', 'connect', 'disconnect', 'reset', 'rollback', 'restore', 'edit',
+  'import', 'export', 'lock', 'unlock',
+]);
+// Segments that are acronyms / already-singular resource names the -s heuristic mangles
+// (dns -> "dn"). Kept verbatim, and never treated as a plural collection.
+const PATH_INVARIANT = new Set(['dns']);
+
+const isParamSeg = (s) => /^\{.*\}$/.test(s);
+// Singularize the last word of a snake segment: dns_records -> dns_record, zones -> zone.
+function singularizeSeg(seg) {
+  const w = String(seg).split('_');
+  const last = w[w.length - 1];
+  if (!PATH_INVARIANT.has(last)) w[w.length - 1] = singularizeWord(last);
+  return w.join('_');
+}
+const isPluralSeg = (seg) => {
+  const last = String(seg).split('_').pop();
+  return !PATH_INVARIANT.has(last) && isPlural(last);
+};
+
+function humanizePath(method, path) {
+  method = String(method || 'GET').toUpperCase();
+  const segs = String(path).split('/').filter(Boolean);
+  // Strip leading scope pairs (accounts/{id}, zones/{id}) that qualify a DEEPER resource.
+  let i = 0;
+  while (i + 2 < segs.length && PATH_SCOPES.has(segs[i]) && isParamSeg(segs[i + 1])) i += 2;
+  if (segs[i] === 'user' && segs.length - i > 1) i += 1; // /user/... singleton scope
+  const rest = segs.slice(i);
+  if (!rest.length) {
+    return { name: method.toLowerCase(), resourceKey: '', verb: method.toLowerCase(), nesting: 0, single: false };
+  }
+  const last = rest[rest.length - 1];
+  const literalsBefore = rest.slice(0, -1).filter((s) => !isParamSeg(s));
+
+  // ITEM: path ends at a specific record (/.../{id}). Verb is method-driven; the resource
+  // is the collection just before the id, parent-qualified.
+  if (isParamSeg(last)) {
+    const coll = literalsBefore[literalsBefore.length - 1] || 'resource';
+    const quals = literalsBefore.slice(0, -1);
+    const resourceKey = [...quals, singularizeSeg(coll)].join('_');
+    const verb = method === 'DELETE' ? 'delete'
+      : method === 'PATCH' ? 'patch'
+        : method === 'PUT' ? 'update'
+          : method === 'POST' ? 'update'
+            : 'get';
+    return { name: `${verb}_${resourceKey}`, resourceKey, verb, nesting: quals.length, single: true };
+  }
+
+  // ACTION: trailing verb segment (enable/scan/batch/...) acting on the preceding resource.
+  if (PATH_ACTIONS.has(last) && literalsBefore.length) {
+    const resPhrase = literalsBefore.join('_'); // keep as-is (scan_dns_records, enable_email_routing)
+    const resourceKey = [...literalsBefore.slice(0, -1), singularizeSeg(literalsBefore[literalsBefore.length - 1])].join('_');
+    return { name: `${last}_${resPhrase}`, resourceKey, verb: last, nesting: Math.max(0, literalsBefore.length - 1), single: false };
+  }
+
+  // COLLECTION (plural noun) or SINGLETON (singular noun) as the terminal segment.
+  const quals = literalsBefore;
+  const plural = [...quals, last].join('_');
+  const singular = [...quals, singularizeSeg(last)].join('_');
+  const nesting = quals.length;
+  const isColl = isPluralSeg(last);
+  // POST to a collection creates one member (singular). A PUT/PATCH/DELETE addressed at the
+  // COLLECTION itself (no /{id}) is a BULK op - keep it PLURAL so it never collides with the
+  // singular item op (delete_filters = bulk, delete_filter = one).
+  if (method === 'POST') return { name: `create_${singular}`, resourceKey: singular, verb: 'create', nesting, single: false };
+  if (method === 'DELETE') return { name: `delete_${isColl ? plural : singular}`, resourceKey: singular, verb: 'delete', nesting, single: !isColl };
+  if (method === 'PUT') return { name: `update_${isColl ? plural : singular}`, resourceKey: singular, verb: 'update', nesting, single: !isColl };
+  if (method === 'PATCH') return { name: `patch_${isColl ? plural : singular}`, resourceKey: singular, verb: 'patch', nesting, single: !isColl };
+  if (isColl) return { name: `list_${plural}`, resourceKey: singular, verb: 'list', nesting, single: false };
+  return { name: `get_${singular}`, resourceKey: singular, verb: 'get', nesting, single: true };
+}
+
+module.exports = { humanize, humanizeVerb, humanizePath, singularizeWord, splitCamel };

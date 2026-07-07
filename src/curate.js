@@ -15,15 +15,37 @@
 
 const fs = require('fs');
 const path = require('path');
-const { humanize, humanizeVerb, splitCamel } = require('./humanize');
+const { humanize, humanizeVerb, humanizePath, splitCamel } = require('./humanize');
 
 const VENDOR = process.env.VENDOR || 'stripe';
 const cfg = require(`../vendors/${VENDOR}`);
-const humanizeOp = cfg.namingStyle === 'verb' ? humanizeVerb : humanize;
 const outDir = path.join(__dirname, '..', 'out');
 
 // Resolve a config path: absolute (drive-letter or leading slash) as-is, else repo-relative.
 const resolve = (p) => (/^([a-zA-Z]:|\/)/.test(p) ? p : path.join(__dirname, '..', p));
+
+// Path-http vendors (Cloudflare) name from METHOD + PATH, not the (messy) operationId, so
+// we index operationId -> {method, path} from the spec. `opMeta` stays null otherwise.
+// The generator turns an operationId into a tool name by replacing non-alphanumerics with
+// `_` and truncating to MCP's 64-char limit, so index by that same key. For short
+// alphanumeric ids (Stripe/Vercel/Clerk) this is a no-op.
+const opKey = (id) => String(id).replace(/[^A-Za-z0-9]+/g, '_').slice(0, 64);
+let opMeta = null;
+if (cfg.namingStyle === 'path-http') {
+  const spec = JSON.parse(fs.readFileSync(resolve(cfg.specFile), 'utf8'));
+  opMeta = {};
+  for (const [p, methods] of Object.entries(spec.paths || {})) {
+    for (const [m, o] of Object.entries(methods)) {
+      if (o && o.operationId) opMeta[opKey(o.operationId)] = { method: m.toUpperCase(), path: p };
+    }
+  }
+}
+const pathOf = (op) => (opMeta && opMeta[op] ? opMeta[op].path : '');
+const humanizeOp = cfg.namingStyle === 'verb'
+  ? humanizeVerb
+  : cfg.namingStyle === 'path-http'
+    ? (op) => humanizePath(opMeta[op].method, opMeta[op].path)
+    : humanize;
 
 // Prefer the primary action when deciding who claims a clean name and the synonyms.
 const VERB_RANK = { create: 0, get: 1, search: 1, list: 2, update: 3, delete: 4 };
@@ -57,7 +79,11 @@ function enrich(original, verb, res, ownsSynonyms) {
   return `${lead} ${base}${extra}`;
 }
 
-const isSecondary = (op) => cfg.secondary.test(splitCamel(op).slice(1).join(''));
+// Secondary = a lower-priority namespace. For path-http vendors the operationId is kebab
+// (splitCamel yields nothing), so match the leading path segment instead.
+const isSecondary = (op) => cfg.namingStyle === 'path-http'
+  ? cfg.secondary.test(pathOf(op).replace(/^\//, ''))
+  : cfg.secondary.test(splitCamel(op).slice(1).join(''));
 
 function curate() {
   const rawTools = JSON.parse(fs.readFileSync(resolve(cfg.toolsFile), 'utf8'));
@@ -103,7 +129,16 @@ function curate() {
   // Core = a top-level resource / item / item-action (nesting 0), core namespace, not a
   // deprecated-alias duplicate. For verb-style vendors (nesting always 0, no secondary),
   // core is effectively the whole surface minus collisions.
-  const isCore = (op, name) => humanizeOp(op).nesting === 0 && !isSecondary(op) && !/_\d+$/.test(name);
+  // Core = the common surface. For path-http vendors, "nesting 0" is meaningless (every
+  // path is scoped under /accounts|/zones), so a vendor may supply `coreMatch` - a regex on
+  // the path that positively selects the first-batch namespaces (DNS, email routing, zones).
+  const isCore = (op, name) => {
+    if (/_\d+$/.test(name)) return false; // never a disambiguated duplicate
+    if (cfg.namingStyle === 'path-http') {
+      return cfg.coreMatch ? cfg.coreMatch.test(pathOf(op)) : !isSecondary(op);
+    }
+    return humanizeOp(op).nesting === 0 && !isSecondary(op);
+  };
 
   const curatedTools = [];
   const coreTools = [];

@@ -1,0 +1,3348 @@
+{
+  "mcp_portals_api_list_portals": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/portals",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "search"
+    ]
+  },
+  "mcp_portals_api_create_portals": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/portals",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_delete_portals": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
+    "pathParams": [
+      "account_id",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_fetch_gateways": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
+    "pathParams": [
+      "id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_update_portals": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
+    "pathParams": [
+      "id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_list_servers": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/servers",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "search"
+    ]
+  },
+  "mcp_portals_api_create_servers": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/servers",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_delete_servers": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/servers/{id}",
+    "pathParams": [
+      "account_id",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_fetch_servers": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/servers/{id}",
+    "pathParams": [
+      "account_id",
+      "id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_update_servers": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/servers/{id}",
+    "pathParams": [
+      "id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "mcp_portals_api_sync_server": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/ai-controls/mcp/servers/{id}/sync",
+    "pathParams": [
+      "id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_list_access_applications": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/apps",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "name",
+      "domain",
+      "aud",
+      "target_attributes",
+      "exact",
+      "search"
+    ]
+  },
+  "access_applications_add_an_application": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/apps",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_delete_an_access_application": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/apps/{app_id}",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_get_an_access_application": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/apps/{app_id}",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_update_an_access_application": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/apps/{app_id}",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_short_lived_certificate_c_as_delete_a_short_lived_certifi": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/ca",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_short_lived_certificate_c_as_get_a_short_lived_certificat": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/ca",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_short_lived_certificate_c_as_create_a_short_lived_certifi": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/ca",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_list_access_app_policies": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/policies",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": [
+      "per_page"
+    ]
+  },
+  "access_policies_create_an_access_policy": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/policies",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_delete_an_access_policy": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/policies/{policy_id}",
+    "pathParams": [
+      "app_id",
+      "policy_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_get_an_access_policy": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/policies/{policy_id}",
+    "pathParams": [
+      "app_id",
+      "policy_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_update_an_access_policy": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/policies/{policy_id}",
+    "pathParams": [
+      "app_id",
+      "policy_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_convert_reusable": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/policies/{policy_id}/make_reusable",
+    "pathParams": [
+      "app_id",
+      "policy_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_revoke_service_tokens": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/revoke_tokens",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_patch_update_access_application_settings": {
+    "method": "PATCH",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/settings",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_put_update_access_application_settings": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/settings",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_applications_test_access_policies": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/apps/{app_id}/user_policy_checks",
+    "pathParams": [
+      "app_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_short_lived_certificate_c_as_list_short_lived_certificate": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/apps/ca",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "per_page"
+    ]
+  },
+  "access_authenticator_device_aaguids_list": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/authenticator_device_aaguids",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_bookmark_applications_deprecated_list_bookmark_applicatio": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/bookmarks",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_bookmark_applications_deprecated_delete_a_bookmark_applic": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/bookmarks/{bookmark_id}",
+    "pathParams": [
+      "bookmark_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_bookmark_applications_deprecated_get_a_bookmark_applicati": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/bookmarks/{bookmark_id}",
+    "pathParams": [
+      "bookmark_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_bookmark_applications_deprecated_create_a_bookmark_applic": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/bookmarks/{bookmark_id}",
+    "pathParams": [
+      "bookmark_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_bookmark_applications_deprecated_update_a_bookmark_applic": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/bookmarks/{bookmark_id}",
+    "pathParams": [
+      "bookmark_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_mtls_authentication_list_mtls_certificates": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/certificates",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "per_page"
+    ]
+  },
+  "access_mtls_authentication_add_an_mtls_certificate": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/certificates",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_mtls_authentication_delete_an_mtls_certificate": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/certificates/{certificate_id}",
+    "pathParams": [
+      "certificate_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_mtls_authentication_get_an_mtls_certificate": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/certificates/{certificate_id}",
+    "pathParams": [
+      "certificate_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_mtls_authentication_update_an_mtls_certificate": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/certificates/{certificate_id}",
+    "pathParams": [
+      "certificate_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_mtls_authentication_list_mtls_certificates_hostname_setti": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/certificates/settings",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_mtls_authentication_update_an_mtls_certificate_settings": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/certificates/settings",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_custom_pages_list_custom_pages": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/custom_pages",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "per_page"
+    ]
+  },
+  "access_custom_pages_create_a_custom_page": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/custom_pages",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_custom_pages_delete_a_custom_page": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/custom_pages/{custom_page_id}",
+    "pathParams": [
+      "custom_page_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_custom_pages_get_a_custom_page": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/custom_pages/{custom_page_id}",
+    "pathParams": [
+      "custom_page_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_custom_pages_update_a_custom_page": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/custom_pages/{custom_page_id}",
+    "pathParams": [
+      "custom_page_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_gateway_ca_list_SSH_ca": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/gateway_ca",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_gateway_ca_add_an_SSH_ca": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/gateway_ca",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_gateway_ca_delete_an_SSH_ca": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/gateway_ca/{certificate_id}",
+    "pathParams": [
+      "certificate_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_groups_list_access_groups": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/groups",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "name",
+      "search"
+    ]
+  },
+  "access_groups_create_an_access_group": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/groups",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_groups_delete_an_access_group": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/groups/{group_id}",
+    "pathParams": [
+      "group_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_groups_get_an_access_group": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/groups/{group_id}",
+    "pathParams": [
+      "group_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_groups_update_an_access_group": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/groups/{group_id}",
+    "pathParams": [
+      "group_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_identity_providers_list_access_identity_providers": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/identity_providers",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "scim_enabled",
+      "per_page"
+    ]
+  },
+  "access_identity_providers_add_an_access_identity_provider": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/identity_providers",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_identity_providers_delete_an_access_identity_provider": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/identity_providers/{identity_provider_id}",
+    "pathParams": [
+      "identity_provider_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_identity_providers_get_an_access_identity_provider": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/identity_providers/{identity_provider_id}",
+    "pathParams": [
+      "identity_provider_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_identity_providers_update_an_access_identity_provider": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/identity_providers/{identity_provider_id}",
+    "pathParams": [
+      "identity_provider_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_identity_providers_create_saml_certificate_for_identity_p": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/identity_providers/{identity_provider_id}/saml_certificate",
+    "pathParams": [
+      "account_id",
+      "identity_provider_id"
+    ],
+    "queryParams": []
+  },
+  "access_identity_providers_list_scim_group_resources": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/groups",
+    "pathParams": [
+      "identity_provider_id",
+      "account_id"
+    ],
+    "queryParams": [
+      "cf_resource_id",
+      "idp_resource_id",
+      "name",
+      "per_page"
+    ]
+  },
+  "access_identity_providers_list_scim_user_resources": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/users",
+    "pathParams": [
+      "identity_provider_id",
+      "account_id"
+    ],
+    "queryParams": [
+      "cf_resource_id",
+      "idp_resource_id",
+      "username",
+      "email",
+      "name",
+      "per_page"
+    ]
+  },
+  "access_idp_federation_grants_list": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/idp_federation_grants",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_idp_federation_grants_create": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/idp_federation_grants",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_idp_federation_grants_delete": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/idp_federation_grants/{grant_id}",
+    "pathParams": [
+      "account_id",
+      "grant_id"
+    ],
+    "queryParams": []
+  },
+  "access_idp_federation_grants_get": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/idp_federation_grants/{grant_id}",
+    "pathParams": [
+      "account_id",
+      "grant_id"
+    ],
+    "queryParams": []
+  },
+  "access_key_configuration_get_the_access_key_configuration": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/keys",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_key_configuration_update_the_access_key_configuration": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/keys",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_key_configuration_rotate_access_keys": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/keys/rotate",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_authentication_logs_get_access_authentication_logs": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/logs/access_requests",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "limit",
+      "direction",
+      "since",
+      "until",
+      "per_page",
+      "email",
+      "email_exact",
+      "user_id",
+      "allowedOp",
+      "country_codeOp",
+      "app_typeOp",
+      "app_uidOp",
+      "ray_idOp",
+      "emailOp",
+      "idpOp",
+      "non_identityOp",
+      "user_idOp",
+      "fields"
+    ]
+  },
+  "access_scim_update_logs_list_access_scim_update_logs": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/logs/scim/updates",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "limit",
+      "direction",
+      "since",
+      "until",
+      "idp_id",
+      "status",
+      "resource_type",
+      "request_method",
+      "resource_user_email",
+      "resource_group_name",
+      "cf_resource_id",
+      "idp_resource_id",
+      "per_page"
+    ]
+  },
+  "zero_trust_organization_get_your_zero_trust_organization": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/organizations",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_organization_create_your_zero_trust_organization": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/organizations",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_organization_update_your_zero_trust_organization": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/organizations",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_organization_get_your_zero_trust_organization_doh_set": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/organizations/doh",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_organization_update_your_zero_trust_organization_doh_": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/organizations/doh",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_organization_revoke_all_access_tokens_for_a_user": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/organizations/revoke_user",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "devices"
+    ]
+  },
+  "access_policies_list_access_reusable_policies": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/policies",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "per_page"
+    ]
+  },
+  "access_policies_create_an_access_reusable_policy": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/policies",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_delete_an_access_reusable_policy": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/policies/{policy_id}",
+    "pathParams": [
+      "account_id",
+      "policy_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_get_an_access_reusable_policy": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/policies/{policy_id}",
+    "pathParams": [
+      "account_id",
+      "policy_id"
+    ],
+    "queryParams": []
+  },
+  "access_policies_update_an_access_reusable_policy": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/policies/{policy_id}",
+    "pathParams": [
+      "account_id",
+      "policy_id"
+    ],
+    "queryParams": []
+  },
+  "access_policy_tests": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/policy-tests",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_policy_tests_get_an_update": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/policy-tests/{policy_test_id}",
+    "pathParams": [
+      "account_id",
+      "policy_test_id"
+    ],
+    "queryParams": []
+  },
+  "access_policy_tests_get_a_user_page": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/policy-tests/{policy_test_id}/users",
+    "pathParams": [
+      "account_id",
+      "policy_test_id"
+    ],
+    "queryParams": [
+      "per_page",
+      "status"
+    ]
+  },
+  "access_saml_certificates_list_certificate_sets": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/saml_certificates",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "id"
+    ]
+  },
+  "access_saml_certificates_get_certificate_set": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}",
+    "pathParams": [
+      "account_id",
+      "saml_cert_set_id"
+    ],
+    "queryParams": []
+  },
+  "access_saml_certificates_get_pem": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}/pem",
+    "pathParams": [
+      "account_id",
+      "saml_cert_set_id"
+    ],
+    "queryParams": []
+  },
+  "access_saml_certificates_rotate_certificate": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}/rotate",
+    "pathParams": [
+      "account_id",
+      "saml_cert_set_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_seats_update_a_user_seat": {
+    "method": "PATCH",
+    "path": "/accounts/{account_id}/access/seats",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_service_tokens_list_service_tokens": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/service_tokens",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "name",
+      "search"
+    ]
+  },
+  "access_service_tokens_create_a_service_token": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/service_tokens",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_service_tokens_delete_a_service_token": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/service_tokens/{service_token_id}",
+    "pathParams": [
+      "service_token_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_service_tokens_get_a_service_token": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/service_tokens/{service_token_id}",
+    "pathParams": [
+      "service_token_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_service_tokens_update_a_service_token": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/service_tokens/{service_token_id}",
+    "pathParams": [
+      "service_token_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_service_tokens_refresh_a_service_token": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/service_tokens/{service_token_id}/refresh",
+    "pathParams": [
+      "service_token_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_service_tokens_rotate_a_service_token": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/service_tokens/{service_token_id}/rotate",
+    "pathParams": [
+      "service_token_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_tags_list_tags": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/tags",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "per_page"
+    ]
+  },
+  "access_tags_create_tag": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/tags",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "access_tags_delete_a_tag": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/tags/{tag_name}",
+    "pathParams": [
+      "account_id",
+      "tag_name"
+    ],
+    "queryParams": []
+  },
+  "access_tags_get_a_tag": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/tags/{tag_name}",
+    "pathParams": [
+      "account_id",
+      "tag_name"
+    ],
+    "queryParams": []
+  },
+  "access_tags_update_a_tag": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/tags/{tag_name}",
+    "pathParams": [
+      "account_id",
+      "tag_name"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_get_users": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/users",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "name",
+      "email",
+      "search"
+    ]
+  },
+  "zero_trust_users_create_user": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/access/users",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_delete_user": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/users/{user_id}",
+    "pathParams": [
+      "user_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_get_user": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/users/{user_id}",
+    "pathParams": [
+      "user_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_update_user": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/access/users/{user_id}",
+    "pathParams": [
+      "user_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_get_active_sessions": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/users/{user_id}/active_sessions",
+    "pathParams": [
+      "user_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_get_active_session": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/users/{user_id}/active_sessions/{nonce}",
+    "pathParams": [
+      "user_id",
+      "account_id",
+      "nonce"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_get_failed_logins": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/users/{user_id}/failed_logins",
+    "pathParams": [
+      "user_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_get_last_seen_identity": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/access/users/{user_id}/last_seen_identity",
+    "pathParams": [
+      "user_id",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "zero_trust_users_delete_mfa_authenticator": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/access/users/{user_id}/mfa_authenticators/{authenticator_id}",
+    "pathParams": [
+      "user_id",
+      "account_id",
+      "authenticator_id"
+    ],
+    "queryParams": []
+  },
+  "d1_list_databases": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/d1/database",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "name",
+      "page",
+      "per_page"
+    ]
+  },
+  "d1_create_database": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/d1/database",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "d1_delete_database": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/d1/database/{database_id}",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": []
+  },
+  "d1_get_database": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/d1/database/{database_id}",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": [
+      "fields"
+    ]
+  },
+  "d1_update_partial_database": {
+    "method": "PATCH",
+    "path": "/accounts/{account_id}/d1/database/{database_id}",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": []
+  },
+  "d1_update_database": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/d1/database/{database_id}",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": []
+  },
+  "d1_export_database": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/d1/database/{database_id}/export",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": []
+  },
+  "d1_import_database": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/d1/database/{database_id}/import",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": []
+  },
+  "d1_query_database": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/d1/database/{database_id}/query",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": []
+  },
+  "d1_raw_database_query": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/d1/database/{database_id}/raw",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": []
+  },
+  "d1_time_travel_get_bookmark": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/d1/database/{database_id}/time_travel/bookmark",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": [
+      "timestamp"
+    ]
+  },
+  "d1_time_travel_restore": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/d1/database/{database_id}/time_travel/restore",
+    "pathParams": [
+      "account_id",
+      "database_id"
+    ],
+    "queryParams": [
+      "bookmark",
+      "timestamp"
+    ]
+  },
+  "email_routing_destination_addresses_list_destination_addresses": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/email/routing/addresses",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "direction",
+      "verified"
+    ]
+  },
+  "email_routing_destination_addresses_create_a_destination_address": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/email/routing/addresses",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_destination_addresses_delete_destination_address": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
+    "pathParams": [
+      "destination_address_identifier",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_destination_addresses_get_a_destination_address": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
+    "pathParams": [
+      "destination_address_identifier",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_destination_addresses_update_destination_address": {
+    "method": "PATCH",
+    "path": "/accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
+    "pathParams": [
+      "destination_address_identifier",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_list_buckets": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": [
+      "name_contains",
+      "start_after",
+      "per_page",
+      "order",
+      "direction",
+      "cursor"
+    ]
+  },
+  "r2_create_bucket": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/r2/buckets",
+    "pathParams": [
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_delete_bucket": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_get_bucket": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "r2_patch_bucket": {
+    "method": "PATCH",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "r2_delete_bucket_cors_policy": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/cors",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_get_bucket_cors_policy": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/cors",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_put_bucket_cors_policy": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/cors",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_list_custom_domains": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "r2_add_custom_domain": {
+    "method": "POST",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "r2_delete_custom_domain": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom/{domain}",
+    "pathParams": [
+      "bucket_name",
+      "account_id",
+      "domain"
+    ],
+    "queryParams": []
+  },
+  "r2_get_custom_domain_settings": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom/{domain}",
+    "pathParams": [
+      "account_id",
+      "bucket_name",
+      "domain"
+    ],
+    "queryParams": []
+  },
+  "r2_edit_custom_domain_settings": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom/{domain}",
+    "pathParams": [
+      "account_id",
+      "bucket_name",
+      "domain"
+    ],
+    "queryParams": []
+  },
+  "r2_get_bucket_public_policy": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/domains/managed",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "r2_put_bucket_public_policy": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/domains/managed",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "r2_get_bucket_lifecycle_configuration": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_put_bucket_lifecycle_configuration": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_get_bucket_local_uploads_configuration": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/local-uploads",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_put_bucket_local_uploads_configuration": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/local-uploads",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_get_bucket_lock_configuration": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/lock",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_put_bucket_lock_configuration": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/lock",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_delete_objects": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/objects",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": [
+      "prefix"
+    ]
+  },
+  "r2_list_objects": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/objects",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": [
+      "per_page",
+      "prefix",
+      "delimiter",
+      "cursor",
+      "start_after"
+    ]
+  },
+  "r2_delete_object": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}",
+    "pathParams": [
+      "account_id",
+      "bucket_name",
+      "object_key"
+    ],
+    "queryParams": []
+  },
+  "r2_get_object": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}",
+    "pathParams": [
+      "account_id",
+      "bucket_name",
+      "object_key"
+    ],
+    "queryParams": []
+  },
+  "r2_put_object": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}",
+    "pathParams": [
+      "account_id",
+      "bucket_name",
+      "object_key"
+    ],
+    "queryParams": []
+  },
+  "r2_delete_bucket_sippy_config": {
+    "method": "DELETE",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
+    "pathParams": [
+      "bucket_name",
+      "account_id"
+    ],
+    "queryParams": []
+  },
+  "r2_get_bucket_sippy_config": {
+    "method": "GET",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "r2_put_bucket_sippy_config": {
+    "method": "PUT",
+    "path": "/accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
+    "pathParams": [
+      "account_id",
+      "bucket_name"
+    ],
+    "queryParams": []
+  },
+  "zones_get": {
+    "method": "GET",
+    "path": "/zones",
+    "pathParams": [],
+    "queryParams": [
+      "name",
+      "status",
+      "type",
+      "account.id",
+      "account.name",
+      "page",
+      "per_page",
+      "order",
+      "direction",
+      "match"
+    ]
+  },
+  "zones_post": {
+    "method": "POST",
+    "path": "/zones",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "zones_0_delete": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zones_0_get": {
+    "method": "GET",
+    "path": "/zones/{zone_id}",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zones_0_patch": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_cache_reserve_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/cache_reserve",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_cache_reserve_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/cache/cache_reserve",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_cache_reserve_clear": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/cache_reserve_clear",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_start_cache_reserve_clear": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/cache/cache_reserve_clear",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_list": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_upsert": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_create": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_delete": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions/{origin_ip}",
+    "pathParams": [
+      "zone_id",
+      "origin_ip"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_get": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions/{origin_ip}",
+    "pathParams": [
+      "zone_id",
+      "origin_ip"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_batch_delete": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions/batch",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_batch_upsert": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions/batch",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "origin_cloud_regions_supported_regions": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/origin_cloud_regions/supported_regions",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_origin_post_quantum_encryption_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/origin_post_quantum_encryption",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_origin_post_quantum_encryption_settin": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/cache/origin_post_quantum_encryption",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_regional_tiered_cache_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/regional_tiered_cache",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_regional_tiered_cache_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/cache/regional_tiered_cache",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "smart_tiered_cache_delete_smart_tiered_cache_setting": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "smart_tiered_cache_get_smart_tiered_cache_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "smart_tiered_cache_patch_smart_tiered_cache_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "smart_tiered_cache_create_smart_tiered_cache_setting": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_delete_variants_setting": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/cache/variants",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_variants_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/cache/variants",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_variants_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/cache/variants",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_ssl_for_a_zone_list_ssl_configurations": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/custom_certificates",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "match",
+      "status"
+    ]
+  },
+  "custom_ssl_for_a_zone_create_ssl_configuration": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/custom_certificates",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_ssl_for_a_zone_delete_ssl_configuration": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/custom_certificates/{custom_certificate_id}",
+    "pathParams": [
+      "custom_certificate_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_ssl_for_a_zone_ssl_configuration_details": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/custom_certificates/{custom_certificate_id}",
+    "pathParams": [
+      "custom_certificate_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_ssl_for_a_zone_edit_ssl_configuration": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/custom_certificates/{custom_certificate_id}",
+    "pathParams": [
+      "custom_certificate_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_ssl_for_a_zone_re_prioritize_ssl_certificates": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/custom_certificates/prioritize",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_for_a_zone_list_custom_hostnames": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/custom_hostnames",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "hostname",
+      "hostname.exact",
+      "hostname.startsWith",
+      "hostname.contain",
+      "id",
+      "page",
+      "per_page",
+      "order",
+      "direction",
+      "ssl_status",
+      "hostname_status",
+      "certificate_authority",
+      "wildcard",
+      "custom_origin_server",
+      "ssl"
+    ]
+  },
+  "custom_hostname_for_a_zone_create_custom_hostname": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/custom_hostnames",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_for_a_zone_delete_custom_hostname_and_any_issued": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/custom_hostnames/{custom_hostname_id}",
+    "pathParams": [
+      "custom_hostname_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_for_a_zone_custom_hostname_details": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/custom_hostnames/{custom_hostname_id}",
+    "pathParams": [
+      "custom_hostname_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_for_a_zone_edit_custom_hostname": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/custom_hostnames/{custom_hostname_id}",
+    "pathParams": [
+      "custom_hostname_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_for_a_zone_delete_single_certificate_and_key_in_": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/custom_hostnames/{custom_hostname_id}/certificate_pack/{certificate_pack_id}/certificates/{certificate_id}",
+    "pathParams": [
+      "custom_hostname_id",
+      "certificate_pack_id",
+      "certificate_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_for_a_zone_edit_custom_certificate_custom_hostna": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/custom_hostnames/{custom_hostname_id}/certificate_pack/{certificate_pack_id}/certificates/{certificate_id}",
+    "pathParams": [
+      "custom_hostname_id",
+      "certificate_pack_id",
+      "certificate_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_fallback_origin_for_a_zone_delete_fallback_origi": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/custom_hostnames/fallback_origin",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_fallback_origin_for_a_zone_get_fallback_origin_f": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/custom_hostnames/fallback_origin",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_fallback_origin_for_a_zone_update_fallback_origi": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/custom_hostnames/fallback_origin",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "custom_hostname_for_a_zone_get_custom_hostname_quota": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/custom_hostnames/quota",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_list_dns_records": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/dns_records",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "name",
+      "name.exact",
+      "name.contains",
+      "name.startswith",
+      "name.endswith",
+      "type",
+      "content",
+      "content.exact",
+      "content.contains",
+      "content.startswith",
+      "content.endswith",
+      "proxied",
+      "match",
+      "comment",
+      "comment.present",
+      "comment.absent",
+      "comment.exact",
+      "comment.contains",
+      "comment.startswith",
+      "comment.endswith",
+      "tag",
+      "tag.present",
+      "tag.absent",
+      "tag.exact",
+      "tag.contains",
+      "tag.startswith",
+      "tag.endswith",
+      "search",
+      "tag_match",
+      "page",
+      "per_page",
+      "order",
+      "direction"
+    ]
+  },
+  "dns_records_for_a_zone_create_dns_record": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/dns_records",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_delete_dns_record": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/dns_records/{dns_record_id}",
+    "pathParams": [
+      "dns_record_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_dns_record_details": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/dns_records/{dns_record_id}",
+    "pathParams": [
+      "dns_record_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_patch_dns_record": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/dns_records/{dns_record_id}",
+    "pathParams": [
+      "dns_record_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_update_dns_record": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/dns_records/{dns_record_id}",
+    "pathParams": [
+      "dns_record_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_batch_dns_records": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/dns_records/batch",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_export_dns_records": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/dns_records/export",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_import_dns_records": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/dns_records/import",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_scan_dns_records": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/dns_records/scan",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_review_dns_scan": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/dns_records/scan/review",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_apply_dns_scan_results": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/dns_records/scan/review",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_trigger_dns_scan": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/dns_records/scan/trigger",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dns_records_for_a_zone_get_usage": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/dns_records/usage",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dnssec_delete_dnssec_records": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/dnssec",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dnssec_dnssec_details": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/dnssec",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dnssec_edit_dnssec_status": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/dnssec",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "dnssec_list_dnssec_zsks": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/dnssec/zsk",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_get_email_routing_settings": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/email/routing",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_update_email_routing_settings": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/email/routing",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_replace_email_routing_settings": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/email/routing",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_disable_email_routing": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/email/routing/disable",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_disable_email_routing_dns": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/email/routing/dns",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_email_routing_dns_settings": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/email/routing/dns",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "subdomain"
+    ]
+  },
+  "email_routing_settings_unlock_email_routing_dns": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/email/routing/dns",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_enable_email_routing_dns": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/email/routing/dns",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_enable_email_routing": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/email/routing/enable",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_routing_rules_list_routing_rules": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/email/routing/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "enabled"
+    ]
+  },
+  "email_routing_routing_rules_create_routing_rule": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/email/routing/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_routing_rules_delete_routing_rule": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/email/routing/rules/{rule_identifier}",
+    "pathParams": [
+      "rule_identifier",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_routing_rules_get_routing_rule": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/email/routing/rules/{rule_identifier}",
+    "pathParams": [
+      "rule_identifier",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_routing_rules_update_routing_rule": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/email/routing/rules/{rule_identifier}",
+    "pathParams": [
+      "rule_identifier",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_routing_rules_get_catch_all_rule": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/email/routing/rules/catch_all",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_routing_rules_update_catch_all_rule": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/email/routing/rules/catch_all",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "email_routing_settings_unlock_email_routing": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/email/routing/unlock",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "filters_delete_filters": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/filters",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "id"
+    ]
+  },
+  "filters_list_filters": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/filters",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "paused",
+      "expression",
+      "description",
+      "ref",
+      "page",
+      "per_page",
+      "id"
+    ]
+  },
+  "filters_create_filters": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/filters",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "filters_update_filters": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/filters",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "filters_delete_a_filter": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/filters/{filter_id}",
+    "pathParams": [
+      "filter_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "filters_get_a_filter": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/filters/{filter_id}",
+    "pathParams": [
+      "filter_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "filters_update_a_filter": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/filters/{filter_id}",
+    "pathParams": [
+      "filter_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "ip_access_rules_for_a_zone_list_ip_access_rules": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/access_rules/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "mode",
+      "configuration.target",
+      "configuration.value",
+      "notes",
+      "match",
+      "page",
+      "per_page",
+      "order",
+      "direction"
+    ]
+  },
+  "ip_access_rules_for_a_zone_create_an_ip_access_rule": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/firewall/access_rules/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "ip_access_rules_for_a_zone_delete_an_ip_access_rule": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/firewall/access_rules/rules/{rule_id}",
+    "pathParams": [
+      "zone_id",
+      "rule_id"
+    ],
+    "queryParams": []
+  },
+  "ip_access_rules_for_a_zone_update_an_ip_access_rule": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/firewall/access_rules/rules/{rule_id}",
+    "pathParams": [
+      "zone_id",
+      "rule_id"
+    ],
+    "queryParams": []
+  },
+  "zone_lockdown_list_zone_lockdown_rules": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/lockdowns",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "page",
+      "description",
+      "modified_on",
+      "ip",
+      "priority",
+      "uri_search",
+      "ip_range_search",
+      "per_page",
+      "created_on",
+      "description_search",
+      "ip_search"
+    ]
+  },
+  "zone_lockdown_create_a_zone_lockdown_rule": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/firewall/lockdowns",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_lockdown_delete_a_zone_lockdown_rule": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/firewall/lockdowns/{lock_downs_id}",
+    "pathParams": [
+      "lock_downs_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_lockdown_get_a_zone_lockdown_rule": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/lockdowns/{lock_downs_id}",
+    "pathParams": [
+      "lock_downs_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_lockdown_update_a_zone_lockdown_rule": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/firewall/lockdowns/{lock_downs_id}",
+    "pathParams": [
+      "lock_downs_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "firewall_rules_delete_firewall_rules": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/firewall/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "firewall_rules_list_firewall_rules": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "description",
+      "action",
+      "page",
+      "per_page",
+      "id",
+      "paused"
+    ]
+  },
+  "firewall_rules_update_priority_of_firewall_rules": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/firewall/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "firewall_rules_create_firewall_rules": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/firewall/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "firewall_rules_update_firewall_rules": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/firewall/rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "firewall_rules_delete_a_firewall_rule": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/firewall/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "firewall_rules_get_a_firewall_rule": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "zone_id"
+    ],
+    "queryParams": [
+      "id"
+    ]
+  },
+  "firewall_rules_update_priority_of_a_firewall_rule": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/firewall/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "firewall_rules_update_a_firewall_rule": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/firewall/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "user_agent_blocking_rules_list_user_agent_blocking_rules": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/ua_rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "page",
+      "description",
+      "per_page",
+      "user_agent",
+      "paused"
+    ]
+  },
+  "user_agent_blocking_rules_create_a_user_agent_blocking_rule": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/firewall/ua_rules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "user_agent_blocking_rules_delete_a_user_agent_blocking_rule": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/firewall/ua_rules/{ua_rule_id}",
+    "pathParams": [
+      "ua_rule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "user_agent_blocking_rules_get_a_user_agent_blocking_rule": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/ua_rules/{ua_rule_id}",
+    "pathParams": [
+      "ua_rule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "user_agent_blocking_rules_update_a_user_agent_blocking_rule": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/firewall/ua_rules/{ua_rule_id}",
+    "pathParams": [
+      "ua_rule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_overrides_list_waf_overrides": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/overrides",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page"
+    ]
+  },
+  "waf_overrides_create_a_waf_override": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/firewall/waf/overrides",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_overrides_delete_a_waf_override": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/firewall/waf/overrides/{overrides_id}",
+    "pathParams": [
+      "overrides_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_overrides_get_a_waf_override": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/overrides/{overrides_id}",
+    "pathParams": [
+      "overrides_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_overrides_update_waf_override": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/firewall/waf/overrides/{overrides_id}",
+    "pathParams": [
+      "overrides_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_packages_list_waf_packages": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/packages",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "order",
+      "direction",
+      "match",
+      "name"
+    ]
+  },
+  "waf_packages_get_a_waf_package": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}",
+    "pathParams": [
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_packages_update_a_waf_package": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}",
+    "pathParams": [
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_rule_groups_list_waf_rule_groups": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}/groups",
+    "pathParams": [
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": [
+      "mode",
+      "page",
+      "per_page",
+      "order",
+      "direction",
+      "match",
+      "name",
+      "rules_count"
+    ]
+  },
+  "waf_rule_groups_get_a_waf_rule_group": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}/groups/{group_id}",
+    "pathParams": [
+      "group_id",
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_rule_groups_update_a_waf_rule_group": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}/groups/{group_id}",
+    "pathParams": [
+      "group_id",
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_rules_list_waf_rules": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}/rules",
+    "pathParams": [
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": [
+      "mode",
+      "group_id",
+      "page",
+      "per_page",
+      "order",
+      "direction",
+      "match",
+      "description",
+      "priority"
+    ]
+  },
+  "waf_rules_get_a_waf_rule": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "waf_rules_update_a_waf_rule": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/firewall/waf/packages/{package_id}/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "package_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "page_rules_list_page_rules": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/pagerules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "order",
+      "direction",
+      "match",
+      "status"
+    ]
+  },
+  "page_rules_create_a_page_rule": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/pagerules",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "page_rules_delete_a_page_rule": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/pagerules/{pagerule_id}",
+    "pathParams": [
+      "pagerule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "page_rules_get_a_page_rule": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/pagerules/{pagerule_id}",
+    "pathParams": [
+      "pagerule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "page_rules_edit_a_page_rule": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/pagerules/{pagerule_id}",
+    "pathParams": [
+      "pagerule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "page_rules_update_a_page_rule": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/pagerules/{pagerule_id}",
+    "pathParams": [
+      "pagerule_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "available_page_rules_settings_list_available_page_rules_settings": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/pagerules/settings",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_purge": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/purge_cache",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "listZoneRulesets": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "cursor",
+      "per_page"
+    ]
+  },
+  "createZoneRuleset": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/rulesets",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "deleteZoneRuleset": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}",
+    "pathParams": [
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "getZoneRuleset": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}",
+    "pathParams": [
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "updateZoneRuleset": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}",
+    "pathParams": [
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "createZoneRulesetRule": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}/rules",
+    "pathParams": [
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "deleteZoneRulesetRule": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "updateZoneRulesetRule": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}/rules/{rule_id}",
+    "pathParams": [
+      "rule_id",
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "listZoneRulesetVersions": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}/versions",
+    "pathParams": [
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "deleteZoneRulesetVersion": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}/versions/{ruleset_version}",
+    "pathParams": [
+      "ruleset_version",
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "getZoneRulesetVersion": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}/versions/{ruleset_version}",
+    "pathParams": [
+      "ruleset_version",
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "listZoneRulesetVersionRulesByTag": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets/{ruleset_id}/versions/{ruleset_version}/by_tag/{rule_tag}",
+    "pathParams": [
+      "rule_tag",
+      "ruleset_version",
+      "ruleset_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "getZoneEntrypointRuleset": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets/phases/{ruleset_phase}/entrypoint",
+    "pathParams": [
+      "ruleset_phase",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "updateZoneEntrypointRuleset": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/rulesets/phases/{ruleset_phase}/entrypoint",
+    "pathParams": [
+      "ruleset_phase",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "listZoneEntrypointRulesetVersions": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets/phases/{ruleset_phase}/entrypoint/versions",
+    "pathParams": [
+      "ruleset_phase",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "getZoneEntrypointRulesetVersion": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/rulesets/phases/{ruleset_phase}/entrypoint/versions/{ruleset_version}",
+    "pathParams": [
+      "ruleset_version",
+      "ruleset_phase",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_get_all_zone_settings": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_edit_zone_settings_info": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_get_single_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/{setting_id}",
+    "pathParams": [
+      "zone_id",
+      "setting_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_edit_single_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/{setting_id}",
+    "pathParams": [
+      "zone_id",
+      "setting_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_aegis_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/aegis",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_aegis_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/aegis",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "ssl_detector_auto_origin_tls_kex_get_enrollment": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/auto_origin_tls_kex",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "ssl_detector_auto_origin_tls_kex_patch_enrollment": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/auto_origin_tls_kex",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "csam_scanner_get_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/csam_scanner_third_party",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "csam_scanner_update_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/csam_scanner_third_party",
+    "pathParams": [],
+    "queryParams": []
+  },
+  "zone_settings_get_fonts_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/fonts",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_change_fonts_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/fonts",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_get_google_tag_gateway_config": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/google-tag-gateway/config",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_change_google_tag_gateway_config": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/settings/google-tag-gateway/config",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_origin_h2_max_streams_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/origin_h2_max_streams",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_origin_h2_max_streams_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/origin_h2_max_streams",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_origin_max_http_version_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/origin_max_http_version",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_origin_max_http_version_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/origin_max_http_version",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_delete_origin_tls_compliance_modes_setting": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/settings/origin_tls_compliance_modes",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_get_origin_tls_compliance_modes_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/origin_tls_compliance_modes",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_change_origin_tls_compliance_modes_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/origin_tls_compliance_modes",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_cache_settings_replace_origin_tls_compliance_modes_setting": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/settings/origin_tls_compliance_modes",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "web_analytics_get_rum_status": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/rum",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "web_analytics_toggle_rum": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/rum",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_get_speed_brain_setting": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/speed_brain",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "zone_settings_change_speed_brain_setting": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/speed_brain",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "ssl_detector_automatic_mode_get_enrollment": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/ssl_automatic_mode",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "ssl_detector_automatic_mode_patch_enrollment": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/settings/ssl_automatic_mode",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "get_zones_zone_identifier_zaraz_config": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/zaraz/config",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "put_zones_zone_identifier_zaraz_config": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/settings/zaraz/config",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "get_zones_zone_identifier_zaraz_default": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/zaraz/default",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "get_zones_zone_identifier_zaraz_export": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/zaraz/export",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "get_zones_zone_identifier_zaraz_history": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/zaraz/history",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "offset",
+      "limit",
+      "sortField",
+      "sortOrder"
+    ]
+  },
+  "put_zones_zone_identifier_zaraz_history": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/settings/zaraz/history",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "get_zones_zone_identifier_zaraz_config_history": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/zaraz/history/configs",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "ids"
+    ]
+  },
+  "post_zones_zone_identifier_zaraz_publish": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/settings/zaraz/publish",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "get_zones_zone_identifier_zaraz_workflow": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/settings/zaraz/workflow",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "put_zones_zone_identifier_zaraz_workflow": {
+    "method": "PUT",
+    "path": "/zones/{zone_id}/settings/zaraz/workflow",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "analyze_certificate_analyze_certificate": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/ssl/analyze",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "certificate_packs_list_certificate_packs": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/ssl/certificate_packs",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "page",
+      "per_page",
+      "status",
+      "deploy"
+    ]
+  },
+  "certificate_packs_delete_advanced_certificate_manager_certificat": {
+    "method": "DELETE",
+    "path": "/zones/{zone_id}/ssl/certificate_packs/{certificate_pack_id}",
+    "pathParams": [
+      "certificate_pack_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "certificate_packs_get_certificate_pack": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/ssl/certificate_packs/{certificate_pack_id}",
+    "pathParams": [
+      "certificate_pack_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "certificate_packs_restart_validation_for_advanced_certificate_ma": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/ssl/certificate_packs/{certificate_pack_id}",
+    "pathParams": [
+      "certificate_pack_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "certificate_packs_order_advanced_certificate_manager_certificate": {
+    "method": "POST",
+    "path": "/zones/{zone_id}/ssl/certificate_packs/order",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "certificate_packs_get_certificate_pack_quotas": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/ssl/certificate_packs/quota",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "universal_ssl_settings_for_a_zone_universal_ssl_settings_details": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/ssl/universal/settings",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "universal_ssl_settings_for_a_zone_edit_universal_ssl_settings": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/ssl/universal/settings",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": []
+  },
+  "ssl_verification_ssl_verification_details": {
+    "method": "GET",
+    "path": "/zones/{zone_id}/ssl/verification",
+    "pathParams": [
+      "zone_id"
+    ],
+    "queryParams": [
+      "retry"
+    ]
+  },
+  "ssl_verification_edit_ssl_certificate_pack_validation_method": {
+    "method": "PATCH",
+    "path": "/zones/{zone_id}/ssl/verification/{certificate_pack_id}",
+    "pathParams": [
+      "certificate_pack_id",
+      "zone_id"
+    ],
+    "queryParams": []
+  }
+}
