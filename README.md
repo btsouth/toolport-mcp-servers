@@ -94,7 +94,7 @@ Any OpenAPI/Swagger API can become a curated MCP server. Drop a `vendors/<name>.
 `npx toolport-mcp-servers <name>` server. PRs welcome.
 
 ```bash
-git clone https://github.com/tsouth89/toolport-mcp-servers && cd toolport-mcp-servers
+git clone https://github.com/btsouth/toolport-mcp-servers && cd toolport-mcp-servers
 npm run prep:vercel      # example: refetch the public spec and regenerate
 ```
 
