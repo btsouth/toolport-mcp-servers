@@ -45,6 +45,21 @@ function fixtures(root) {
     if (!shapes.has(original)) shapes.set(original, flatten(original, root));
     return shapes.get(original);
   }
+  // Match a compact field-guidance summary without changing the source validator.
+  function guidance(original) {
+    const s = resolve(original, root);
+    if (!s.allOf) return s;
+    const out = { ...s }; delete out.allOf;
+    out.properties = { ...s.properties };
+    out.required = [...(s.required || [])];
+    for (const part of s.allOf.map(guidance)) {
+      for (const [key, child] of Object.entries(part.properties || {})) out.properties[key] = { ...out.properties[key], ...child };
+      out.required.push(...(part.required || []));
+      if (part.type) out.type = part.type;
+    }
+    out.required = [...new Set(out.required)];
+    return out;
+  }
   function unionShapes(s) {
     if (!unions.has(s)) {
       const base = { ...s }; delete base.anyOf; delete base.oneOf;
@@ -196,6 +211,6 @@ function fixtures(root) {
     }
     return args;
   }
-  return { sample, values, scaffold, fields, nodes: allNodes, valid, flatten: shape };
+  return { sample, values, scaffold, fields, nodes: allNodes, valid, flatten: shape, guidance };
 }
 module.exports = { fixtures };
