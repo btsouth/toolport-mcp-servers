@@ -176,3 +176,39 @@ test('referenced string branches accept native strings and preserve nullable inp
   assert.equal(c.decode({ value: null }).value, null);
   assert.deepEqual(c.decode({ value: '{"id":2}' }).value, '{"id":2}');
 });
+
+test('Cloudflare scalar allOf account IDs and annotation-only parts stay plain', () => {
+  const name = 'patch_access_seats';
+  const tool = require('../data/cloudflare-curated.tools.json').find(x => x.name === name);
+  const map = require('../data/cloudflare.namemap.json'), ops = require('../data/cloudflare.operations.json');
+  const c = compileContract(tool.inputSchema, routingFor(ops, Object.keys(map).find(k => map[k] === name)));
+  const account_id = '023e105f4ecef8ad9ca31a8372d0c353';
+  assert.equal(c.inputSchema.properties.account_id.type, 'string');
+  assert.doesNotMatch(c.inputSchema.properties.account_id.description || '', /JSON-encoded/);
+  assert.equal(c.decode({ account_id, body: [] }).account_id, account_id);
+  const nested = compileContract({ properties: { value: { allOf: [{ $ref: '#/$defs/str' }, { example: 'abc' }] } }, $defs: { str: { anyOf: [{ type: 'string' }, { type: 'string', enum: [''] }] } } }, { path: '/', pathParams: [] });
+  assert.equal(nested.inputSchema.properties.value.type, 'string');
+  assert.equal(nested.decode({ value: '123' }).value, '123');
+});
+test('budget-exhausted Stripe scalars advertise and decode literal values', () => {
+  const name = 'create_payment_intent';
+  const tool = require('../data/stripe-curated.tools.json').find(x => x.name === name);
+  const map = require('../data/stripe.namemap.json'), ops = require('../data/stripe.operations.json');
+  const c = compileContract(tool.inputSchema, routingFor(ops, Object.keys(map).find(k => map[k] === name)));
+  const field = c.inputSchema.properties.body.properties.statement_descriptor_suffix;
+  assert.equal(field.type, 'string');
+  assert.doesNotMatch(field.description || '', /JSON-encoded/);
+  assert.equal(c.decode({ body: { amount: 100, currency: 'usd', statement_descriptor_suffix: 'ACME' } }).body.statement_descriptor_suffix, 'ACME');
+  const wide = Object.fromEntries(Array.from({ length: 400 }, (_, i) => [`field${i}`, { type: 'integer' }]));
+  const budget = compileContract({ properties: { wide: { type: 'object', properties: wide }, count: { type: 'integer', enum: Array.from({ length: 501 }, (_, i) => i) }, enabled: { allOf: [{ type: 'boolean' }, { description: 'annotation' }] } } }, { path: '/', pathParams: [] });
+  assert.equal(budget.inputSchema.properties.count.type, 'integer');
+  assert.equal(budget.inputSchema.properties.count.enum, undefined);
+  assert.equal(budget.inputSchema.properties.enabled.type, 'boolean');
+  assert.deepEqual(budget.decode({ count: 1, enabled: true }), { count: 1, enabled: true });
+  assert.throws(() => budget.decode({ count: 501 }), /allowed values/);
+});
+test('additional-property errors identify the rejected key at root and nested paths', () => {
+  const c = compileContract({ properties: { body: { type: 'object', properties: {}, additionalProperties: false } } }, { path: '/', pathParams: [] });
+  assert.throws(() => c.decode({ typo: 1 }), /at \/typo: must NOT have additional properties/);
+  assert.throws(() => c.decode({ body: { typo: 1 } }), /at \/body\/typo: must NOT have additional properties/);
+});

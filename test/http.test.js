@@ -114,3 +114,22 @@ test('bad runtime lines preserve valid entries before and after them', async t =
   assert.deepEqual(out.body.entries.map(x => x.message), ['before', 'after']);
   assert.equal(out.body.skippedLines, 2);
 });
+
+test('redirects report sanitized absolute and relative Location without following', async t => {
+  let followed = 0;
+  const url = await fixture(t, (req, res) => {
+    if (req.url === '/absolute') res.writeHead(302, { Location: 'https://user:password@example.com/target?token=hidden#secret' });
+    else if (req.url === '/relative') res.writeHead(307, { Location: '/target?access_token=hidden#secret' });
+    else if (req.url === '/scheme-relative') res.writeHead(303, { Location: '//example.com/target?code=hidden' });
+    else if (req.url === '/missing') res.writeHead(302);
+    else { followed++; res.writeHead(200); }
+    res.end();
+  });
+  for (const [suffix, expected] of [['/absolute', 'https://example.com/target'], ['/relative', '/target'], ['/scheme-relative', '//example.com/target']]) {
+    const out = await request({ url: url + suffix, method: 'GET' });
+    assert.equal(out.body.error.location, expected);
+    assert.doesNotMatch(JSON.stringify(out), /hidden|password|user:|secret/);
+  }
+  assert.equal((await request({ url: url + '/missing', method: 'GET' })).body.error.location, undefined);
+  assert.equal(followed, 0);
+});

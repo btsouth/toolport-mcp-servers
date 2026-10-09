@@ -124,7 +124,8 @@ always validated locally before HTTP. Recursive, very deep or otherwise unrepres
 values use JSON text with bounded shape summaries naming fields, required keys and enums.
 Existing JSON-text structured calls remain accepted. Omit optional fields; explicit null
 is preserved where the API allows it. Legacy nulls on non-nullable optional fields omit them.
-Plain strings stay strings, including string-or-empty unions.
+Scalars stay plain values, including scalar intersections and unions. Size limits may
+omit advertised enums; the original constraints still validate locally.
 
 `list_runtime_logs` reads Vercel's live `application/stream+json` endpoint. `since` and
 `until` are inclusive Unix-millisecond filters applied locally, not upstream query
@@ -137,7 +138,8 @@ window: [Vercel's public OpenAPI](https://openapi.vercel.sh/).
 
 Other calls have a 20-second deadline and an 8 MiB response cap. MCP cancellation and stdin
 closure abort HTTP; cancelled requests receive no reply. Redirects are returned with their
-HTTP status and never followed. Errors retain status, vendor code/message and bounded
+HTTP status and sanitized Location (without queries, fragments or URL credentials) and
+never followed. Errors retain status, vendor code/message and bounded
 parameter, decline and long-message details. Network failures include a transport cause
 when available. Credentials, secret-like argument values and credential patterns are
 redacted; ordinary identifiers remain useful. Failed writes never replay automatically.

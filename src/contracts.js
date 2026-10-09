@@ -62,6 +62,27 @@ function schemaSummary(s, root, depth = 0, seen = new Set(), budget = { remainin
 }
 const forbiddenHeader = name => /^(content-length|host|authorization|content-type|transfer-encoding)$/i.test(name.replace(/^['"]|['"]$/g, ''));
 
+// An empty list means annotation-only (no type constraint); null means structured
+// or unresolved. Scalar intersections and unions never need JSON-text decoding.
+function scalarTypes(s, root, active = new Set()) {
+  if (s.$ref) {
+    if (active.has(s.$ref)) return null;
+    return scalarTypes(resolveLocal(s, root), root, new Set([...active, s.$ref]));
+  }
+  let types = s.type ? [].concat(s.type) : s.enum ? [...new Set(s.enum.map(x => x === null ? 'null' : typeof x))] : [];
+  if (s.properties || s.items || types.some(x => !['string', 'number', 'integer', 'boolean', 'null'].includes(x))) return null;
+  const intersect = (a, b) => !a.length ? b : !b.length ? a : a.flatMap(x => b.flatMap(y => x === y ? [x] : [x, y].every(t => ['number', 'integer'].includes(t)) ? ['integer'] : []));
+  for (const kind of ['allOf', 'anyOf', 'oneOf']) {
+    if (!s[kind]) continue;
+    const parts = s[kind].map(x => scalarTypes(x, root, active));
+    if (parts.some(x => x === null)) return null;
+    const combined = kind === 'allOf' ? parts.reduce(intersect, []) : parts.some(x => !x.length) ? [] : parts.flat();
+    types = intersect(types, combined);
+  }
+  if (s.nullable && types.length) types.push('null');
+  return [...new Set(types)];
+}
+
 function compileContract(source, meta) {
   const schema = structuredClone(source);
   schema.type = 'object';
@@ -85,6 +106,8 @@ function compileContract(source, meta) {
       (s.anyOf || s.oneOf || []).some(x => allowsNull(x, active));
   }
   function allowsString(s, active = new Set()) {
+    const types = scalarTypes(s, schema, active);
+    if (types) return !types.length || types.includes('string');
     if (s.$ref && !active.has(s.$ref)) return allowsString(resolveLocal(s, schema), new Set([...active, s.$ref]));
     return s.type === 'string' || (Array.isArray(s.type) && s.type.includes('string')) ||
       s.enum?.some(x => typeof x === 'string') || (s.anyOf || s.oneOf || []).some(x => allowsString(x, active));
@@ -92,12 +115,21 @@ function compileContract(source, meta) {
   function visit(s, depth = 0, root = false, active = new Set()) {
     if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]));
     if (s.nullable) return visit(nativeSchema(s), depth, root, active);
-    const stringBranches = s.anyOf || s.oneOf;
-    if (stringBranches?.every(x => x.type === 'string')) return {
-      schema: { type: 'string', ...(s.description ? { description: compact(s.description) } : {}),
-        ...(stringBranches.every(x => x.enum) ? { enum: [...new Set(stringBranches.flatMap(x => x.enum))] } : {}) },
-      decode: value => value,
-    };
+    const scalars = scalarTypes(s, schema, active);
+    if (!root && scalars?.length) {
+      const out = scalars.length === 1 ? { type: scalars[0] } : { anyOf: scalars.map(type => ({ type })) };
+      if (s.description) out.description = compact(s.description);
+      const branches = s.anyOf || s.oneOf;
+      const values = s.enum || (branches?.every(x => x.enum) ? [...new Set(branches.flatMap(x => x.enum))] : undefined);
+      if (values && budget.enums + values.length <= 500 && budget.strings + JSON.stringify(values).length <= 12000) {
+        out.enum = values; budget.enums += values.length; budget.strings += JSON.stringify(values).length;
+      }
+      const hints = [];
+      if (s.format) hints.push(`Format: ${s.format}`);
+      for (const k of ['minimum', 'maximum', 'minLength', 'maxLength']) if (s[k] !== undefined) hints.push(`${k}: ${s[k]}`);
+      if (hints.length) out.description = compact(`${out.description || ''} ${hints.join('; ')}.`, 500);
+      return { schema: out, decode: value => value };
+    }
     // Flatten object intersections for field guidance, retaining the original
     // intersection for authoritative local validation.
     if (s.allOf && !s.$ref && depth < 7) {
@@ -210,7 +242,8 @@ function compileContract(source, meta) {
       if (!validate(decoded)) {
         const issue = validate.errors[0];
         const detail = issue.keyword === 'enum' ? `allowed values: ${JSON.stringify(issue.params.allowedValues)}` : issue.message;
-        const field = `${issue.instancePath || ''}${issue.params.missingProperty ? '/' + issue.params.missingProperty : ''}` || '/';
+        const key = issue.params.missingProperty || issue.params.additionalProperty;
+        const field = `${issue.instancePath || ''}${key ? '/' + key : ''}` || '/';
         const e = new Error(`Invalid arguments at ${field}: ${detail}`);
         e.code = 'invalid_arguments'; e.field = field; throw e;
       }

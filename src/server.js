@@ -117,7 +117,7 @@ async function callTool(name, args, signal) {
     logs = { limit: args.limit ?? 100, since: args.since ?? now - 15 * 60 * 1000, until: args.until ?? now + 10000 };
     if (logs.since > logs.until) throw Object.assign(new Error('since must be at or before until'), { code: 'invalid_arguments' });
   }
-  if (!API_KEY) return { dryRun: true, op, method, url, body: encoded || '' };
+  if (!API_KEY) return { dryRun: true, op, method, url, body: encoded ?? '', headers: parameterHeaders };
   const secrets = [API_KEY];
   function collect(value, key = '') {
     if (typeof value === 'string' && /secret|token|password|authorization|cookie|api.?key|private.?key/i.test(key)) secrets.push(value);
@@ -151,7 +151,7 @@ async function handle(msg) {
         const out = await callTool(name, (params && params.arguments) || {}, controller.signal);
         if (controller.signal.aborted) return;
         const text = out.dryRun
-          ? `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${out.method} ${out.url}\n${out.body ? 'body: ' + out.body : '(no body)'}\n\n[curated tool ${name} -> ${out.op}]`
+          ? `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${out.method} ${out.url}\n${out.body !== '' ? 'body: ' + out.body : '(no body)'}${Object.keys(out.headers).length ? '\nheaders: ' + JSON.stringify(out.headers) : ''}\n\n[curated tool ${name} -> ${out.op}]`
           : JSON.stringify(out.body, null, 2);
         return result(id, { content: [{ type: 'text', text }], isError: !out.dryRun && (out.status === 0 || out.status >= 300) });
       } catch (e) {

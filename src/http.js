@@ -105,7 +105,14 @@ async function request({ url, method, headers, body, signal, logs, secrets = [],
     let parsed;
     try { parsed = JSON.parse(text); } catch { parsed = text; }
     if (controller.signal.aborted) throw controller.signal.reason;
-    return { status: response.status, body: response.ok ? parsed : apiError(response.status, parsed, secrets) };
+    const result = response.ok ? parsed : apiError(response.status, parsed, secrets);
+    if (response.status >= 300 && response.status < 400 && response.headers.has('location')) {
+      // Drop token-bearing queries/fragments and URL credentials before reporting.
+      let location = response.headers.get('location').split(/[?#]/)[0];
+      try { const target = new URL(location); target.username = ''; target.password = ''; location = target.toString(); } catch { /* Relative Location is valid too. */ }
+      result.error.location = safeMessage(location, secrets);
+    }
+    return { status: response.status, body: result };
   } catch (e) {
     const reason = controller.signal.aborted ? controller.signal.reason : e;
     if (reason?.code === 'log_deadline') reason.code = 'request_timeout';
