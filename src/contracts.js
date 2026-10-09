@@ -177,6 +177,9 @@ function compileContract(source, meta) {
         const type = value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
         function score(schema, candidate) {
           if (schema.anyOf) return Math.max(...schema.anyOf.map(x => score(x, candidate)));
+          if (typeof candidate === 'string' && ['object', 'array'].includes(schema.type)) {
+            try { return score(schema, JSON.parse(candidate)); } catch { return -100000; }
+          }
           const kind = candidate === null ? 'null' : Array.isArray(candidate) ? 'array' : typeof candidate;
           if (schema.type !== kind && !(kind === 'number' && schema.type === 'integer')) return -100000;
           if (schema.enum && !schema.enum.includes(candidate)) return -100000;

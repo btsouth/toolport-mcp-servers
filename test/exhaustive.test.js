@@ -46,11 +46,15 @@ function shapeScore(s, value) {
 }
 function hasEncodedAt(s, keys, descriptions) {
   if (!s) return false;
-  if (!keys.length && /JSON-encoded value:/.test(s.description || '')) return !descriptions || descriptions.has(s.description);
+  if (!keys.length && /JSON-encoded value:/.test(s.description || '')) return !descriptions || describes(s, descriptions);
   if (s.anyOf?.some(x => hasEncodedAt(x, keys, descriptions))) return true;
   if (!keys.length) return false;
   const [key, ...rest] = keys;
   return hasEncodedAt(typeof key === 'number' ? s.items : s.properties?.[alias(key)] || (typeof s.additionalProperties === 'object' ? s.additionalProperties : null), rest, descriptions);
+}
+function describes(s, summaries) {
+  const at = s?.description?.indexOf('JSON-encoded value:');
+  return at >= 0 && [...summaries].some(x => x.startsWith(s.description.slice(at)));
 }
 function wireSchema(s, value, encodedKeys, descriptions) {
   if (!s.anyOf) return s;
@@ -144,10 +148,10 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       }
       if (!args) continue;
       const preferEncoded = !node.scalar && expectedEncoded.has(advertisedKey);
-      const descriptions = new Set([node.schema, f.flatten(node.schema), nativeSchema(node.schema)].map(s => compact(`${compact(s.description)} JSON-encoded value: ${schemaSummary(s, source)}.`, 700)));
+      const descriptions = new Set([node.schema, f.flatten(node.schema), nativeSchema(node.schema)].map(s => compact(`JSON-encoded value: ${schemaSummary(s, source)}.`, 100000)));
       const advertised = advertisedAt(wire, node.path, args, preferEncoded, descriptions);
       const isEncoded = advertised && /JSON-encoded value:/.test(advertised.description || '');
-      if (preferEncoded && !descriptions.has(advertised?.description)) continue;
+      if (preferEncoded && !describes(advertised, descriptions)) continue;
       if (!node.scalar && !isEncoded) continue;
       if (node.scalar) {
         assert.ok(value !== null && ['string', 'number', 'boolean'].includes(typeof value), label);
