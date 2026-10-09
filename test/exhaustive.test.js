@@ -156,38 +156,38 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       if (preferEncoded && !describes(advertised, descriptions)) continue;
       if (!node.scalar && !isEncoded) continue;
       try {
-      if (node.scalar) {
-        assert.ok(value !== null && ['string', 'number', 'boolean'].includes(typeof value), label);
-        if (advertised) assert.doesNotMatch(advertised.description || '', /JSON-encoded value:/, label);
-        scalarSeen.add(JSON.stringify(node.path)); scalarCases++;
-      }
-      if (isEncoded) { encodedSeen.add(advertisedKey); encodedCases++; }
-      assert.deepEqual(node.path.reduce((x, key) => x?.[key], args), value, `${label}: fixture must include the field under test`);
-      assert.equal(f.valid(source, args), true, `${label}: generated source fixture must be valid`);
-      const encoded = { count: 0 };
-      const input = wireValue(wire, args, encoded, isEncoded ? node.path : undefined, descriptions);
-      assert.equal(f.valid(wire, input), true, `${label}: encoded fixture must match the advertised schema`);
-      let decoded;
-      try { decoded = contract.decode(input); } catch (e) { throw new Error(`${label}: ${e.message}`); }
-      assert.deepEqual(decoded, args, `${label}: decoded value changed`);
-      if (isEncoded) assert.ok(encoded.count > 0, label);
-      const response = await call('tools/call', { name: tool.name, arguments: input });
-      assert.equal(response.result?.isError, false, `${label}: ${JSON.stringify(response)}`);
-      const request = expectedRequest(vendor, cfg, meta, args);
-      const output = response.result.content[0].text;
-      const prefix = `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${meta.method} ${request.url}\n`;
-      const suffix = `\n\n[curated tool ${tool.name} -> ${reverse[tool.name]}]`;
-      assert.ok(output.startsWith(prefix), label);
-      assert.ok(output.endsWith(suffix), label);
-      let payload = output.slice(prefix.length, -suffix.length), headers = {};
-      const headerStart = payload.lastIndexOf('\nheaders: ');
-      if (headerStart !== -1) { headers = JSON.parse(payload.slice(headerStart + 10)); payload = payload.slice(0, headerStart); }
-      assert.deepEqual(headers, request.headers, label);
-      const body = payload === '(no body)' ? '' : payload.slice('body: '.length);
-      const media = meta.contentType || (cfg.bodyFormat === 'json' ? 'application/json' : 'application/x-www-form-urlencoded');
-      if (media === 'application/json' && request.body !== '') assert.deepEqual(JSON.parse(body), JSON.parse(request.body), label);
-      else if (media === 'application/x-www-form-urlencoded') assert.deepEqual([...new URLSearchParams(body)].sort(), [...new URLSearchParams(request.body)].sort(), label);
-      else assert.equal(body, String(request.body), label);
+        if (node.scalar) {
+          assert.ok(value !== null && ['string', 'number', 'boolean'].includes(typeof value), label);
+          if (advertised) assert.doesNotMatch(advertised.description || '', /JSON-encoded value:/, label);
+        }
+        assert.deepEqual(node.path.reduce((x, key) => x?.[key], args), value, `${label}: fixture must include the field under test`);
+        assert.equal(f.valid(source, args), true, `${label}: generated source fixture must be valid`);
+        const encoded = { count: 0 };
+        const input = wireValue(wire, args, encoded, isEncoded ? node.path : undefined, descriptions);
+        assert.equal(f.valid(wire, input), true, `${label}: encoded fixture must match the advertised schema`);
+        let decoded;
+        try { decoded = contract.decode(input); } catch (e) { throw new Error(`${label}: ${e.message}`); }
+        assert.deepEqual(decoded, args, `${label}: decoded value changed`);
+        if (isEncoded) assert.ok(encoded.count > 0, label);
+        const response = await call('tools/call', { name: tool.name, arguments: input });
+        assert.equal(response.result?.isError, false, `${label}: ${JSON.stringify(response)}`);
+        const request = expectedRequest(vendor, cfg, meta, args);
+        const output = response.result.content[0].text;
+        const prefix = `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${meta.method} ${request.url}\n`;
+        const suffix = `\n\n[curated tool ${tool.name} -> ${reverse[tool.name]}]`;
+        assert.ok(output.startsWith(prefix), label);
+        assert.ok(output.endsWith(suffix), label);
+        let payload = output.slice(prefix.length, -suffix.length), headers = {};
+        const headerStart = payload.lastIndexOf('\nheaders: ');
+        if (headerStart !== -1) { headers = JSON.parse(payload.slice(headerStart + 10)); payload = payload.slice(0, headerStart); }
+        assert.deepEqual(headers, request.headers, label);
+        const body = payload === '(no body)' ? '' : payload.slice('body: '.length);
+        const media = meta.contentType || (cfg.bodyFormat === 'json' ? 'application/json' : 'application/x-www-form-urlencoded');
+        if (media === 'application/json' && request.body !== '') assert.deepEqual(JSON.parse(body), JSON.parse(request.body), label);
+        else if (media === 'application/x-www-form-urlencoded') assert.deepEqual([...new URLSearchParams(body)].sort(), [...new URLSearchParams(request.body)].sort(), label);
+        else assert.equal(body, String(request.body), label);
+        if (node.scalar) { scalarSeen.add(JSON.stringify(node.path)); scalarCases++; }
+        if (isEncoded) { encodedSeen.add(advertisedKey); encodedCases++; }
       } catch (e) { requestFailures.push({ field: label, error: e.message }); }
     }
     for (const key of expectedScalar) if (!scalarSeen.has(key)) fixtureFailures.push(failures.get(key) || { field: `${vendor}/${tool.name}/${JSON.parse(key).join('/')}`, scalar: true, error: 'No scalar fixture checked' });
@@ -195,6 +195,5 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
     scalarFields += scalarSeen.size; encodedFields += encodedSeen.size;
   }
   t.diagnostic(JSON.stringify({ vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases, failedScalarFields: new Set(fixtureFailures.filter(x => x.scalar).map(x => x.field)).size, failedFixtureCases: fixtureFailures.length }));
-  assert.equal(fixtureFailures.length, 0, 'Every source field must have a valid fixture: ' + JSON.stringify(fixtureFailures));
-  assert.equal(requestFailures.length, 0, 'Every dry run must preserve its source values: ' + JSON.stringify(requestFailures));
+  assert.equal(fixtureFailures.length + requestFailures.length, 0, 'Every field needs a source-valid fixture and an exact dry run: ' + JSON.stringify({ fixtureFailures, requestFailures }));
 });
