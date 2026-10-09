@@ -101,3 +101,14 @@ test('generator disambiguates long IDs and rejects duplicate operations', () => 
   assert.throws(() => generate(spec), /Duplicate operation identity/);
 });
 module.exports = { dialect };
+test('numeric string exclusive bounds remain strict and request media matches its schema', () => {
+  const contract = compileContract({ properties: { count: { type: 'integer', minimum: '2', exclusiveMinimum: true } }, required: ['count'] }, { path: '/items', pathParams: [] });
+  assert.throws(() => contract.decode({ count: 2 }), /Invalid arguments/);
+  assert.deepEqual(contract.decode({ count: 3 }), { count: 3 });
+  const { tools, operations } = generate({ paths: { '/items': { post: { operationId: 'createItem', requestBody: { content: {
+    'application/x-www-form-urlencoded': { schema: { type: 'string' } },
+    'application/json': { schema: { type: 'object', properties: { name: { type: 'string' } }, additionalProperties: false } },
+  } } } } } });
+  assert.equal(operations.createItem.contentType, 'application/json');
+  assert.equal(tools[0].inputSchema.properties.body.type, 'object');
+});

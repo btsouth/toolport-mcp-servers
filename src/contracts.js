@@ -23,15 +23,15 @@ function nativeSchema(schema) {
     if (out[k] && typeof out[k] === 'object') out[k] = nativeSchema(out[k]);
   }
   for (const k of ['anyOf', 'allOf', 'oneOf']) if (out[k]) out[k] = out[k].map(nativeSchema);
+  for (const k of ['minimum', 'maximum', 'multipleOf', 'minLength', 'maxLength', 'minItems', 'maxItems', 'minProperties', 'maxProperties', 'exclusiveMinimum', 'exclusiveMaximum']) {
+    if (typeof out[k] === 'string' && /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/.test(out[k]) && Number.isFinite(Number(out[k]))) out[k] = Number(out[k]);
+  }
   for (const k of ['exclusiveMinimum', 'exclusiveMaximum']) {
     if (typeof out[k] === 'boolean') {
       const bound = k === 'exclusiveMinimum' ? 'minimum' : 'maximum';
       if (out[k] && typeof out[bound] === 'number') { out[k] = out[bound]; delete out[bound]; }
       else delete out[k];
     }
-  }
-  for (const k of ['minimum', 'maximum', 'multipleOf', 'minLength', 'maxLength', 'minItems', 'maxItems', 'minProperties', 'maxProperties', 'exclusiveMinimum', 'exclusiveMaximum']) {
-    if (typeof out[k] === 'string' && /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/.test(out[k]) && Number.isFinite(Number(out[k]))) out[k] = Number(out[k]);
   }
   // OpenAPI nullable may appear on a composition or enum without a type.
   if (out.nullable) {

@@ -79,10 +79,12 @@ function generate(spec) {
       schema.properties[name] ||= { type: 'string' };
       if (!schema.required.includes(name)) schema.required.push(name);
     }
+    let contentType;
     const body = operation.requestBody && dereference(spec, operation.requestBody);
     if (body) {
       const content = body.content || {};
-      const media = content['application/json'] || content['application/x-www-form-urlencoded'] || Object.values(content)[0];
+      contentType = content['application/json'] ? 'application/json' : content['application/x-www-form-urlencoded'] ? 'application/x-www-form-urlencoded' : Object.keys(content)[0];
+      const media = content[contentType];
       if (!media) throw new Error(`Missing request content type for ${key}`);
       schema.properties.body = resolveSchema(media.schema || {});
       if (body.required) schema.required.push('body');
@@ -92,7 +94,7 @@ function generate(spec) {
       pathParams: [...p.matchAll(/\{([^}]+)\}/g)].map(x => x[1]),
       queryParams: params.filter(x => x.in === 'query').map(x => x.name),
       headerParams: params.filter(x => x.in === 'header').map(x => x.name),
-      ...(body ? { contentType: Object.keys(body.content).find(k => ['application/json', 'application/x-www-form-urlencoded'].includes(k)) || Object.keys(body.content)[0] } : {}),
+      ...(body ? { contentType } : {}),
     };
     compileContract(schema, meta); // fail generation if it cannot be served faithfully
     tools.push({ name: key, description: [...new Set([operation.summary, operation.description].filter(Boolean))].join('. '), inputSchema: schema });
