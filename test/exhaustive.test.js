@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
 const readline = require('node:readline');
 const path = require('node:path');
-const { compileContract, routingFor } = require('../src/contracts');
+const { compileContract, routingFor, schemaSummary, compact, nativeSchema } = require('../src/contracts');
 const { fixtures } = require('./helpers/schemaValues');
 const vendors = ['stripe', 'vercel', 'clerk', 'cloudflare'];
 
@@ -43,39 +43,39 @@ function shapeScore(s, value) {
   }, 1);
   return 1;
 }
-function hasEncodedAt(s, keys) {
+function hasEncodedAt(s, keys, descriptions) {
   if (!s) return false;
-  if (!keys.length && /JSON-encoded value:/.test(s.description || '')) return true;
-  if (s.anyOf?.some(x => hasEncodedAt(x, keys))) return true;
+  if (!keys.length && /JSON-encoded value:/.test(s.description || '')) return !descriptions || descriptions.has(s.description);
+  if (s.anyOf?.some(x => hasEncodedAt(x, keys, descriptions))) return true;
   if (!keys.length) return false;
   const [key, ...rest] = keys;
-  return hasEncodedAt(typeof key === 'number' ? s.items : s.properties?.[alias(key)] || (typeof s.additionalProperties === 'object' ? s.additionalProperties : null), rest);
+  return hasEncodedAt(typeof key === 'number' ? s.items : s.properties?.[alias(key)] || (typeof s.additionalProperties === 'object' ? s.additionalProperties : null), rest, descriptions);
 }
-function wireSchema(s, value, encodedKeys) {
+function wireSchema(s, value, encodedKeys, descriptions) {
   if (!s.anyOf) return s;
-  const candidates = encodedKeys ? s.anyOf.filter(x => hasEncodedAt(x, encodedKeys)) : s.anyOf;
+  const candidates = encodedKeys ? s.anyOf.filter(x => hasEncodedAt(x, encodedKeys, descriptions)) : s.anyOf;
   return [...(candidates.length ? candidates : s.anyOf)].sort((a, b) => shapeScore(b, value) - shapeScore(a, value))[0];
 }
-function wireValue(s, value, encoded, encodedKeys) {
-  s = wireSchema(s, value, encodedKeys);
+function wireValue(s, value, encoded, encodedKeys, descriptions) {
+  s = wireSchema(s, value, encodedKeys, descriptions);
   if (/JSON-encoded value:/.test(s.description || '')) { encoded.count++; return JSON.stringify(value); }
-  if (Array.isArray(value)) return value.map((x, i) => wireValue(s.items, x, encoded, encodedKeys?.[0] === i ? encodedKeys.slice(1) : undefined));
+  if (Array.isArray(value)) return value.map((x, i) => wireValue(s.items, x, encoded, encodedKeys?.[0] === i ? encodedKeys.slice(1) : undefined, descriptions));
   if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => {
     const name = alias(k), child = s.properties?.[name] || (typeof s.additionalProperties === 'object' ? s.additionalProperties : null);
-    return [name, child ? wireValue(child, v, encoded, encodedKeys?.[0] === k ? encodedKeys.slice(1) : undefined) : v];
+    return [name, child ? wireValue(child, v, encoded, encodedKeys?.[0] === k ? encodedKeys.slice(1) : undefined, descriptions) : v];
   }));
   return value;
 }
-function advertisedAt(s, keys, args, preferEncoded = false) {
+function advertisedAt(s, keys, args, preferEncoded = false, descriptions) {
   let value = args;
   for (const [i, k] of keys.entries()) {
-    s = wireSchema(s, value, preferEncoded ? keys.slice(i) : undefined);
+    s = wireSchema(s, value, preferEncoded ? keys.slice(i) : undefined, descriptions);
     if (/JSON-encoded value:/.test(s.description || '')) return null; // Scalar remains plain inside the encoded container.
     s = typeof k === 'number' ? s.items : s.properties?.[alias(k)] || (typeof s.additionalProperties === 'object' ? s.additionalProperties : null);
     value = value?.[k];
     if (!s) return null;
   }
-  return wireSchema(s, value, preferEncoded ? [] : undefined);
+  return wireSchema(s, value, preferEncoded ? [] : undefined, descriptions);
 }
 function encodedPaths(s, here = [], out = new Set()) {
   if (/JSON-encoded value:/.test(s.description || '')) out.add(JSON.stringify(here));
@@ -143,8 +143,10 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       }
       if (!args) continue;
       const preferEncoded = !node.scalar && expectedEncoded.has(advertisedKey);
-      const advertised = advertisedAt(wire, node.path, args, preferEncoded);
+      const descriptions = new Set([node.schema, f.flatten(node.schema), nativeSchema(node.schema)].map(s => compact(`${compact(s.description)} JSON-encoded value: ${schemaSummary(s, source)}.`, 700)));
+      const advertised = advertisedAt(wire, node.path, args, preferEncoded, descriptions);
       const isEncoded = advertised && /JSON-encoded value:/.test(advertised.description || '');
+      if (preferEncoded && !descriptions.has(advertised?.description)) continue;
       if (!node.scalar && !isEncoded) continue;
       if (node.scalar) {
         assert.ok(value !== null && ['string', 'number', 'boolean'].includes(typeof value), label);
@@ -155,7 +157,8 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       assert.deepEqual(node.path.reduce((x, key) => x?.[key], args), value, `${label}: fixture must include the field under test`);
       assert.equal(f.valid(source, args), true, `${label}: generated source fixture must be valid`);
       const encoded = { count: 0 };
-      const input = wireValue(wire, args, encoded, isEncoded ? node.path : undefined);
+      const input = wireValue(wire, args, encoded, isEncoded ? node.path : undefined, descriptions);
+      assert.equal(f.valid(wire, input), true, `${label}: encoded fixture must match the advertised schema`);
       let decoded;
       try { decoded = contract.decode(input); } catch (e) { throw new Error(`${label}: ${e.message}`); }
       assert.deepEqual(decoded, args, `${label}: decoded value changed`);

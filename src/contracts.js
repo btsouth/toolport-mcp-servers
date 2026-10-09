@@ -131,9 +131,9 @@ function compileContract(source, meta) {
       (!s.anyOf || s.anyOf.some(x => allowsString(x, active, true))) &&
       (!s.oneOf || s.oneOf.some(x => allowsString(x, active, true)));
   }
-  function visit(s, depth = 0, root = false, active = new Set()) {
-    if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]));
-    if (s.nullable) return visit(nativeSchema(s), depth, root, active);
+  function visit(s, depth = 0, root = false, active = new Set(), preserveNative = false) {
+    if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]), preserveNative);
+    if (s.nullable) return visit(nativeSchema(s), depth, root, active, preserveNative);
     const scalars = scalarTypes(s, schema, active);
     if (!root && scalars?.length) {
       const out = scalars.length === 1 ? { type: scalars[0] } : { anyOf: scalars.map(type => ({ type })) };
@@ -150,24 +150,32 @@ function compileContract(source, meta) {
     }
     // Flatten object intersections for field guidance, retaining the original
     // intersection for authoritative local validation.
-    if (s.allOf && !s.$ref && depth < 7) {
-      const parts = s.allOf.map(x => x.$ref && !active.has(x.$ref) ? resolveLocal(x, schema) : x);
-      if (parts.every(x => x.properties || x.type === 'object')) {
+    if (s.allOf && !s.$ref && (depth < 7 || preserveNative)) {
+      function partsOf(part, seen = active) {
+        if (part.$ref && !seen.has(part.$ref)) return partsOf(resolveLocal(part, schema), new Set([...seen, part.$ref]));
+        if (!part.allOf) return [part];
+        const base = { ...part }; delete base.allOf;
+        return [base, ...part.allOf.flatMap(x => partsOf(x, seen))];
+      }
+      const parts = s.allOf.flatMap(x => partsOf(x));
+      if (parts.every(x => x.properties || x.type === 'object' || scalarTypes(x, schema, active)?.length === 0)) {
         const properties = { ...s.properties };
         for (const part of parts) for (const [key, child] of Object.entries(part.properties || {})) properties[key] = { ...properties[key], ...child };
-        return visit({ ...s, allOf: undefined, type: 'object', properties, required: [...new Set([...(s.required || []), ...parts.flatMap(x => x.required || [])])] }, depth, root, active);
+        return visit({ ...s, allOf: undefined, type: 'object', properties, required: [...new Set([...(s.required || []), ...parts.flatMap(x => x.required || [])])] }, depth, root, active, preserveNative);
       }
     }
     const branches = s.anyOf || s.oneOf;
     if (branches && !s.$ref && !s.allOf && !s.not) {
 
       const validators = [];
-      const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active));
+      const hasString = branches.some(x => allowsString(x));
+      const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active, hasString));
       return { schema: { anyOf: plans.map(x => x.schema), ...(s.description ? { description: compact(s.description) } : {}) }, decode(value, field) {
         // Legacy callers can still supply JSON text for structured unions.
         if (typeof value === 'string' && !branches.some(x => allowsString(x))) value = parse(value, field);
         const type = value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
-        const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf);
+        const score = plan => value && typeof value === 'object' && !Array.isArray(value) ? Object.keys(value).filter(k => Object.hasOwn(plan.schema.properties || {}, k)).length : 0;
+        const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf).sort((a, b) => score(b) - score(a));
         for (const plan of matches) {
           const index = plans.indexOf(plan);
           let decoded;
@@ -181,13 +189,13 @@ function compileContract(source, meta) {
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
     const scalarArray = type === 'array' && s.items && scalarTypes(s.items, schema, active)?.length;
     const encoded = !root && (s.$ref || s.oneOf || s.allOf || s.anyOf || s.not ||
-      !type || Array.isArray(type) || (depth >= 7 && (type === 'object' || (type === 'array' && !scalarArray))) ||
+      !type || Array.isArray(type) || (!preserveNative && depth >= 7 && (type === 'object' || (type === 'array' && !scalarArray))) ||
       (type === 'array' && (!s.items || Array.isArray(s.items))) ||
-      (type === 'object' && budget.properties + Object.keys(s.properties || {}).length > 400) ||
+      (!preserveNative && type === 'object' && budget.properties + Object.keys(s.properties || {}).length > 400) ||
       (s.enum && (budget.enums + s.enum.length > 500 || budget.strings + JSON.stringify(s.enum).length > 12000)));
     let stringValidate;
     if (encoded) return {
-      schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },
+      schema: { type: 'string', description: compact(`${compact(s.description)} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },
       decode(value, field) {
         if (typeof value !== 'string') return value;
         if (allowsString(s)) {

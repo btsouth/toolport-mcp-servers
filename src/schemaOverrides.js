@@ -43,8 +43,9 @@ function applySchemaOverrides(vendor, operation, schema) {
     for (const branch of item?.oneOf || item?.anyOf || [item]) {
       const description = branch?.properties?.description;
       if (description?.oneOf) {
+        const text = description.oneOf.find(x => x.type === 'string');
         delete description.oneOf;
-        description.type = 'string';
+        Object.assign(description, text);
       }
     }
   }

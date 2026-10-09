@@ -8444,7 +8444,8 @@
                       },
                       "description": {
                         "nullable": true,
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 512
                       }
                     },
                     "anyOf": [

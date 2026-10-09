@@ -213,6 +213,27 @@ test('additional-property errors identify the rejected key at root and nested pa
   assert.throws(() => c.decode({ body: { typo: 1 } }), /at \/body\/typo: must NOT have additional properties/);
 });
 
+test('overlapping object unions decode known fields from nested intersections', () => {
+  const schema = { properties: { policy: { anyOf: [
+    { type: 'object', properties: { id: { type: 'string' } } },
+    { allOf: [{ type: 'object' }, { allOf: [
+      { properties: { id: { type: 'string' } } },
+      { properties: { detail: { not: { type: 'number' }, type: 'object', properties: { enabled: { type: 'boolean' } } } } },
+    ] }] },
+    { type: 'string' },
+  ] } } };
+  const c = compileContract(schema, { path: '/', pathParams: [] });
+  assert.deepEqual(c.decode({ policy: { detail: '{"enabled":true}' } }), { policy: { detail: { enabled: true } } });
+  for (const policy of ['plain', '123', '{"enabled":true}']) assert.equal(c.decode({ policy }).policy, policy);
+  assert.ok(c.inputSchema.properties.policy.anyOf.some(x => x.properties?.detail));
+});
+
+test('long structured descriptions always retain JSON encoding guidance', () => {
+  const c = compileContract({ properties: { body: { description: 'guidance '.repeat(150), type: 'object', not: { type: 'number' } } } }, { path: '/', pathParams: [] });
+  assert.match(c.inputSchema.properties.body.description, /JSON-encoded value:/);
+  assert.deepEqual(c.decode({ body: '{"enabled":true}' }), { body: { enabled: true } });
+});
+
 test('Vercel DNS, expiration, Edge Config and attack-mode source repairs retain constraints', () => {
   const tools = require('../data/vercel-curated.tools.json');
   const map = require('../data/vercel.namemap.json'), ops = require('../data/vercel.operations.json');
@@ -249,6 +270,7 @@ test('Vercel DNS, expiration, Edge Config and attack-mode source repairs retain 
   const item = { operation: 'create', key: 'fixture', value: {}, description: 'plain' };
   assert.deepEqual(contract('update_edge_config_item').decode({ edgeConfigId: 'ecfg_fixture', body: { items: [item] } }).body.items[0], item);
   assert.throws(() => contract('update_edge_config_item').decode({ edgeConfigId: 'ecfg_fixture', body: { items: [{ ...item, description: {} }] } }), /Invalid arguments/);
+  assert.throws(() => contract('update_edge_config_item').decode({ edgeConfigId: 'ecfg_fixture', body: { items: [{ ...item, description: 'a'.repeat(513) }] } }), /Invalid arguments/);
   const body = { projectId: 'fixture', attackModeEnabled: true, attackModeActiveUntil: 100 };
   assert.deepEqual(contract('update_attack_challenge_mode').decode({ body }).body, body);
 });
