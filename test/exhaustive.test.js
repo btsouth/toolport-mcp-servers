@@ -120,6 +120,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
   const listed = (await call('tools/list')).result.tools;
   let scalarFields = 0, scalarCases = 0, encodedFields = 0, encodedCases = 0;
   const fixtureFailures = [];
+  const requestFailures = [];
   for (const tool of tools) {
     const meta = routingFor(ops, reverse[tool.name]);
     const source = structuredClone(tool.inputSchema);
@@ -140,6 +141,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       const label = `${vendor}/${tool.name}/${node.path.join('/')}`;
       let value, args;
       for (const candidate of f.values(node.schema)) {
+        if (node.path.length === 1 && meta.pathParams.includes(node.path[0]) && (candidate === '' || candidate === null)) continue;
         try {
           args = f.sample(source, node.path, candidate, node.choices);
           value = candidate;
@@ -153,6 +155,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       const isEncoded = advertised && /JSON-encoded value:/.test(advertised.description || '');
       if (preferEncoded && !describes(advertised, descriptions)) continue;
       if (!node.scalar && !isEncoded) continue;
+      try {
       if (node.scalar) {
         assert.ok(value !== null && ['string', 'number', 'boolean'].includes(typeof value), label);
         if (advertised) assert.doesNotMatch(advertised.description || '', /JSON-encoded value:/, label);
@@ -185,7 +188,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       if (media === 'application/json' && request.body !== '') assert.deepEqual(JSON.parse(body), JSON.parse(request.body), label);
       else if (media === 'application/x-www-form-urlencoded') assert.deepEqual([...new URLSearchParams(body)].sort(), [...new URLSearchParams(request.body)].sort(), label);
       else assert.equal(body, String(request.body), label);
-
+      } catch (e) { requestFailures.push({ field: label, error: e.message }); }
     }
     for (const key of expectedScalar) if (!scalarSeen.has(key)) fixtureFailures.push(failures.get(key) || { field: `${vendor}/${tool.name}/${JSON.parse(key).join('/')}`, scalar: true, error: 'No scalar fixture checked' });
     for (const key of expectedEncoded) if (!encodedSeen.has(key)) fixtureFailures.push({ field: `${vendor}/${tool.name}/${JSON.parse(key).join('/')}`, scalar: false, error: 'No encoded fixture checked' });
@@ -193,4 +196,5 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
   }
   t.diagnostic(JSON.stringify({ vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases, failedScalarFields: new Set(fixtureFailures.filter(x => x.scalar).map(x => x.field)).size, failedFixtureCases: fixtureFailures.length }));
   assert.equal(fixtureFailures.length, 0, 'Every source field must have a valid fixture: ' + JSON.stringify(fixtureFailures));
+  assert.equal(requestFailures.length, 0, 'Every dry run must preserve its source values: ' + JSON.stringify(requestFailures));
 });
