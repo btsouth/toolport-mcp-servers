@@ -63,10 +63,11 @@ function fixtures(root) {
     const union = s.anyOf || s.oneOf;
     if (union) {
       const selected = choices.get(union);
+      const failures = [];
       for (const branch of selected === undefined ? unionShapes(s) : [unionShapes(s)[selected]]) {
-        try { const value = sample(branch, target, forced, choices, here, depth + 1); if (valid(original, value)) return value; } catch { /* Try another valid branch. */ }
+        try { const value = sample(branch, target, forced, choices, here, depth + 1); if (valid(original, value)) return value; failures.push(JSON.stringify(validators.get(original).errors)); } catch (e) { failures.push(e.message); }
       }
-      throw new Error(`No union fixture at /${here.join('/')}`);
+      throw new Error(`No union fixture at /${here.join('/')}: ${failures.slice(0, 2).join('; ')}`);
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : 'object');
     const types = [].concat(type).filter(x => x !== 'null');

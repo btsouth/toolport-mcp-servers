@@ -241,7 +241,7 @@ test('deep scalar arrays in Vercel firewall unions remain distinct from literal 
   const tool = require('../data/vercel-curated.tools.json').find(x => x.name === 'update_firewall_config');
   const c = compileContract(tool.inputSchema, require('../data/vercel.operations.json').updateFirewallConfig);
   for (const value of [[], ['plain'], '[]', '123', 123]) {
-    const args = { projectId: 'fixture', body: { action: 'rules.insert', value: { name: 'fixture', action: {}, conditionGroup: [{ conditions: [{ type: 'host', op: 'eq', value }] }] } } };
+    const args = { projectId: 'fixture', body: { action: 'rules.insert', value: { name: 'fixture', active: true, action: {}, conditionGroup: [{ conditions: [{ type: 'host', op: 're', value }] }] } } };
     assert.deepEqual(c.decode(args), args);
   }
 });

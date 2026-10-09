@@ -111,9 +111,9 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
     for (const node of f.nodes().filter(x => x.path.length)) {
       const label = `${vendor}/${tool.name}/${node.path.join('/')}`;
       let value;
-      try { value = f.sample(node.schema); } catch (e) { fixtureFailures.push(`${label}: ${e.message}`); continue; }
+      try { value = f.sample(node.schema); } catch (e) { fixtureFailures.push({ field: label, scalar: node.scalar, error: e.message }); continue; }
       let args;
-      try { args = f.sample(source, node.path, value, node.choices); } catch (e) { fixtureFailures.push(`${label}: ${e.message}`); continue; }
+      try { args = f.sample(source, node.path, value, node.choices); } catch (e) { fixtureFailures.push({ field: label, scalar: node.scalar, error: e.message }); continue; }
       const advertised = advertisedAt(wire, node.path, args);
       const isEncoded = advertised && /JSON-encoded value:/.test(advertised.description || '');
       if (!node.scalar && !isEncoded) continue;
@@ -128,7 +128,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       const encoded = { count: 0 };
       const input = wireValue(wire, args, encoded);
       let decoded;
-      try { decoded = contract.decode(input); } catch (e) { fixtureFailures.push(`${label}: ${e.message}`); continue; }
+      try { decoded = contract.decode(input); } catch (e) { fixtureFailures.push({ field: label, scalar: node.scalar, error: e.message }); continue; }
       assert.deepEqual(decoded, args, `${label}: decoded value changed`);
       if (isEncoded) assert.ok(encoded.count > 0, label);
       const response = await call('tools/call', { name: tool.name, arguments: input });
@@ -152,6 +152,6 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
     }
     scalarFields += scalarSeen.size; encodedFields += encodedSeen.size;
   }
-  t.diagnostic(JSON.stringify({ vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases }));
-  assert.deepEqual(fixtureFailures, [], 'Every source field must have a valid fixture');
+  t.diagnostic(JSON.stringify({ vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases, failedScalarFields: new Set(fixtureFailures.filter(x => x.scalar).map(x => x.field)).size, failedFixtureCases: fixtureFailures.length }));
+  assert.equal(fixtureFailures.length, 0, 'Every source field must have a valid fixture: ' + JSON.stringify(fixtureFailures.slice(0, 5)));
 });
