@@ -218,7 +218,7 @@ test('overlapping object unions decode known fields from nested intersections', 
     { type: 'object', properties: { id: { type: 'string' } } },
     { allOf: [{ type: 'object' }, { allOf: [
       { properties: { id: { type: 'string' } } },
-      { properties: { detail: { not: { type: 'number' }, type: 'object', properties: { enabled: { type: 'boolean' } } } } },
+      { required: ['name'], properties: { name: { type: 'string' }, detail: { not: { type: 'number' }, type: 'object', properties: { enabled: { type: 'boolean' } } } } },
     ] }] },
     { type: 'string' },
   ] } } };
