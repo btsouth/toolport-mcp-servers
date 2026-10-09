@@ -226,6 +226,8 @@ test('overlapping object unions decode known fields from nested intersections', 
   assert.deepEqual(c.decode({ policy: { detail: '{"enabled":true}' } }), { policy: { detail: { enabled: true } } });
   for (const policy of ['plain', '123', '{"enabled":true}']) assert.equal(c.decode({ policy }).policy, policy);
   assert.ok(c.inputSchema.properties.policy.anyOf.some(x => x.properties?.detail));
+  const exclusive = compileContract({ properties: { policy: { oneOf: schema.properties.policy.anyOf.slice(0, 2) } } }, { path: '/', pathParams: [] });
+  assert.throws(() => exclusive.decode({ policy: { name: 'fixture', detail: '{"enabled":true}' } }), /must match exactly one schema/);
 });
 
 test('long structured descriptions always retain JSON encoding guidance', () => {
