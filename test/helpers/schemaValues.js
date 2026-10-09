@@ -74,10 +74,25 @@ function fixtures(root) {
           // optional property's type to distinguish overlapping alternatives.
           if (value && typeof value === 'object' && !Array.isArray(value)) {
             const own = shape(branch).properties || {};
+            for (const [key, child] of Object.entries(own)) if (value[key] === undefined) {
+              try {
+                const candidate = { ...value, [key]: sample(child, target, forced, choices, [...here, key], depth + 1) };
+                if (valid(original, candidate)) return candidate;
+              } catch { /* Try another optional discriminator. */ }
+            }
             const rivals = plans.flatMap(x => Object.keys(shape(x).properties || {})).filter(k => !own[k] && value[k] === undefined);
-            for (const key of new Set(rivals)) for (const invalid of [{}, false, 0, '', null]) {
-              const candidate = { ...value, [key]: invalid };
-              if (valid(original, candidate)) return candidate;
+            let distinguished = { ...value };
+            for (const key of new Set(rivals)) {
+              const constraints = plans.flatMap(x => shape(x).properties?.[key] ? [shape(x).properties[key]] : []);
+              for (const invalid of [{}, false, 0, '', null]) {
+                if (constraints.every(x => !valid(x, invalid))) {
+                  const candidate = { ...distinguished, [key]: invalid };
+                  if (!valid(branch, candidate)) continue;
+                  if (valid(original, candidate)) return candidate;
+                  distinguished = candidate;
+                  break;
+                }
+              }
             }
           }
           failures.push(JSON.stringify(validators.get(original).errors));
@@ -93,6 +108,7 @@ function fixtures(root) {
       for (const [key, child] of Object.entries(s.properties || {})) {
         if (shape(child).enum?.length === 1 || (s.required || []).includes(key) || (here.every((x, i) => target[i] === x) && target[here.length] === key)) value[key] = sample(child, target, forced, choices, [...here, key], depth + 1);
       }
+      for (const key of s.required || []) if (!Object.hasOwn(value, key) && !s.properties?.[key] && s.additionalProperties !== false) value[key] = 'fixture';
       const targetKey = target[here.length];
       if (typeof targetKey === 'string' && !s.properties?.[targetKey] && s.additionalProperties !== false && here.every((x, i) => target[i] === x)) {
         let nested = forced;
@@ -146,6 +162,12 @@ function fixtures(root) {
     if (typeof s.additionalProperties === 'object') out.push(...fields(s.additionalProperties, [...here, 'fixture_key'], choices, active, all));
     return out;
   }
-  return { sample, fields, nodes: () => fields(root, [], new Map(), new Set(), true), valid, flatten: shape };
+  function values(s) {
+    const candidates = [];
+    try { candidates.push(sample(s)); } catch { /* Other candidates may satisfy this branch. */ }
+    candidates.push(...strings, '/', 0, 1, true, false, {}, [], null);
+    return candidates.filter((value, i) => candidates.findIndex(x => JSON.stringify(x) === JSON.stringify(value)) === i && valid(s, value));
+  }
+  return { sample, values, fields, nodes: () => fields(root, [], new Map(), new Set(), true), valid, flatten: shape };
 }
 module.exports = { fixtures };

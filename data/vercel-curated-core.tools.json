@@ -3139,14 +3139,8 @@
                         "nullable": true
                       },
                       "description": {
-                        "oneOf": [
-                          {
-                            "type": "string",
-                            "maxLength": 512
-                          },
-                          {}
-                        ],
-                        "nullable": true
+                        "nullable": true,
+                        "type": "string"
                       }
                     },
                     "anyOf": [
@@ -9407,12 +9401,7 @@
           "properties": {
             "expiration": {
               "description": "The number of milliseconds after which the snapshot will expire and be deleted. Use 0 for no expiration.",
-              "oneOf": [
-                {},
-                {
-                  "type": "integer"
-                }
-              ]
+              "type": "integer"
             }
           },
           "description": "JSON request body."
@@ -9442,7 +9431,8 @@
         },
         "body": {
           "type": "object",
-          "oneOf": [
+          "description": "JSON request body.",
+          "anyOf": [
             {
               "required": [
                 "projectId",
@@ -9476,8 +9466,7 @@
                 }
               }
             }
-          ],
-          "description": "JSON request body."
+          ]
         }
       },
       "required": [

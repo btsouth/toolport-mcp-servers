@@ -213,6 +213,46 @@ test('additional-property errors identify the rejected key at root and nested pa
   assert.throws(() => c.decode({ body: { typo: 1 } }), /at \/body\/typo: must NOT have additional properties/);
 });
 
+test('Vercel DNS, expiration, Edge Config and attack-mode source repairs retain constraints', () => {
+  const tools = require('../data/vercel-curated.tools.json');
+  const map = require('../data/vercel.namemap.json'), ops = require('../data/vercel.operations.json');
+  const contract = name => {
+    const tool = tools.find(x => x.name === name);
+    return compileContract(tool.inputSchema, routingFor(ops, Object.keys(map).find(k => map[k] === name)));
+  };
+  for (const body of [
+    { name: '_service', type: 'SRV', srv: { priority: 10, weight: 10, port: 443, target: 'example.com' } },
+    { name: 'text', type: 'TXT', value: 'plain' },
+    { name: 'secure', type: 'HTTPS', https: { priority: 10, target: 'example.com' } },
+  ]) {
+    const c = contract('create_record');
+    assert.deepEqual(c.decode({ domain: 'example.com', body }).body, body);
+    const { name, ...missingName } = body;
+    assert.throws(() => c.decode({ domain: 'example.com', body: missingName }), /Invalid arguments/);
+    assert.throws(() => c.decode({ domain: 'example.com', body: { ...body, typo: true } }), /Invalid arguments/);
+  }
+  for (const name of ['create_sandbox', 'update_sandbox', 'create_session_snapshot']) {
+    const tool = tools.find(x => x.name === name), c = contract(name);
+    const meta = routingFor(ops, Object.keys(map).find(k => map[k] === name));
+    const paths = Object.fromEntries(meta.pathParams.map(k => [k, 'fixture']));
+    const key = name === 'create_session_snapshot' ? 'expiration' : 'snapshotExpiration';
+    const args = { ...paths, body: { [key]: 604800000 } };
+    assert.deepEqual(c.decode(args), args);
+    assert.throws(() => c.decode({ ...paths, body: { [key]: {} } }), /Invalid arguments/);
+    const { applySchemaOverrides } = require('../src/schemaOverrides');
+    const source = structuredClone(tool.inputSchema);
+    source.properties.body.properties[key] = { oneOf: [{}, { type: 'integer' }] };
+    applySchemaOverrides('vercel', Object.keys(map).find(k => map[k] === name), source);
+    assert.equal(source.properties.body.properties[key].type, 'integer');
+    assert.equal(source.properties.body.properties[key].oneOf, undefined);
+  }
+  const item = { operation: 'create', key: 'fixture', value: {}, description: 'plain' };
+  assert.deepEqual(contract('update_edge_config_item').decode({ edgeConfigId: 'ecfg_fixture', body: { items: [item] } }).body.items[0], item);
+  assert.throws(() => contract('update_edge_config_item').decode({ edgeConfigId: 'ecfg_fixture', body: { items: [{ ...item, description: {} }] } }), /Invalid arguments/);
+  const body = { projectId: 'fixture', attackModeEnabled: true, attackModeActiveUntil: 100 };
+  assert.deepEqual(contract('update_attack_challenge_mode').decode({ body }).body, body);
+});
+
 test('Vercel project check source follows the official SDK non-exclusive union', () => {
   const tool = require('../data/vercel-curated.tools.json').find(t => t.name === 'create_project_check');
   const meta = require('../data/vercel.operations.json').createProjectCheck;

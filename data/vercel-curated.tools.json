@@ -4978,6 +4978,11 @@
                   "description": "A comment to add context on what this DNS record is for",
                   "example": "used to verify ownership of domain",
                   "maxLength": 500
+                },
+                "name": {
+                  "description": "A subdomain name or an empty string for the root domain.",
+                  "type": "string",
+                  "example": "subdomain"
                 }
               }
             },
@@ -5014,6 +5019,11 @@
                   "description": "A comment to add context on what this DNS record is for",
                   "example": "used to verify ownership of domain",
                   "maxLength": 500
+                },
+                "name": {
+                  "description": "A subdomain name or an empty string for the root domain.",
+                  "type": "string",
+                  "example": "subdomain"
                 }
               }
             },
@@ -5114,6 +5124,11 @@
                   "description": "A comment to add context on what this DNS record is for",
                   "example": "used to verify ownership of domain",
                   "maxLength": 500
+                },
+                "name": {
+                  "description": "A subdomain name or an empty string for the root domain.",
+                  "type": "string",
+                  "example": "subdomain"
                 }
               }
             }
@@ -8428,14 +8443,8 @@
                         "nullable": true
                       },
                       "description": {
-                        "oneOf": [
-                          {
-                            "type": "string",
-                            "maxLength": 512
-                          },
-                          {}
-                        ],
-                        "nullable": true
+                        "nullable": true,
+                        "type": "string"
                       }
                     },
                     "anyOf": [
@@ -20332,13 +20341,8 @@
             },
             "snapshotExpiration": {
               "description": "Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
-              "oneOf": [
-                {},
-                {
-                  "type": "integer"
-                }
-              ],
-              "example": 604800000
+              "example": 604800000,
+              "type": "integer"
             },
             "keepLastSnapshots": {
               "description": "Protect the N most recent snapshots with different expiration/deletion behavior.",
@@ -20356,12 +20360,7 @@
                 },
                 "expiration": {
                   "description": "Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
-                  "oneOf": [
-                    {},
-                    {
-                      "type": "integer"
-                    }
-                  ]
+                  "type": "integer"
                 },
                 "deleteEvicted": {
                   "type": "boolean",
@@ -20843,13 +20842,8 @@
             },
             "snapshotExpiration": {
               "description": "Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
-              "oneOf": [
-                {},
-                {
-                  "type": "integer"
-                }
-              ],
-              "example": 604800000
+              "example": 604800000,
+              "type": "integer"
             },
             "keepLastSnapshots": {
               "description": "Protect the N most recent snapshots with different expiration/deletion behavior. Set to null to clear.",
@@ -20872,12 +20866,7 @@
                     },
                     "expiration": {
                       "description": "Expiration time in milliseconds for kept snapshots. Falls back to snapshotExpiration.",
-                      "oneOf": [
-                        {},
-                        {
-                          "type": "integer"
-                        }
-                      ]
+                      "type": "integer"
                     },
                     "deleteEvicted": {
                       "type": "boolean",
@@ -22235,12 +22224,7 @@
           "properties": {
             "expiration": {
               "description": "The number of milliseconds after which the snapshot will expire and be deleted. Use 0 for no expiration.",
-              "oneOf": [
-                {},
-                {
-                  "type": "integer"
-                }
-              ]
+              "type": "integer"
             }
           },
           "description": "JSON request body."
@@ -22270,7 +22254,8 @@
         },
         "body": {
           "type": "object",
-          "oneOf": [
+          "description": "JSON request body.",
+          "anyOf": [
             {
               "required": [
                 "projectId",
@@ -22304,8 +22289,7 @@
                 }
               }
             }
-          ],
-          "description": "JSON request body."
+          ]
         }
       },
       "required": [

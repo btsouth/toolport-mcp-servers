@@ -120,12 +120,16 @@ function compileContract(source, meta) {
     return s.nullable || s.type === 'null' || (Array.isArray(s.type) && s.type.includes('null')) ||
       (s.anyOf || s.oneOf || []).some(x => allowsNull(x, active));
   }
-  function allowsString(s, active = new Set()) {
-    const types = scalarTypes(s, schema, active);
-    if (types?.length) return types.includes('string');
-    if (s.$ref && !active.has(s.$ref)) return allowsString(resolveLocal(s, schema), new Set([...active, s.$ref]));
-    return s.type === 'string' || (Array.isArray(s.type) && s.type.includes('string')) ||
-      s.enum?.some(x => typeof x === 'string') || (s.anyOf || s.oneOf || []).some(x => allowsString(x, active));
+  function allowsString(s, active = new Set(), annotation = false) {
+    if (s.$ref && !active.has(s.$ref)) return allowsString(resolveLocal(s, schema), new Set([...active, s.$ref]), annotation);
+    if (s.$ref) return false;
+    const explicit = [].concat(s.type || []).includes('string') || s.enum?.some(x => typeof x === 'string') ||
+      [...(s.allOf || []), ...(s.anyOf || []), ...(s.oneOf || [])].some(x => allowsString(x, active));
+    return (annotation || explicit) && (!s.type || [].concat(s.type).includes('string')) &&
+      (!s.enum || s.enum.some(x => typeof x === 'string')) &&
+      (!s.allOf || s.allOf.every(x => allowsString(x, active, true))) &&
+      (!s.anyOf || s.anyOf.some(x => allowsString(x, active, true))) &&
+      (!s.oneOf || s.oneOf.some(x => allowsString(x, active, true)));
   }
   function visit(s, depth = 0, root = false, active = new Set()) {
     if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]));
