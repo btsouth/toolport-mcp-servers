@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "start": "node bin/cli.js",
-    "test": "node --test",
+    "test": "node --test test",
     "prep:clerk": "bash scripts/prep-clerk.sh",
     "prep:vercel": "bash scripts/prep-vercel.sh",
     "prep:cloudflare": "bash scripts/prep-cloudflare.sh"

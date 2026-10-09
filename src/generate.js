@@ -95,7 +95,7 @@ function generate(spec) {
       ...(body ? { contentType: Object.keys(body.content).find(k => ['application/json', 'application/x-www-form-urlencoded'].includes(k)) || Object.keys(body.content)[0] } : {}),
     };
     compileContract(schema, meta); // fail generation if it cannot be served faithfully
-    tools.push({ name: key, description: [operation.summary, operation.description].filter(Boolean).join('. '), inputSchema: schema });
+    tools.push({ name: key, description: [...new Set([operation.summary, operation.description].filter(Boolean))].join('. '), inputSchema: schema });
     operations[key] = meta;
   }
   return { tools, operations };
