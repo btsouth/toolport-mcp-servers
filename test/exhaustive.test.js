@@ -150,6 +150,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       }
       if (!args) continue;
       const preferEncoded = !node.scalar && expectedEncoded.has(advertisedKey);
+      if (preferEncoded) args = f.scaffold(args, node, value);
       const descriptions = new Set([node.schema, f.flatten(node.schema), nativeSchema(node.schema)].map(s => compact(`JSON-encoded value: ${schemaSummary(s, source)}.`, 100000)));
       const advertised = advertisedAt(wire, node.path, args, preferEncoded, descriptions);
       const isEncoded = advertised && /JSON-encoded value:/.test(advertised.description || '');

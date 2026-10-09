@@ -70,6 +70,11 @@ function fixtures(root) {
         try {
           const value = sample(branch, target, forced, choices, here, depth + 1);
           if (valid(original, value)) return value;
+          if (value === null || typeof value !== 'object') {
+            for (const candidate of [...strings, '/', 0, 1, true, false]) {
+              if (valid(branch, candidate) && valid(original, candidate)) return candidate;
+            }
+          }
           // OpenAPI unions often allow extra keys. Use a value outside a rival's
           // optional property's type to distinguish overlapping alternatives.
           if (value && typeof value === 'object' && !Array.isArray(value)) {
@@ -168,6 +173,21 @@ function fixtures(root) {
     candidates.push(...strings, '/', 0, 1, true, false, {}, [], null);
     return candidates.filter((value, i) => candidates.findIndex(x => JSON.stringify(x) === JSON.stringify(value)) === i && valid(s, value));
   }
-  return { sample, values, fields, nodes: () => fields(root, [], new Map(), new Set(), true), valid, flatten: shape };
+  let nodes;
+  const allNodes = () => nodes ||= fields(root, [], new Map(), new Set(), true);
+  function scaffold(args, node, forced) {
+    for (const parent of allNodes().filter(x => x.path.length && x.path.length < node.path.length &&
+      x.path.every((key, i) => node.path[i] === key) && [...x.choices].every(([key, value]) => node.choices.get(key) === value)).sort((a, b) => b.path.length - a.path.length)) {
+      try {
+        const value = sample(parent.schema, node.path, forced, node.choices, parent.path);
+        const candidate = structuredClone(args);
+        const container = parent.path.slice(0, -1).reduce((x, key) => x[key], candidate);
+        container[parent.path.at(-1)] = value;
+        if (valid(root, candidate)) args = candidate;
+      } catch { /* Another source alternative may supply the required scaffold. */ }
+    }
+    return args;
+  }
+  return { sample, values, scaffold, fields, nodes: allNodes, valid, flatten: shape };
 }
 module.exports = { fixtures };
