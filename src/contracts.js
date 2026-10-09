@@ -82,6 +82,21 @@ function scalarTypes(s, root, active = new Set()) {
   if (s.nullable && types.length) types.push('null');
   return [...new Set(types)];
 }
+function scalarEnum(s, root, active = new Set()) {
+  if (s.$ref) {
+    if (active.has(s.$ref)) return undefined;
+    return scalarEnum(resolveLocal(s, root), root, new Set([...active, s.$ref]));
+  }
+  let values = s.enum || (s.type === 'null' ? [null] : undefined);
+  const intersect = (a, b) => !a ? b : !b ? a : a.filter(x => b.includes(x));
+  for (const kind of ['allOf', 'anyOf', 'oneOf']) {
+    if (!s[kind]) continue;
+    const parts = s[kind].map(x => scalarEnum(x, root, active));
+    const combined = kind === 'allOf' ? parts.reduce(intersect, undefined) : parts.every(Boolean) ? [...new Set(parts.flat())] : undefined;
+    values = intersect(values, combined);
+  }
+  return values;
+}
 
 function compileContract(source, meta) {
   const schema = structuredClone(source);
@@ -119,8 +134,7 @@ function compileContract(source, meta) {
     if (!root && scalars?.length) {
       const out = scalars.length === 1 ? { type: scalars[0] } : { anyOf: scalars.map(type => ({ type })) };
       if (s.description) out.description = compact(s.description);
-      const branches = s.anyOf || s.oneOf;
-      const values = s.enum || (branches?.every(x => x.enum) ? [...new Set(branches.flatMap(x => x.enum))] : undefined);
+      const values = scalarEnum(s, schema, active);
       if (values && budget.enums + values.length <= 500 && budget.strings + JSON.stringify(values).length <= 12000) {
         out.enum = values; budget.enums += values.length; budget.strings += JSON.stringify(values).length;
       }

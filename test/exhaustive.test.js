@@ -123,6 +123,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
         scalarSeen.add(JSON.stringify(node.path)); scalarCases++;
       }
       if (isEncoded) { encodedSeen.add(JSON.stringify(node.path)); encodedCases++; }
+      assert.deepEqual(node.path.reduce((x, key) => x?.[key], args), value, `${label}: fixture must include the field under test`);
       assert.equal(f.valid(source, args), true, `${label}: generated source fixture must be valid`);
       const encoded = { count: 0 };
       const input = wireValue(wire, args, encoded);

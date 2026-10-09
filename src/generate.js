@@ -4,6 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const nameOverrides = require('./nameOverrides');
+const { applySchemaOverrides } = require('./schemaOverrides');
 const { compileContract, forbiddenHeader } = require('./contracts');
 const METHODS = new Set(['get', 'post', 'put', 'patch', 'delete', 'head', 'options']);
 function pointer(spec, ref) {
@@ -95,6 +96,7 @@ function generate(spec, vendor = process.env.VENDOR || 'stripe') {
       headerParams: params.filter(x => x.in === 'header' && !forbiddenHeader(x.name)).map(x => x.name),
       ...(body ? { contentType } : {}),
     };
+    applySchemaOverrides(vendor, key, schema);
     compileContract(schema, meta); // fail generation if it cannot be served faithfully
     tools.push({ name: key, ...(nameOverrides[vendor]?.[entry.id] ? { nameOverride: nameOverrides[vendor][entry.id] } : {}), description: [...new Set([operation.summary, operation.description].filter(Boolean))].join('. '), inputSchema: schema });
     operations[key] = meta;

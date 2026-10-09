@@ -109,7 +109,11 @@ async function request({ url, method, headers, body, signal, logs, secrets = [],
     if (response.status >= 300 && response.status < 400 && response.headers.has('location')) {
       // Drop token-bearing queries/fragments and URL credentials before reporting.
       let location = response.headers.get('location').split(/[?#]/)[0];
-      try { const target = new URL(location); target.username = ''; target.password = ''; location = target.toString(); } catch { /* Relative Location is valid too. */ }
+      try {
+        const target = new URL(location.startsWith('//') ? 'https:' + location : location);
+        target.username = ''; target.password = '';
+        location = location.startsWith('//') ? target.toString().slice('https:'.length) : target.toString();
+      } catch { /* Relative Location is valid too. */ }
       result.error.location = safeMessage(location, secrets);
     }
     return { status: response.status, body: result };

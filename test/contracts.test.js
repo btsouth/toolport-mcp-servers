@@ -212,3 +212,27 @@ test('additional-property errors identify the rejected key at root and nested pa
   assert.throws(() => c.decode({ typo: 1 }), /at \/typo: must NOT have additional properties/);
   assert.throws(() => c.decode({ body: { typo: 1 } }), /at \/body\/typo: must NOT have additional properties/);
 });
+
+test('Vercel project check source follows the official SDK non-exclusive union', () => {
+  const tool = require('../data/vercel-curated.tools.json').find(t => t.name === 'create_project_check');
+  const meta = require('../data/vercel.operations.json').createProjectCheck;
+  const c = compileContract(tool.inputSchema, meta);
+  for (const source of [{ kind: 'integration', externalResourceId: 'resource_fixture' }, { kind: 'webhook', webhookId: 'hook_fixture' }, { kind: 'git-provider', provider: 'github', externalCheckName: 'fixture' }]) {
+    assert.deepEqual(c.decode({ projectIdOrName: 'project_fixture', body: { name: 'fixture', source, requires: 'deployment-url', blocks: 'deployment-alias', timeout: 300 } }).body.source, source);
+  }
+  const { tools } = generate({ paths: { '/projects/{projectIdOrName}/checks': { post: { operationId: 'createProjectCheck', requestBody: { content: { 'application/json': { schema: { properties: { source: { type: 'object', oneOf: [{ properties: { kind: { type: 'string' } } }, { properties: { kind: { type: 'string' } }, required: ['kind'] }] } } } } } } } } } }, 'vercel');
+  assert.ok(tools[0].inputSchema.properties.body.properties.source.anyOf);
+  assert.equal(tools[0].inputSchema.properties.body.properties.source.oneOf, undefined);
+});
+test('referenced scalar compositions advertise plain types and preserve exact values', () => {
+  const schema = { properties: {
+    string: { allOf: [{ $ref: '#/$defs/text' }, { example: 'plain' }] },
+    number: { anyOf: [{ $ref: '#/$defs/count' }, { type: 'number', minimum: 1 }] },
+    boolean: { oneOf: [{ type: 'boolean', enum: [true] }, { type: 'boolean', enum: [false] }] },
+  }, $defs: { text: { type: 'string', pattern: '^[a-z]+$' }, count: { type: 'integer', minimum: 1 } } };
+  const c = compileContract(schema, { path: '/', pathParams: [] });
+  const values = { string: 'plain', number: 1.5, boolean: false };
+  assert.deepEqual(c.decode(values), values);
+  for (const field of Object.values(c.inputSchema.properties)) assert.doesNotMatch(JSON.stringify(field), /JSON-encoded/);
+  assert.throws(() => c.decode({ string: '123' }), /pattern/);
+});

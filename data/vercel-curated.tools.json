@@ -1434,7 +1434,7 @@
             },
             "source": {
               "type": "object",
-              "oneOf": [
+              "anyOf": [
                 {
                   "properties": {
                     "kind": {

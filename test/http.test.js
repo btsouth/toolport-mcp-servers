@@ -120,7 +120,7 @@ test('redirects report sanitized absolute and relative Location without followin
   const url = await fixture(t, (req, res) => {
     if (req.url === '/absolute') res.writeHead(302, { Location: 'https://user:password@example.com/target?token=hidden#secret' });
     else if (req.url === '/relative') res.writeHead(307, { Location: '/target?access_token=hidden#secret' });
-    else if (req.url === '/scheme-relative') res.writeHead(303, { Location: '//example.com/target?code=hidden' });
+    else if (req.url === '/scheme-relative') res.writeHead(303, { Location: '//user:password@example.com/target?code=hidden' });
     else if (req.url === '/missing') res.writeHead(302);
     else { followed++; res.writeHead(200); }
     res.end();

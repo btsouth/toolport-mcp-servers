@@ -89,7 +89,13 @@ function fixtures(root) {
     }
     if (types.includes('boolean')) candidates.push(true, false);
     if (s.nullable || [].concat(type).includes('null')) candidates.push(null);
-    for (const value of candidates) if (valid(original, value)) return value;
+    for (const value of candidates) {
+      if (target.length && here.every((x, i) => target[i] === x)) {
+        const actual = target.slice(here.length).reduce((x, key) => x?.[key], value);
+        if (JSON.stringify(actual) !== JSON.stringify(forced)) continue;
+      }
+      if (valid(original, value)) return value;
+    }
     throw new Error(`No valid ${type} fixture at /${here.join('/')}: ${JSON.stringify(s).slice(0, 300)}`);
   }
   function fields(original = root, here = [], choices = new Map(), active = new Set(), all = false) {
