@@ -678,7 +678,7 @@
             },
             "source": {
               "type": "object",
-              "oneOf": [
+              "anyOf": [
                 {
                   "properties": {
                     "kind": {
@@ -3139,14 +3139,9 @@
                         "nullable": true
                       },
                       "description": {
-                        "oneOf": [
-                          {
-                            "type": "string",
-                            "maxLength": 512
-                          },
-                          {}
-                        ],
-                        "nullable": true
+                        "nullable": true,
+                        "type": "string",
+                        "maxLength": 512
                       }
                     },
                     "anyOf": [
@@ -3615,7 +3610,7 @@
           "type": "string",
           "example": "env_2WjyKQmM8ZnGcJsPWMrHRHrE,env_2WjyKQmM8ZnGcJsPWMrHRCRV"
         },
-        "'exclude-ids'": {
+        "exclude-ids": {
           "description": "Filter SharedEnvVariables based on comma separated ids",
           "type": "string",
           "example": "env_2WjyKQmM8ZnGcJsPWMrHRHrE,env_2WjyKQmM8ZnGcJsPWMrHRCRV"
@@ -3625,7 +3620,7 @@
           "type": "string",
           "example": "prj_2WjyKQmM8ZnGcJsPWMrHRHrE"
         },
-        "'exclude-projectId'": {
+        "exclude-projectId": {
           "description": "Filter SharedEnvVariables that belong to a project",
           "type": "string",
           "example": "prj_2WjyKQmM8ZnGcJsPWMrHRHrE"
@@ -5836,7 +5831,7 @@
     }
   },
   {
-    "name": "create_installations_by_integration_configuration_id_resources_by_resour",
+    "name": "create_integration_resource_experimentation_item",
     "description": "Create a installations_by_integration_configuration_id_resources_by_resour. Create one or multiple experimentation items. Create one or multiple experimentation items",
     "inputSchema": {
       "type": "object",
@@ -5917,7 +5912,7 @@
     }
   },
   {
-    "name": "update_installations_by_integration_configuration_id_resources_by_resour",
+    "name": "update_integration_resource_experimentation_item",
     "description": "Update a installations_by_integration_configuration_id_resources_by_resour. Patch an existing experimentation item. Patch an existing experimentation item",
     "inputSchema": {
       "type": "object",
@@ -5984,7 +5979,7 @@
     }
   },
   {
-    "name": "delete_installations_by_integration_configuration_id_resources_by_resour",
+    "name": "delete_integration_resource_experimentation_item",
     "description": "Delete a installations_by_integration_configuration_id_resources_by_resour. Delete an existing experimentation item. Delete an existing experimentation item",
     "inputSchema": {
       "type": "object",
@@ -6008,7 +6003,7 @@
     }
   },
   {
-    "name": "get_installations_by_integration_configuration_id_resources_by_resource_i",
+    "name": "get_integration_resource_edge_config",
     "description": "Retrieve a installations_by_integration_configuration_id_resources_by_resource_i. Get the data of a user-provided Edge Config. When the user enabled Edge Config syncing, then this endpoint can be used by the partner to fetch the contents of the Edge Config.",
     "inputSchema": {
       "type": "object",
@@ -6028,7 +6023,7 @@
     }
   },
   {
-    "name": "replace_installations_by_integration_configuration_id_resources_by_resou",
+    "name": "update_integration_resource_edge_config",
     "description": "Replace a installations_by_integration_configuration_id_resources_by_resou. Push data into a user-provided Edge Config. When the user enabled Edge Config syncing, then this endpoint can be used by the partner to push their configuration data into the relevant Edge Config.",
     "inputSchema": {
       "type": "object",
@@ -6062,7 +6057,7 @@
     }
   },
   {
-    "name": "head_installations_by_integration_configuration_id_resources_by_resource",
+    "name": "head_integration_resource_edge_config",
     "description": "Head a installations_by_integration_configuration_id_resources_by_resource. Get the data of a user-provided Edge Config. When the user enabled Edge Config syncing, then this endpoint can be used by the partner to fetch the contents of the Edge Config.",
     "inputSchema": {
       "type": "object",
@@ -8280,7 +8275,7 @@
     }
   },
   {
-    "name": "update_projects_by_project_id_rollback_by_deployment_id_update_description",
+    "name": "update_project_rollback_description",
     "description": "Update a projects_by_project_id_rollback_by_deployment_id_update_description. Updates the description for a rollback. Updates the reason for a rollback, without changing the rollback status itself.",
     "inputSchema": {
       "type": "object",
@@ -9353,7 +9348,7 @@
     "inputSchema": {
       "type": "object",
       "properties": {
-        "'x-Cwd'": {
+        "x-Cwd": {
           "type": "string",
           "description": "The target directory where the tarball contents will be extracted. If not specified, files are extracted to the sandbox home directory.",
           "example": "/home/vercel-sandbox"
@@ -9407,12 +9402,7 @@
           "properties": {
             "expiration": {
               "description": "The number of milliseconds after which the snapshot will expire and be deleted. Use 0 for no expiration.",
-              "oneOf": [
-                {},
-                {
-                  "type": "integer"
-                }
-              ]
+              "type": "integer"
             }
           },
           "description": "JSON request body."
@@ -9442,7 +9432,8 @@
         },
         "body": {
           "type": "object",
-          "oneOf": [
+          "description": "JSON request body.",
+          "anyOf": [
             {
               "required": [
                 "projectId",
@@ -9476,8 +9467,7 @@
                 }
               }
             }
-          ],
-          "description": "JSON request body."
+          ]
         }
       },
       "required": [

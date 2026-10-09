@@ -110,3 +110,52 @@ overlay live in `src/`, and each server's config is a single file under `vendors
 MIT. Tool definitions are derived from each vendor's public OpenAPI spec. Not affiliated with
 or endorsed by any API provider. Vendor names are trademarks of their respective owners and
 are used here only to identify the API each server targets.
+
+## API contracts and bounds
+
+Tool schemas use standard JSON Schema with nested objects, typed enums, and real optional
+fields. Toolport and other clients own any strict-dialect conversion. Anthropic and OpenAI
+non-strict function tools can use these schemas directly; Gemini clients should use
+`parametersJsonSchema`. Local schema checks do not prove hosted acceptance for every client.
+
+Objects, maps and representable unions stay native JSON. Object intersections advertise
+merged fields; the original API constraints, including oneOf exclusivity and allOf, are
+always validated locally before HTTP. Recursive, very deep or otherwise unrepresentable
+values use JSON text with bounded shape summaries naming fields, required keys and enums.
+Existing JSON-text structured calls remain accepted. Omit optional fields; explicit null
+is preserved where the API allows it. Legacy nulls on non-nullable optional fields omit them.
+Scalars stay plain values, including scalar intersections and unions. Size limits may
+omit advertised enums; the original constraints still validate locally.
+
+`list_runtime_logs` reads Vercel's live `application/stream+json` endpoint. `since` and
+`until` are inclusive Unix-millisecond filters applied locally, not upstream query
+parameters. The default window runs from 15 minutes before call start through 10 seconds
+after it, so live arrivals are eligible even without historical backfill. Default limit:
+100 entries. Stop after that limit, a 750 ms idle gap, 10 seconds total, or 2 MiB. Return
+`entries`, the window, `stopped`, and `skippedLines` for malformed records. An empty result
+does not guarantee historical logs were available. The endpoint documents no backfill
+window: [Vercel's public OpenAPI](https://openapi.vercel.sh/).
+
+Other calls have a 20-second deadline and an 8 MiB response cap. MCP cancellation and stdin
+closure abort HTTP; cancelled requests receive no reply. Redirects are returned with their
+HTTP status and sanitized Location (without queries, fragments or URL credentials) and
+never followed. Errors retain status, vendor code/message and bounded
+parameter, decline and long-message details. Network failures include a transport cause
+when available. Credentials, secret-like argument values and credential patterns are
+redacted; ordinary identifiers remain useful. Failed writes never replay automatically.
+
+Caller headers exclude Content-Length, Host, Authorization, Content-Type and
+Transfer-Encoding. The adapter supplies authentication/content type; fetch computes length.
+Raw uploads accept UTF-8 text bytes only, without binary or base64 decoding.
+
+YAML prep scripts require Python 3 and PyYAML. The local `src/generate.js` pipeline resolves
+references and inherited parameters and derives required paths from URL templates. It
+preserves full internal operation identities. The committed `src/nameOverrides.js` assigns
+meaningful public names to long or lossy operations; curation refuses an unmapped long name.
+Old unambiguous names remain hidden call aliases, including names longer than 64 characters;
+the ambiguous Stripe `_desig_3` alias is rejected.
+
+Run `npm run prep:vercel`, `npm run prep:clerk`, or `npm run prep:cloudflare`. For Stripe,
+fetch its configured JSON spec, then run `VENDOR=stripe node src/generate.js` and
+`VENDOR=stripe node src/curate.js`. Generation writes `out/`; reviewed artifacts must be
+copied to `data/` to ship them. Unsupported request encodings fail explicitly.

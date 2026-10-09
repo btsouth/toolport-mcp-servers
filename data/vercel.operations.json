@@ -137,6 +137,10 @@
     "queryParams": [
       "teamId",
       "slug"
+    ],
+    "headerParams": [
+      "x-artifact-client-ci",
+      "x-artifact-client-interactive"
     ]
   },
   "status": {
@@ -157,7 +161,16 @@
     "queryParams": [
       "teamId",
       "slug"
-    ]
+    ],
+    "headerParams": [
+      "x-artifact-duration",
+      "x-artifact-client-ci",
+      "x-artifact-client-interactive",
+      "x-artifact-tag",
+      "x-artifact-sha",
+      "x-artifact-dirty-hash"
+    ],
+    "contentType": "application/octet-stream"
   },
   "downloadArtifact": {
     "method": "GET",
@@ -168,6 +181,10 @@
     "queryParams": [
       "teamId",
       "slug"
+    ],
+    "headerParams": [
+      "x-artifact-client-ci",
+      "x-artifact-client-interactive"
     ]
   },
   "artifactExists": {
@@ -1304,9 +1321,9 @@
       "projectId",
       "ids",
       "exclude_ids",
-      "'exclude-ids'",
+      "exclude-ids",
       "exclude_projectId",
-      "'exclude-projectId'",
+      "exclude-projectId",
       "teamId",
       "slug"
     ]
@@ -1948,62 +1965,6 @@
       "teamId",
       "slug"
     ]
-  },
-  "createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItems": {
-    "method": "POST",
-    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items",
-    "pathParams": [
-      "integrationConfigurationId",
-      "resourceId"
-    ],
-    "queryParams": []
-  },
-  "updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": {
-    "method": "PATCH",
-    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items/{itemId}",
-    "pathParams": [
-      "integrationConfigurationId",
-      "resourceId",
-      "itemId"
-    ],
-    "queryParams": []
-  },
-  "deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": {
-    "method": "DELETE",
-    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items/{itemId}",
-    "pathParams": [
-      "integrationConfigurationId",
-      "resourceId",
-      "itemId"
-    ],
-    "queryParams": []
-  },
-  "headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
-    "method": "HEAD",
-    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
-    "pathParams": [
-      "integrationConfigurationId",
-      "resourceId"
-    ],
-    "queryParams": []
-  },
-  "getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
-    "method": "GET",
-    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
-    "pathParams": [
-      "integrationConfigurationId",
-      "resourceId"
-    ],
-    "queryParams": []
-  },
-  "replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
-    "method": "PUT",
-    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
-    "pathParams": [
-      "integrationConfigurationId",
-      "resourceId"
-    ],
-    "queryParams": []
   },
   "getMicrofrontendsGroups": {
     "method": "GET",
@@ -2658,15 +2619,6 @@
       "slug"
     ]
   },
-  "updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescription": {
-    "method": "PATCH",
-    "path": "/v1/projects/{projectId}/rollback/{deploymentId}/update-description",
-    "pathParams": [
-      "projectId",
-      "deploymentId"
-    ],
-    "queryParams": []
-  },
   "updateMicrofrontends": {
     "method": "PATCH",
     "path": "/v1/projects/{projectId}/microfrontends",
@@ -3013,6 +2965,9 @@
     "queryParams": [
       "teamId",
       "slug"
+    ],
+    "headerParams": [
+      "x-cwd"
     ]
   },
   "createSessionSnapshot": {
@@ -3300,7 +3255,13 @@
     "queryParams": [
       "teamId",
       "slug"
-    ]
+    ],
+    "headerParams": [
+      "x-vercel-digest",
+      "x-now-digest",
+      "x-now-size"
+    ],
+    "contentType": "application/octet-stream"
   },
   "listAuthTokens": {
     "method": "GET",
@@ -3730,5 +3691,70 @@
       "teamId",
       "slug"
     ]
+  },
+  "createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItems": {
+    "method": "POST",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": {
+    "method": "PATCH",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items/{itemId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId",
+      "itemId"
+    ],
+    "queryParams": []
+  },
+  "deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": {
+    "method": "DELETE",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items/{itemId}",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId",
+      "itemId"
+    ],
+    "queryParams": []
+  },
+  "replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
+    "method": "PUT",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
+    "method": "HEAD",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": {
+    "method": "GET",
+    "path": "/v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/edge-config",
+    "pathParams": [
+      "integrationConfigurationId",
+      "resourceId"
+    ],
+    "queryParams": []
+  },
+  "updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescription": {
+    "method": "PATCH",
+    "path": "/v1/projects/{projectId}/rollback/{deploymentId}/update-description",
+    "pathParams": [
+      "projectId",
+      "deploymentId"
+    ],
+    "queryParams": []
   }
 }

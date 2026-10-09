@@ -197,13 +197,6 @@
   "dangerouslyDeleteBySrcImages": "dangerously_delete_by_src_image",
   "connectIntegrationResourceToProject": "connect_integration_resource_to_project",
   "getProjectsByIdOrNameCustomEnvironments": "list_projects_by_id_or_name_custom_environments",
-  "createInstallationsByIntegrationConfigurationIdResourcesByResour": "create_installations_by_integration_configuration_id_resources_by_resour",
-  "updateInstallationsByIntegrationConfigurationIdResourcesByResour": "update_installations_by_integration_configuration_id_resources_by_resour",
-  "deleteInstallationsByIntegrationConfigurationIdResourcesByResour": "delete_installations_by_integration_configuration_id_resources_by_resour",
-  "replaceInstallationsByIntegrationConfigurationIdResourcesByResou": "replace_installations_by_integration_configuration_id_resources_by_resou",
-  "headInstallationsByIntegrationConfigurationIdResourcesByResource": "head_installations_by_integration_configuration_id_resources_by_resource",
-  "getInstallationsByIntegrationConfigurationIdResourcesByResourceI": "get_installations_by_integration_configuration_id_resources_by_resource_i",
-  "updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescription": "update_projects_by_project_id_rollback_by_deployment_id_update_description",
   "create_event": "create",
   "get_account_info": "get",
   "get_member": "get_2",
@@ -331,5 +324,12 @@
   "countEvents": "count_event",
   "assignAlias": "assign_alia",
   "issueCert": "issue_cert",
-  "uploadCert": "upload_cert"
+  "uploadCert": "upload_cert",
+  "createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItems": "create_integration_resource_experimentation_item",
+  "updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": "update_integration_resource_experimentation_item",
+  "deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId": "delete_integration_resource_experimentation_item",
+  "replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": "update_integration_resource_edge_config",
+  "headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": "head_integration_resource_edge_config",
+  "getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationEdgeConfig": "get_integration_resource_edge_config",
+  "updateProjectsByProjectIdRollbackByDeploymentIdUpdateDescription": "update_project_rollback_description"
 }

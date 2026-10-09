@@ -5,12 +5,14 @@
 //   VENDOR=clerk CLERK_SECRET_KEY=sk_... node src/server.js
 //
 // With no API key set it runs DRY-RUN (returns the HTTP request it WOULD make), so the
-// wiring is verifiable without credentials. Reads build artifacts from out/ (run the build).
+// wiring is verifiable without credentials. Reads bundled data/ artifacts, falling back to out/ for development.
 
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const { stripeForm } = require('./stripeForm');
+const { compileContract, routingFor, compact, forbiddenHeader } = require('./contracts');
+const { request, safeMessage } = require('./http');
 
 const VENDOR = process.env.VENDOR || 'stripe';
 const cfg = require(`../vendors/${VENDOR}`);
@@ -28,8 +30,31 @@ try {
   operations = load(cfg.out.operations);
   opByName = Object.fromEntries(Object.entries(nameMap).map(([op, n]) => [n, op]));
 } catch (e) {
-  process.stderr.write(`toolport-${VENDOR}-mcp: build artifacts missing - run \`VENDOR=${VENDOR} npm run build\` (${e.message})\n`);
+  process.stderr.write(`toolport-${VENDOR}-mcp: build artifacts missing - regenerate the vendor artifacts (${e.message})\n`);
   process.exit(1);
+}
+
+const contracts = new Map();
+curated = curated.map(tool => {
+  const meta = routingFor(operations, opByName[tool.name]);
+  if (VENDOR === 'vercel' && tool.name === 'list_runtime_logs') {
+    tool = structuredClone(tool);
+    Object.assign(tool.inputSchema.properties, {
+      limit: { type: 'integer', minimum: 1, maximum: 1000, description: 'Maximum entries; default 100.' },
+      since: { type: 'integer', minimum: 0, description: 'Inclusive local timestamp filter in Unix milliseconds; default 15 minutes ago.' },
+      until: { type: 'integer', minimum: 0, description: 'Inclusive local timestamp filter in Unix milliseconds; default 10 seconds after call start (the bounded live window).' },
+    });
+    tool.description = 'Query a bounded snapshot of deployment runtime logs. Filters streamed entries locally by since/until; no historical backfill guarantee. Default window: last 15 minutes through 10 seconds after call start. Default limit 100, 750 ms idle gap, 10 s total, 2 MiB cap. Returns entries and stopped reason; never follows indefinitely.';
+  }
+  const contract = compileContract(tool.inputSchema, meta);
+  contracts.set(tool.name, contract);
+  return { ...tool, description: compact(tool.description, 500), inputSchema: contract.inputSchema };
+});
+
+const canonicalByOp = Object.fromEntries(curated.map(tool => [opByName[tool.name], tool.name]));
+const aliases = require('./legacyAliases')[VENDOR] || {};
+for (const [alias, canonical] of Object.entries(aliases)) {
+  if (!Object.hasOwn(opByName, alias) && contracts.has(canonical)) opByName[alias] = opByName[canonical];
 }
 
 const API_KEY = process.env[cfg.apiKeyEnv] || '';
@@ -44,13 +69,13 @@ const error = (id, code, message) => send({ jsonrpc: '2.0', id, error: { code, m
 // Curated tool call -> concrete HTTP request: path params fill the URL, query params become
 // the query string, and `body` is the request payload (encoded per the vendor's bodyFormat).
 function buildRequest(op, args) {
-  const meta = operations[op];
+  const meta = routingFor(operations, op);
   if (!meta) throw new Error(`no routing for ${op}`);
   const a = { ...(args || {}) };
   let p = meta.path;
   for (const pp of meta.pathParams) {
-    if (a[pp] === undefined) throw new Error(`missing path parameter: ${pp}`);
-    p = p.replace(`{${pp}}`, encodeURIComponent(String(a[pp])));
+    if (a[pp] === undefined || a[pp] === null || a[pp] === '') throw new Error(`missing path parameter: ${pp}`);
+    p = p.split(`{${pp}}`).join(encodeURIComponent(String(a[pp])));
     delete a[pp];
   }
   const query = [];
@@ -58,37 +83,61 @@ function buildRequest(op, args) {
     if (a[qp] !== undefined) { const enc = stripeForm({ [qp]: a[qp] }); if (enc) query.push(enc); delete a[qp]; }
   }
   const url = BASE + p + (query.length ? `?${query.join('&')}` : '');
-  return { method: meta.method, url, body: a.body };
+  const headers = {};
+  for (const hp of meta.headerParams || []) {
+    if (forbiddenHeader(hp)) continue;
+    const key = Object.keys(a).find(k => k.toLowerCase() === hp.toLowerCase());
+    if (key !== undefined) headers[hp] = String(a[key]);
+  }
+  return { method: meta.method, url, body: a.body, headers, contentType: meta.contentType };
 }
 
-function encodeBody(body) {
+function encodeBody(body, contentType) {
   if (body === undefined) return {};
-  if (cfg.bodyFormat === 'json') return { encoded: JSON.stringify(body), contentType: 'application/json' };
+  if (contentType && !['application/json', 'application/x-www-form-urlencoded'].includes(contentType)) {
+    if (contentType === 'text/plain' || contentType === 'application/octet-stream') return { encoded: body, contentType };
+    throw Object.assign(new Error(`Unsupported request content type: ${contentType}`), { code: 'unsupported_content_type' });
+  }
+  if (contentType === 'application/json' || (!contentType && cfg.bodyFormat === 'json')) return { encoded: JSON.stringify(body), contentType: 'application/json' };
   return { encoded: stripeForm(body), contentType: 'application/x-www-form-urlencoded' };
 }
 
-async function callTool(name, args) {
+async function callTool(name, args, signal) {
   const op = opByName[name];
   if (!op) throw new Error(`unknown tool: ${name}`);
-  const { method, url, body } = buildRequest(op, args);
-  const { encoded, contentType } = method !== 'GET' ? encodeBody(body) : {};
-  if (!API_KEY) return { dryRun: true, op, method, url, body: encoded || '' };
-  const headers = { Authorization: `Bearer ${API_KEY}` };
+  const canonical = canonicalByOp[op];
+  args = contracts.get(canonical).decode(args);
+  const { method, url, body, headers: parameterHeaders, contentType: bodyType } = buildRequest(op, args);
+  const { encoded, contentType } = method !== 'GET' ? encodeBody(body, bodyType) : {};
+  const headers = { ...parameterHeaders, Authorization: `Bearer ${API_KEY}` };
   if (contentType) headers['Content-Type'] = contentType;
-  const res = await fetch(url, { method, headers, body: encoded });
-  const text = await res.text();
-  let parsed;
-  try { parsed = JSON.parse(text); } catch { parsed = text; }
-  return { status: res.status, body: parsed };
+  let logs;
+  if (VENDOR === 'vercel' && canonical === 'list_runtime_logs') {
+    const now = Date.now();
+    logs = { limit: args.limit ?? 100, since: args.since ?? now - 15 * 60 * 1000, until: args.until ?? now + 10000 };
+    if (logs.since > logs.until) throw Object.assign(new Error('since must be at or before until'), { code: 'invalid_arguments' });
+  }
+  if (!API_KEY) return { dryRun: true, op, method, url, body: encoded ?? '', headers: parameterHeaders };
+  const secrets = [API_KEY];
+  function collect(value, key = '') {
+    if (typeof value === 'string' && /secret|token|password|authorization|cookie|api.?key|private.?key/i.test(key)) secrets.push(value);
+    else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) collect(v, /secret|token|password|authorization|cookie|api.?key|private.?key/i.test(key) ? key : k);
+  }
+  collect(args);
+  return request({ url, method, headers, body: encoded, signal, logs, secrets });
 }
 
+const pending = new Map();
 async function handle(msg) {
   const { id, method, params } = msg;
   switch (method) {
     case 'initialize':
-      return result(id, { protocolVersion: PROTOCOL, capabilities: { tools: {} }, serverInfo: { name: NAME, version: '0.0.0' } });
+      return result(id, { protocolVersion: PROTOCOL, capabilities: { tools: {} }, serverInfo: { name: NAME, version: require('../package.json').version } });
     case 'notifications/initialized':
     case 'initialized':
+      return;
+    case 'notifications/cancelled':
+      pending.get(params?.requestId)?.abort();
       return;
     case 'ping':
       return result(id, {});
@@ -96,22 +145,28 @@ async function handle(msg) {
       return result(id, { tools: curated });
     case 'tools/call': {
       const name = params && params.name;
+      const controller = new AbortController();
+      pending.set(id, controller);
       try {
-        const out = await callTool(name, (params && params.arguments) || {});
+        const out = await callTool(name, (params && params.arguments) || {}, controller.signal);
+        if (controller.signal.aborted) return;
         const text = out.dryRun
-          ? `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${out.method} ${out.url}\n${out.body ? 'body: ' + out.body : '(no body)'}\n\n[curated tool ${name} -> ${out.op}]`
+          ? `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${out.method} ${out.url}\n${out.body !== '' ? 'body: ' + out.body : '(no body)'}${Object.keys(out.headers).length ? '\nheaders: ' + JSON.stringify(out.headers) : ''}\n\n[curated tool ${name} -> ${out.op}]`
           : JSON.stringify(out.body, null, 2);
-        return result(id, { content: [{ type: 'text', text }], isError: !out.dryRun && out.status >= 400 });
+        return result(id, { content: [{ type: 'text', text }], isError: !out.dryRun && (out.status === 0 || out.status >= 300) });
       } catch (e) {
-        return result(id, { content: [{ type: 'text', text: `error: ${e.message}` }], isError: true });
-      }
+        if (controller.signal.aborted) return;
+        return result(id, { content: [{ type: 'text', text: JSON.stringify({ error: { status: null, code: e.code || 'invalid_arguments', message: safeMessage(e.message, [API_KEY]), ...(e.field ? { field: e.field } : {}) } }) }], isError: true });
+      } finally { pending.delete(id); }
     }
     default:
       if (id !== undefined) error(id, -32601, `method not found: ${method}`);
   }
 }
 
-readline.createInterface({ input: process.stdin }).on('line', (line) => {
+const input = readline.createInterface({ input: process.stdin });
+input.on('close', () => { for (const controller of pending.values()) controller.abort(); });
+input.on('line', (line) => {
   const s = line.trim();
   if (!s) return;
   let msg;

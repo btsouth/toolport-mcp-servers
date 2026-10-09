@@ -14,11 +14,12 @@
     "vendors",
     "data",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
     "start": "node bin/cli.js",
-    "test": "node --test",
+    "test": "node --test test/*.test.js",
     "prep:clerk": "bash scripts/prep-clerk.sh",
     "prep:vercel": "bash scripts/prep-vercel.sh",
     "prep:cloudflare": "bash scripts/prep-cloudflare.sh"
@@ -43,5 +44,9 @@
     "type": "git",
     "url": "git+https://github.com/btsouth/toolport-mcp-servers.git"
   },
-  "homepage": "https://toolport.app"
+  "homepage": "https://toolport.app",
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
+  }
 }

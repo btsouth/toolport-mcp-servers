@@ -10,11 +10,14 @@
 //   <intents>  - the benchmark intents with `ok` remapped to curated names (if present)
 //   <namemap>  - operationId -> curated name
 //
-// The tool SHAPE ({name, description, inputSchema}) is preserved, so it drops straight into
+// The tool shape ({name, description, inputSchema}) is preserved, so it drops straight into
 // the same ranker/benchmark/server the raw catalog uses.
 
 const fs = require('fs');
 const path = require('path');
+const { compact, compileContract } = require('./contracts');
+const nameOverrides = require('./nameOverrides');
+const { extractOperations } = require('./generate');
 const { humanize, humanizeVerb, humanizePath, splitCamel } = require('./humanize');
 
 const VENDOR = process.env.VENDOR || 'stripe';
@@ -26,19 +29,11 @@ const resolve = (p) => (/^([a-zA-Z]:|\/)/.test(p) ? p : path.join(__dirname, '..
 
 // Path-http vendors (Cloudflare) name from METHOD + PATH, not the (messy) operationId, so
 // we index operationId -> {method, path} from the spec. `opMeta` stays null otherwise.
-// The generator turns an operationId into a tool name by replacing non-alphanumerics with
-// `_` and truncating to MCP's 64-char limit, so index by that same key. For short
-// alphanumeric ids (Stripe/Vercel/Clerk) this is a no-op.
-const opKey = (id) => String(id).replace(/[^A-Za-z0-9]+/g, '_').slice(0, 64);
 let opMeta = null;
 if (cfg.namingStyle === 'path-http') {
   const spec = JSON.parse(fs.readFileSync(resolve(cfg.specFile), 'utf8'));
   opMeta = {};
-  for (const [p, methods] of Object.entries(spec.paths || {})) {
-    for (const [m, o] of Object.entries(methods)) {
-      if (o && o.operationId) opMeta[opKey(o.operationId)] = { method: m.toUpperCase(), path: p };
-    }
-  }
+  for (const entry of extractOperations(spec)) opMeta[entry.key] = { method: entry.method, path: entry.path };
 }
 const pathOf = (op) => (opMeta && opMeta[op] ? opMeta[op].path : '');
 const humanizeOp = cfg.namingStyle === 'verb'
@@ -51,7 +46,7 @@ const humanizeOp = cfg.namingStyle === 'verb'
 const VERB_RANK = { create: 0, get: 1, search: 1, list: 2, update: 3, delete: 4 };
 
 function cleanDescription(d) {
-  return String(d || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 380);
+  return compact(d, 320);
 }
 
 function actionLead(verb, res) {
@@ -76,7 +71,8 @@ function enrich(original, verb, res, ownsSynonyms) {
   let extra = '';
   if (ownsSynonyms && cfg.resourceSynonyms[res]) extra += ` Common phrasings: ${cfg.resourceSynonyms[res]}.`;
   if (cfg.actionSynonyms[verb]) extra += ` Also: ${cfg.actionSynonyms[verb]}.`;
-  return `${lead} ${base}${extra}`;
+  const text = base || lead;
+  return compact(`${text}${extra}`, 500);
 }
 
 // Secondary = a lower-priority namespace. For path-http vendors the operationId is kebab
@@ -93,6 +89,9 @@ function curate() {
 
   // Priority: core namespace before secondary, shallower before deeper, primary verb
   // before secondary, then spec order.
+  if (new Set(rawTools.map(t => t.name)).size !== rawTools.length) throw new Error('Duplicate raw operation IDs; regenerate with src/generate.js');
+  const routes = JSON.parse(fs.readFileSync(path.join(outDir, cfg.out.operations), 'utf8'));
+  for (const tool of rawTools) compileContract(tool.inputSchema, routes[tool.name]);
   const infos = rawTools.map((tool, i) => {
     const h = humanizeOp(tool.name);
     const key = [isSecondary(tool.name) ? 1 : 0, splitCamel(tool.name).length - 1, VERB_RANK[h.verb] ?? 5, i];
@@ -110,13 +109,16 @@ function curate() {
   const collisions = [];
 
   for (const { op, h } of order) {
-    let name = cfg.nameOverrides[op] || h.name;
-    if (used.has(name)) {
-      const b = name;
-      let n = 2;
-      while (used.has(name)) name = `${b}_${n++}`;
-      collisions.push(`${op}: ${b} -> ${name}`);
+    let name = nameOverrides[VENDOR]?.[op] || cfg.nameOverrides[op] || h.name;
+    if (name.length > 64) throw new Error(`Missing meaningful name override: ${op} (${name})`);
+    const base = name;
+    name = base;
+    let n = 2;
+    while (used.has(name)) {
+      const suffix = `_${n++}`;
+      name = base.slice(0, 64 - suffix.length) + suffix;
     }
+    if (name !== base) collisions.push(`${op}: ${base} -> ${name}`);
     used.set(name, op);
     nameMap[op] = name;
     const rk = h.resourceKey;
