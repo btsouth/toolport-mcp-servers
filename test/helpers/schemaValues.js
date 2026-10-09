@@ -64,7 +64,7 @@ function fixtures(root) {
     if (types.includes('object')) {
       const value = {};
       for (const [key, child] of Object.entries(s.properties || {})) {
-        if ((s.required || []).includes(key) || (here.every((x, i) => target[i] === x) && target[here.length] === key)) value[key] = sample(child, target, forced, choices, [...here, key], depth + 1);
+        if (child.enum?.length === 1 || (s.required || []).includes(key) || (here.every((x, i) => target[i] === x) && target[here.length] === key)) value[key] = sample(child, target, forced, choices, [...here, key], depth + 1);
       }
       if (target[here.length] === 'fixture_key' && here.every((x, i) => target[i] === x)) value.fixture_key = sample(typeof s.additionalProperties === 'object' ? s.additionalProperties : {}, target, forced, choices, [...here, 'fixture_key'], depth + 1);
       for (let i = Object.keys(value).length; i < Number(s.minProperties || 0); i++) {

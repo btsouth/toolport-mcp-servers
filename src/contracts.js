@@ -107,7 +107,7 @@ function compileContract(source, meta) {
   }
   function allowsString(s, active = new Set()) {
     const types = scalarTypes(s, schema, active);
-    if (types) return !types.length || types.includes('string');
+    if (types?.length) return types.includes('string');
     if (s.$ref && !active.has(s.$ref)) return allowsString(resolveLocal(s, schema), new Set([...active, s.$ref]));
     return s.type === 'string' || (Array.isArray(s.type) && s.type.includes('string')) ||
       s.enum?.some(x => typeof x === 'string') || (s.anyOf || s.oneOf || []).some(x => allowsString(x, active));
@@ -166,10 +166,15 @@ function compileContract(source, meta) {
       (type === 'array' && (!s.items || Array.isArray(s.items))) ||
       budget.properties + Object.keys(s.properties || {}).length > 400 ||
       budget.enums + (s.enum || []).length > 500 || budget.strings + JSON.stringify(s.enum || []).length > 12000);
+    let stringValidate;
     if (encoded) return {
       schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },
       decode(value, field) {
-        if (typeof value !== 'string' || allowsString(s)) return value;
+        if (typeof value !== 'string') return value;
+        if (allowsString(s)) {
+          stringValidate ||= ajv.compile({ ...nativeSchema(s), ...(native.$defs ? { $defs: native.$defs } : {}), ...(native.definitions ? { definitions: native.definitions } : {}) });
+          if (stringValidate(value)) return value;
+        }
         return parse(value, field);
       },
     };

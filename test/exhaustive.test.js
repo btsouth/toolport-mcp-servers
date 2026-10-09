@@ -32,9 +32,20 @@ async function dryClient(t, vendor) {
 }
 const alias = k => k.replace(/^['"]|['"]$/g, '').replace(/[^a-zA-Z0-9_.-]/g, '_').slice(0, 64) || 'field';
 const kind = value => value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
+function shapeScore(s, value) {
+  if (s.anyOf) return Math.max(...s.anyOf.map(x => shapeScore(x, value)));
+  if (/JSON-encoded value:/.test(s.description || '')) return 0;
+  if (s.type !== kind(value) && !(kind(value) === 'number' && s.type === 'integer')) return -100000;
+  if (s.enum && !s.enum.includes(value)) return -100000;
+  if (value && typeof value === 'object' && !Array.isArray(value)) return Object.entries(value).reduce((score, [k, v]) => {
+    const child = s.properties?.[alias(k)];
+    return score + (child ? 10 + shapeScore(child, v) : 0);
+  }, 1);
+  return 1;
+}
 function wireSchema(s, value) {
   if (!s.anyOf) return s;
-  return s.anyOf.find(x => x.type === kind(value) || (kind(value) === 'number' && x.type === 'integer')) || s.anyOf.find(x => x.anyOf) || s.anyOf[0];
+  return [...s.anyOf].sort((a, b) => shapeScore(b, value) - shapeScore(a, value))[0];
 }
 function wireValue(s, value, encoded) {
   s = wireSchema(s, value);
@@ -65,7 +76,11 @@ const form = value => flatPairs(value).map(([k, v]) => `${encodeURIComponent(k)}
 function expectedRequest(vendor, cfg, meta, args) {
   const urlPath = meta.path.replace(/\{([^}]+)\}/g, (_, key) => encodeURIComponent(String(args[key])));
   const query = meta.queryParams.filter(k => args[k] !== undefined).map(k => form({ [k]: args[k] })).filter(Boolean).join('&');
-  const headers = Object.fromEntries((meta.headerParams || []).filter(k => args[k] !== undefined).map(k => [k, String(args[k])]));
+  const headers = {};
+  for (const key of meta.headerParams || []) {
+    const original = Object.keys(args).find(k => k.toLowerCase() === key.toLowerCase());
+    if (original !== undefined) headers[key] = String(args[original]);
+  }
   let body = '';
   if (args.body !== undefined && meta.method !== 'GET') {
     const type = meta.contentType || (cfg.bodyFormat === 'json' ? 'application/json' : 'application/x-www-form-urlencoded');
@@ -108,7 +123,9 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       assert.equal(f.valid(source, args), true, `${label}: generated source fixture must be valid`);
       const encoded = { count: 0 };
       const input = wireValue(wire, args, encoded);
-      assert.deepEqual(contract.decode(input), args, `${label}: decoded value changed`);
+      let decoded;
+      try { decoded = contract.decode(input); } catch (e) { throw new Error(`${label}: ${e.message}`); }
+      assert.deepEqual(decoded, args, `${label}: decoded value changed`);
       if (isEncoded) assert.ok(encoded.count > 0, label);
       const response = await call('tools/call', { name: tool.name, arguments: input });
       assert.equal(response.result?.isError, false, `${label}: ${JSON.stringify(response)}`);
