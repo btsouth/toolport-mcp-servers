@@ -16,7 +16,7 @@ echo "1/5 fetch Cloudflare spec (YAML)"
 curl -sSL --max-time 180 -o "$HERE/out/cloudflare.openapi.yaml" "$SPEC_URL"
 
 echo "2/5 convert YAML -> JSON (permissive loader: tolerate the '=' value tag + datetimes)"
-python - "$HERE/out/cloudflare.openapi.yaml" "$HERE/out/cloudflare.full.spec.json" <<'PY'
+python3 - "$HERE/out/cloudflare.openapi.yaml" "$HERE/out/cloudflare.full.spec.json" <<'PY'
 import sys, yaml, json
 class L(yaml.SafeLoader): pass
 L.add_constructor('tag:yaml.org,2002:value', lambda ldr, n: ldr.construct_scalar(n))

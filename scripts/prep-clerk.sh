@@ -9,7 +9,7 @@ mkdir -p "$HERE/out"
 
 echo "1/4 fetch + convert Clerk spec (YAML -> JSON)"
 curl -sSL --max-time 60 -o "$HERE/out/clerk.spec.yaml" "$SPEC_URL"
-python -c "import yaml,json; json.dump(yaml.safe_load(open('$HERE/out/clerk.spec.yaml',encoding='utf-8')), open('$HERE/out/clerk.spec.json','w',encoding='utf-8'))"
+python3 -c "import yaml,json; json.dump(yaml.safe_load(open('$HERE/out/clerk.spec.yaml',encoding='utf-8')), open('$HERE/out/clerk.spec.json','w',encoding='utf-8'))"
 
 echo "2/4 generate tools locally from the fetched spec"
 VENDOR=clerk node "$HERE/src/generate.js"

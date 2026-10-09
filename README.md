@@ -147,7 +147,8 @@ Other API calls have a 20-second deadline and an 8 MiB response cap. MCP
 Errors contain a short `error` object with `status`, vendor `code`, and sanitized `message`.
 A network-failed or interrupted write includes an uncertain-completion warning.
 
-Generation runs locally from the fetched public spec with `src/generate.js`. It resolves
+YAML prep scripts require Python 3 and PyYAML. Generation runs locally from the fetched
+public spec with `src/generate.js`. It resolves
 local references and inherited parameters, derives required path fields from URL templates,
 and disambiguates long operation IDs before curation. `npm run prep:vercel`,
 `npm run prep:clerk`, and `npm run prep:cloudflare` use this generator. Stripe can be
