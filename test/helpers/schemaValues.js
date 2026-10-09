@@ -63,9 +63,25 @@ function fixtures(root) {
     const union = s.anyOf || s.oneOf;
     if (union) {
       const selected = choices.get(union);
+      const plans = unionShapes(s);
+      const ordered = selected === undefined ? plans : [plans[selected], ...plans.filter((_, i) => i !== selected)];
       const failures = [];
-      for (const branch of selected === undefined ? unionShapes(s) : [unionShapes(s)[selected]]) {
-        try { const value = sample(branch, target, forced, choices, here, depth + 1); if (valid(original, value)) return value; failures.push(JSON.stringify(validators.get(original).errors)); } catch (e) { failures.push(e.message); }
+      for (const branch of ordered) {
+        try {
+          const value = sample(branch, target, forced, choices, here, depth + 1);
+          if (valid(original, value)) return value;
+          // OpenAPI unions often allow extra keys. Use a value outside a rival's
+          // optional property's type to distinguish overlapping alternatives.
+          if (value && typeof value === 'object' && !Array.isArray(value)) {
+            const own = shape(branch).properties || {};
+            const rivals = plans.flatMap(x => Object.keys(shape(x).properties || {})).filter(k => !own[k] && value[k] === undefined);
+            for (const key of new Set(rivals)) for (const invalid of [null, {}, false, 0, '']) {
+              const candidate = { ...value, [key]: invalid };
+              if (valid(original, candidate)) return candidate;
+            }
+          }
+          failures.push(JSON.stringify(validators.get(original).errors));
+        } catch (e) { failures.push(e.message); }
       }
       throw new Error(`No union fixture at /${here.join('/')}: ${failures.slice(0, 2).join('; ')}`);
     }
@@ -75,7 +91,13 @@ function fixtures(root) {
     if (types.includes('object')) {
       const value = {};
       for (const [key, child] of Object.entries(s.properties || {})) {
-        if (child.enum?.length === 1 || (s.required || []).includes(key) || (here.every((x, i) => target[i] === x) && target[here.length] === key)) value[key] = sample(child, target, forced, choices, [...here, key], depth + 1);
+        if (shape(child).enum?.length === 1 || (s.required || []).includes(key) || (here.every((x, i) => target[i] === x) && target[here.length] === key)) value[key] = sample(child, target, forced, choices, [...here, key], depth + 1);
+      }
+      const targetKey = target[here.length];
+      if (typeof targetKey === 'string' && !s.properties?.[targetKey] && s.additionalProperties !== false && here.every((x, i) => target[i] === x)) {
+        let nested = forced;
+        for (const key of target.slice(here.length + 1).reverse()) nested = typeof key === 'number' ? [nested] : { [key]: nested };
+        value[targetKey] = nested;
       }
       if (target[here.length] === 'fixture_key' && here.every((x, i) => target[i] === x)) value.fixture_key = sample(typeof s.additionalProperties === 'object' ? s.additionalProperties : {}, target, forced, choices, [...here, 'fixture_key'], depth + 1);
       for (let i = Object.keys(value).length; i < Number(s.minProperties || 0); i++) {
