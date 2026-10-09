@@ -1,6 +1,6 @@
 {
   "name": "toolport-mcp-servers",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Curated, full-API MCP servers generated from official OpenAPI specs: Stripe (587 tools), Vercel (333), Clerk (224), Cloudflare (357: DNS, email routing, zones, WAF, SSL, R2, Access). One npx command, intent-friendly tool names. Unofficial.",
   "license": "MIT",
   "author": "tsouth89",
