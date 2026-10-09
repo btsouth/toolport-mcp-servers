@@ -132,11 +132,8 @@ function compileContract(source, meta) {
     if (encoded) return {
       schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },
       decode(value, field) {
-        if (typeof value !== 'string') return value;
-        try { return parse(value, field); } catch (error) {
-          if (type === 'string' || (s.anyOf || s.oneOf || []).some(x => x.type === 'string')) return value;
-          throw error;
-        }
+        if (typeof value !== 'string' || type === 'string' || (s.anyOf || s.oneOf || []).some(x => x.type === 'string')) return value;
+        return parse(value, field);
       },
     };
     const out = { type };

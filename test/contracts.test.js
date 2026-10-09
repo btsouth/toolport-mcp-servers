@@ -160,7 +160,7 @@ test('plain strings still decode after schema expansion reaches its budget', () 
   const c = compileContract({ properties: { wide: { type: 'object', properties: wide }, account: { anyOf: [{ type: 'string' }, { type: 'string', enum: [''] }] }, label: { type: 'string' } } }, { path: '/', pathParams: [] });
   assert.equal(c.inputSchema.properties.account.type, 'string');
   assert.equal(c.decode({ account: 'acct_123', label: 'plain label' }).account, 'acct_123');
-  assert.equal(c.decode({ label: 'plain label' }).label, 'plain label');
+  for (const label of ['plain label', '123', 'true', 'null', '"quoted"', '']) assert.equal(c.decode({ label }).label, label);
 });
 test('generator excludes all controlled headers, including required and mixed-case ones', () => {
   const headers = ['Content-Length', 'Host', 'aUtHoRiZaTiOn', 'Content-Type', 'Transfer-Encoding'];
