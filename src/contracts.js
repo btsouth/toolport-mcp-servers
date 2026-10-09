@@ -87,6 +87,12 @@ function compileContract(source, meta) {
   function visit(s, depth = 0, root = false, active = new Set()) {
     if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]));
     if (s.nullable) return visit(nativeSchema(s), depth, root, active);
+    const stringBranches = s.anyOf || s.oneOf;
+    if (stringBranches?.every(x => x.type === 'string')) return {
+      schema: { type: 'string', ...(s.description ? { description: compact(s.description) } : {}),
+        ...(stringBranches.every(x => x.enum) ? { enum: [...new Set(stringBranches.flatMap(x => x.enum))] } : {}) },
+      decode: value => value,
+    };
     // Flatten object intersections for field guidance, retaining the original
     // intersection for authoritative local validation.
     if (s.allOf && !s.$ref && depth < 7) {
@@ -99,10 +105,7 @@ function compileContract(source, meta) {
     }
     const branches = s.anyOf || s.oneOf;
     if (branches && !s.$ref && !s.allOf && !s.not && depth < 7 && budget.properties < 400) {
-      if (branches.every(x => x.type === 'string')) {
-        return { schema: { type: 'string', ...(s.description ? { description: compact(s.description) } : {}),
-          ...(branches.every(x => x.enum) ? { enum: [...new Set(branches.flatMap(x => x.enum))] } : {}) }, decode: value => value };
-      }
+
       const validators = [];
       const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active));
       return { schema: { anyOf: plans.map(x => x.schema), ...(s.description ? { description: compact(s.description) } : {}) }, decode(value, field) {
@@ -128,7 +131,13 @@ function compileContract(source, meta) {
       budget.enums + (s.enum || []).length > 500 || budget.strings + JSON.stringify(s.enum || []).length > 12000);
     if (encoded) return {
       schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },
-      decode(value, field) { return typeof value === 'string' ? parse(value, field) : value; },
+      decode(value, field) {
+        if (typeof value !== 'string') return value;
+        try { return parse(value, field); } catch (error) {
+          if (type === 'string' || (s.anyOf || s.oneOf || []).some(x => x.type === 'string')) return value;
+          throw error;
+        }
+      },
     };
     const out = { type };
     if (s.description) out.description = compact(s.description);

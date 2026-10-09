@@ -155,3 +155,17 @@ test('union decoding selects the valid branch and nullable refs preserve explici
   ] }, note: { $ref: '#/$defs/note' } }, $defs: { note: { type: 'string', nullable: true } } }, { path: '/', pathParams: [] });
   assert.deepEqual(c.decode({ body: { kind: 'b', payload: '{"name":"valid"}' }, note: null }), { body: { kind: 'b', payload: { name: 'valid' } }, note: null });
 });
+test('plain strings still decode after schema expansion reaches its budget', () => {
+  const wide = Object.fromEntries(Array.from({ length: 399 }, (_, i) => [`field${i}`, { type: 'integer' }]));
+  const c = compileContract({ properties: { wide: { type: 'object', properties: wide }, account: { anyOf: [{ type: 'string' }, { type: 'string', enum: [''] }] }, label: { type: 'string' } } }, { path: '/', pathParams: [] });
+  assert.equal(c.inputSchema.properties.account.type, 'string');
+  assert.equal(c.decode({ account: 'acct_123', label: 'plain label' }).account, 'acct_123');
+  assert.equal(c.decode({ label: 'plain label' }).label, 'plain label');
+});
+test('generator excludes all controlled headers, including required and mixed-case ones', () => {
+  const headers = ['Content-Length', 'Host', 'aUtHoRiZaTiOn', 'Content-Type', 'Transfer-Encoding'];
+  const { tools, operations } = generate({ paths: { '/upload': { post: { operationId: 'upload', parameters: headers.map(name => ({ name, in: 'header', required: true, schema: { type: 'string' } })) } } } });
+  assert.deepEqual(operations.upload.headerParams, []);
+  assert.deepEqual(tools[0].inputSchema.properties, {});
+  assert.deepEqual(tools[0].inputSchema.required, []);
+});
