@@ -72,6 +72,7 @@ function fixtures(root) {
           if (valid(original, value)) return value;
           if (value === null || typeof value !== 'object') {
             for (const candidate of [...strings, '/', 0, 1, true, false]) {
+              if (candidate === '') continue;
               if (valid(branch, candidate) && valid(original, candidate)) return candidate;
             }
           }
