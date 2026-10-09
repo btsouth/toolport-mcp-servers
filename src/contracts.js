@@ -79,6 +79,11 @@ function compileContract(source, meta) {
   const native = nativeSchema(schema);
   let validate;
   const budget = { properties: 0, enums: 0, strings: 0 };
+  function allowsNull(s, active = new Set()) {
+    if (s.$ref && !active.has(s.$ref)) return allowsNull(resolveLocal(s, schema), new Set([...active, s.$ref]));
+    return s.nullable || s.type === 'null' || (Array.isArray(s.type) && s.type.includes('null')) ||
+      (s.anyOf || s.oneOf || []).some(x => allowsNull(x, active));
+  }
   function visit(s, depth = 0, root = false, active = new Set()) {
     if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]));
     if (s.nullable) return visit(nativeSchema(s), depth, root, active);
@@ -98,19 +103,26 @@ function compileContract(source, meta) {
         return { schema: { type: 'string', ...(s.description ? { description: compact(s.description) } : {}),
           ...(branches.every(x => x.enum) ? { enum: [...new Set(branches.flatMap(x => x.enum))] } : {}) }, decode: value => value };
       }
+      const validators = [];
       const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active));
       return { schema: { anyOf: plans.map(x => x.schema), ...(s.description ? { description: compact(s.description) } : {}) }, decode(value, field) {
         // Legacy callers can still supply JSON text for structured unions.
         if (typeof value === 'string' && !branches.some(x => x.type === 'string')) value = parse(value, field);
         const type = value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
         const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf);
-        const plan = matches.find(x => type === 'object' && Object.keys(value).some(k => Object.hasOwn(x.schema.properties || {}, k))) || matches[0];
-        return plan ? plan.decode(value, field) : value;
+        for (const plan of matches) {
+          const index = plans.indexOf(plan);
+          let decoded;
+          try { decoded = plan.decode(value, field); } catch { continue; }
+          validators[index] ||= ajv.compile({ ...nativeSchema(branches[index]), ...(native.$defs ? { $defs: native.$defs } : {}), ...(native.definitions ? { definitions: native.definitions } : {}) });
+          if (validators[index](decoded)) return decoded;
+        }
+        return value;
       } };
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
     const encoded = !root && (s.$ref || s.oneOf || s.allOf || s.anyOf || s.not ||
-      !type || Array.isArray(type) || depth >= 7 ||
+      !type || Array.isArray(type) || (depth >= 7 && ['object', 'array'].includes(type)) ||
       (type === 'array' && (!s.items || Array.isArray(s.items))) ||
       budget.properties + Object.keys(s.properties || {}).length > 400 ||
       budget.enums + (s.enum || []).length > 500 || budget.strings + JSON.stringify(s.enum || []).length > 12000);
@@ -138,7 +150,7 @@ function compileContract(source, meta) {
         budget.properties++; budget.strings += alias.length;
         const plan = visit(child, depth + 1, false, active);
         out.properties[alias] = plan.schema;
-        fields.push({ original, alias, plan, optional: !required.has(original), nullable: child.nullable || child.type === 'null' || (child.anyOf || child.oneOf || []).some(x => x.type === 'null') });
+        fields.push({ original, alias, plan, optional: !required.has(original), nullable: allowsNull(child) });
       }
       out.required = fields.filter(x => !x.optional).map(x => x.alias);
       return { schema: out, decode(value, field = '') {

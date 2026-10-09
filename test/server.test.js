@@ -118,7 +118,7 @@ test('advertised runtime-log schema includes bounded query controls', { timeout:
 });
 test('redaction preserves ordinary arguments and removes secrets echoed by the vendor', { timeout: 5000 }, async t => {
   const c = await client(t, 'vercel', (req, res) => { res.writeHead(400); res.end(JSON.stringify({ error: { code: 'invalid_env', message: 'project fixture-project secret fixture-password token fixture-token' } })); });
-  const response = await c.call('create_deployment', { body: { name: 'fixture-project', env: { PASSWORD: 'fixture-password' } } }).response;
+  const response = await c.call('create_log_drain', { body: { name: 'fixture-project', url: 'https://example.com/drain', secret: 'fixture-password' } }).response;
   assert.match(text(response).error.message, /fixture-project/);
   assert.doesNotMatch(text(response).error.message, /fixture-token|fixture-password/);
 });

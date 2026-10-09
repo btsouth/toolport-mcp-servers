@@ -148,3 +148,10 @@ test('validation errors describe expected types, enum values and missing propert
   assert.throws(() => c.decode({ body: {} }), /\/body\/count: must have required property/);
   assert.throws(() => c.decode({ body: { count: 1, mode: 'bad' } }), /allowed values: \["a","b"\]/);
 });
+test('union decoding selects the valid branch and nullable refs preserve explicit null', () => {
+  const c = compileContract({ properties: { body: { oneOf: [
+    { type: 'object', properties: { kind: { enum: ['a'] }, payload: { type: 'integer' } }, required: ['kind', 'payload'] },
+    { type: 'object', properties: { kind: { enum: ['b'] }, payload: { type: 'object', properties: { name: { type: 'string' } } } }, required: ['kind', 'payload'] },
+  ] }, note: { $ref: '#/$defs/note' } }, $defs: { note: { type: 'string', nullable: true } } }, { path: '/', pathParams: [] });
+  assert.deepEqual(c.decode({ body: { kind: 'b', payload: '{"name":"valid"}' }, note: null }), { body: { kind: 'b', payload: { name: 'valid' } }, note: null });
+});

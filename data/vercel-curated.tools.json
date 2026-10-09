@@ -25803,10 +25803,6 @@
     "inputSchema": {
       "type": "object",
       "properties": {
-        "content-Length": {
-          "description": "The file size in bytes",
-          "type": "number"
-        },
         "x-Vercel-Digest": {
           "type": "string",
           "description": "The file SHA1 used to check the integrity",
