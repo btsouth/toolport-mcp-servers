@@ -168,19 +168,31 @@ function compileContract(source, meta) {
     if (branches && !s.$ref && !s.allOf && !s.not) {
 
       let unionValidate;
+      const validators = [];
       const hasString = branches.some(x => allowsString(x));
       const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active, hasString));
       return { schema: { anyOf: plans.map(x => x.schema), ...(s.description ? { description: compact(s.description) } : {}) }, decode(value, field) {
         // Legacy callers can still supply JSON text for structured unions.
         if (typeof value === 'string' && !branches.some(x => allowsString(x))) value = parse(value, field);
         const type = value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
-        const score = plan => value && typeof value === 'object' && !Array.isArray(value) ? Object.keys(value).filter(k => Object.hasOwn(plan.schema.properties || {}, k)).length : 0;
-        const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf).sort((a, b) => score(b) - score(a));
+        function score(schema, candidate) {
+          if (schema.anyOf) return Math.max(...schema.anyOf.map(x => score(x, candidate)));
+          const kind = candidate === null ? 'null' : Array.isArray(candidate) ? 'array' : typeof candidate;
+          if (schema.type !== kind && !(kind === 'number' && schema.type === 'integer')) return -100000;
+          if (schema.enum && !schema.enum.includes(candidate)) return -100000;
+          if (Array.isArray(candidate)) return candidate.reduce((total, item) => total + score(schema.items, item), 1);
+          if (candidate && typeof candidate === 'object') return Object.entries(candidate).reduce((total, [key, item]) => total +
+            (schema.properties?.[key] ? 10 + score(schema.properties[key], item) : 0), 1);
+          return 1;
+        }
+        const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf).sort((a, b) => score(b.schema, value) - score(a.schema, value));
         for (const plan of matches) {
           let decoded;
           try { decoded = plan.decode(value, field); } catch { continue; }
+          const index = plans.indexOf(plan);
+          validators[index] ||= ajv.compile({ ...nativeSchema(branches[index]), ...(native.$defs ? { $defs: native.$defs } : {}), ...(native.definitions ? { definitions: native.definitions } : {}) });
           unionValidate ||= ajv.compile({ ...nativeSchema(s), ...(native.$defs ? { $defs: native.$defs } : {}), ...(native.definitions ? { definitions: native.definitions } : {}) });
-          if (unionValidate(decoded)) return decoded;
+          if (validators[index](decoded) || unionValidate(decoded)) return decoded;
         }
         return value;
       } };
