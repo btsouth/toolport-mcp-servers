@@ -175,11 +175,12 @@ function compileContract(source, meta) {
       } };
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
+    const scalarArray = type === 'array' && s.items && scalarTypes(s.items, schema, active)?.length;
     const encoded = !root && (s.$ref || s.oneOf || s.allOf || s.anyOf || s.not ||
-      !type || Array.isArray(type) || (depth >= 7 && ['object', 'array'].includes(type)) ||
+      !type || Array.isArray(type) || (depth >= 7 && (type === 'object' || (type === 'array' && !scalarArray))) ||
       (type === 'array' && (!s.items || Array.isArray(s.items))) ||
-      budget.properties + Object.keys(s.properties || {}).length > 400 ||
-      budget.enums + (s.enum || []).length > 500 || budget.strings + JSON.stringify(s.enum || []).length > 12000);
+      (type === 'object' && budget.properties + Object.keys(s.properties || {}).length > 400) ||
+      (s.enum && (budget.enums + s.enum.length > 500 || budget.strings + JSON.stringify(s.enum).length > 12000)));
     let stringValidate;
     if (encoded) return {
       schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },

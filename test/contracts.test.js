@@ -236,3 +236,12 @@ test('referenced scalar compositions advertise plain types and preserve exact va
   for (const field of Object.values(c.inputSchema.properties)) assert.doesNotMatch(JSON.stringify(field), /JSON-encoded/);
   assert.throws(() => c.decode({ string: '123' }), /pattern/);
 });
+
+test('deep scalar arrays in Vercel firewall unions remain distinct from literal strings', () => {
+  const tool = require('../data/vercel-curated.tools.json').find(x => x.name === 'update_firewall_config');
+  const c = compileContract(tool.inputSchema, require('../data/vercel.operations.json').updateFirewallConfig);
+  for (const value of [[], ['plain'], '[]', '123', 123]) {
+    const args = { projectId: 'fixture', body: { action: 'rules.insert', value: { name: 'fixture', action: {}, conditionGroup: [{ conditions: [{ type: 'host', op: 'eq', value }] }] } } };
+    assert.deepEqual(c.decode(args), args);
+  }
+});
