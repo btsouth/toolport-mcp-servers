@@ -169,3 +169,10 @@ test('generator excludes all controlled headers, including required and mixed-ca
   assert.deepEqual(tools[0].inputSchema.properties, {});
   assert.deepEqual(tools[0].inputSchema.required, []);
 });
+
+test('referenced string branches accept native strings and preserve nullable input', () => {
+  const c = compileContract({ properties: { value: { anyOf: [{ $ref: '#/$defs/string' }, { type: 'object', properties: { id: { type: 'integer' } } }] } }, $defs: { string: { type: 'string', nullable: true } } }, { path: '/', pathParams: [] });
+  for (const value of ['acct_123', '123', 'null', '']) assert.equal(c.decode({ value }).value, value);
+  assert.equal(c.decode({ value: null }).value, null);
+  assert.deepEqual(c.decode({ value: '{"id":2}' }).value, '{"id":2}');
+});

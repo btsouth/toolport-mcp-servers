@@ -84,6 +84,11 @@ function compileContract(source, meta) {
     return s.nullable || s.type === 'null' || (Array.isArray(s.type) && s.type.includes('null')) ||
       (s.anyOf || s.oneOf || []).some(x => allowsNull(x, active));
   }
+  function allowsString(s, active = new Set()) {
+    if (s.$ref && !active.has(s.$ref)) return allowsString(resolveLocal(s, schema), new Set([...active, s.$ref]));
+    return s.type === 'string' || (Array.isArray(s.type) && s.type.includes('string')) ||
+      s.enum?.some(x => typeof x === 'string') || (s.anyOf || s.oneOf || []).some(x => allowsString(x, active));
+  }
   function visit(s, depth = 0, root = false, active = new Set()) {
     if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]));
     if (s.nullable) return visit(nativeSchema(s), depth, root, active);
@@ -110,7 +115,7 @@ function compileContract(source, meta) {
       const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active));
       return { schema: { anyOf: plans.map(x => x.schema), ...(s.description ? { description: compact(s.description) } : {}) }, decode(value, field) {
         // Legacy callers can still supply JSON text for structured unions.
-        if (typeof value === 'string' && !branches.some(x => x.type === 'string')) value = parse(value, field);
+        if (typeof value === 'string' && !branches.some(x => allowsString(x))) value = parse(value, field);
         const type = value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
         const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf);
         for (const plan of matches) {
@@ -132,7 +137,7 @@ function compileContract(source, meta) {
     if (encoded) return {
       schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },
       decode(value, field) {
-        if (typeof value !== 'string' || type === 'string' || (s.anyOf || s.oneOf || []).some(x => x.type === 'string')) return value;
+        if (typeof value !== 'string' || allowsString(s)) return value;
         return parse(value, field);
       },
     };
