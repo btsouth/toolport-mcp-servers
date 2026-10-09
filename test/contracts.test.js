@@ -136,7 +136,7 @@ test('real nested inputs advertise their key fields and string-or-empty unions a
   assert.equal(contract.decode({ body: { on_behalf_of: 'acct_123' } }).body.on_behalf_of, 'acct_123');
 });
 test('fallback summaries resolve refs, name required fields, and JSON errors include paths', () => {
-  const schema = { properties: { body: { not: { type: 'null' }, anyOf: [{ type: 'string' }], properties: { key: { type: 'string' }, value: { $ref: '#/$defs/value' } }, required: ['key'] } }, $defs: { value: { enum: ['a', 'b'] } } };
+  const schema = { properties: { body: { not: { type: 'null' }, anyOf: [{ type: 'object' }], properties: { key: { type: 'string' }, value: { $ref: '#/$defs/value' } }, required: ['key'] } }, $defs: { value: { enum: ['a', 'b'] } } };
   const c = compileContract(schema, { path: '/', pathParams: [] });
   assert.match(c.inputSchema.properties.body.description, /key \(required\): string/);
   assert.match(c.inputSchema.properties.body.description, /value\?: "a"\|"b"/);
