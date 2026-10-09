@@ -4,8 +4,6 @@
 const Ajv = require('ajv');
 const addFormats = require('ajv-formats');
 const { nativeSchema } = require('../../src/contracts');
-const ajv = new Ajv({ strict: false, validateFormats: true, logger: false });
-addFormats(ajv);
 const formats = {
   email: 'fixture@example.com', uri: 'https://example.com', hostname: 'example.com',
   ipv4: '192.0.2.1', ipv6: '2001:db8::1', uuid: '123e4567-e89b-42d3-a456-426614174000',
@@ -40,6 +38,8 @@ function flatten(s, root) {
   return s.allOf.reduce((a, b) => merge(a, flatten(b, root)), base);
 }
 function fixtures(root) {
+  const ajv = new Ajv({ strict: false, validateFormats: true, logger: false });
+  addFormats(ajv);
   const validators = new WeakMap();
   function valid(s, value) {
     if (!validators.has(s)) validators.set(s, ajv.compile({ ...nativeSchema(s), ...(root.$defs ? { $defs: nativeSchema(root.$defs) } : {}), ...(root.definitions ? { definitions: root.definitions } : {}) }));

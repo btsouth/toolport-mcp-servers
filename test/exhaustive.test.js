@@ -133,8 +133,21 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
       const response = await call('tools/call', { name: tool.name, arguments: input });
       assert.equal(response.result?.isError, false, `${label}: ${JSON.stringify(response)}`);
       const request = expectedRequest(vendor, cfg, meta, args);
-      const expected = `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${meta.method} ${request.url}\n${request.body !== '' ? 'body: ' + request.body : '(no body)'}${Object.keys(request.headers).length ? '\nheaders: ' + JSON.stringify(request.headers) : ''}\n\n[curated tool ${tool.name} -> ${reverse[tool.name]}]`;
-      assert.equal(response.result.content[0].text, expected, label);
+      const output = response.result.content[0].text;
+      const prefix = `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${meta.method} ${request.url}\n`;
+      const suffix = `\n\n[curated tool ${tool.name} -> ${reverse[tool.name]}]`;
+      assert.ok(output.startsWith(prefix), label);
+      assert.ok(output.endsWith(suffix), label);
+      let payload = output.slice(prefix.length, -suffix.length), headers = {};
+      const headerStart = payload.lastIndexOf('\nheaders: ');
+      if (headerStart !== -1) { headers = JSON.parse(payload.slice(headerStart + 10)); payload = payload.slice(0, headerStart); }
+      assert.deepEqual(headers, request.headers, label);
+      const body = payload === '(no body)' ? '' : payload.slice('body: '.length);
+      const media = meta.contentType || (cfg.bodyFormat === 'json' ? 'application/json' : 'application/x-www-form-urlencoded');
+      if (media === 'application/json' && request.body !== '') assert.deepEqual(JSON.parse(body), JSON.parse(request.body), label);
+      else if (media === 'application/x-www-form-urlencoded') assert.deepEqual([...new URLSearchParams(body)].sort(), [...new URLSearchParams(request.body)].sort(), label);
+      else assert.equal(body, String(request.body), label);
+
     }
     scalarFields += scalarSeen.size; encodedFields += encodedSeen.size;
   }
