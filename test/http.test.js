@@ -61,18 +61,18 @@ test('stream parser handles split UTF-8, SSE and final NDJSON line', async t => 
   const out = await request({ url, method: 'GET', logs: { ...logs, limit: 10 } });
   assert.equal(out.body.entries[0].message, 'héllo'); assert.equal(out.body.entries.length, 2); assert.equal(out.body.stopped, 'eof');
 });
-test('malformed streams fail; byte cap and redirects remain bounded', async t => {
+test('malformed stream lines are counted; byte cap and redirects remain bounded', async t => {
   const url = await fixture(t, (req, res) => {
     if (req.url === '/bad') res.end('not json\n');
     else if (req.url === '/redirect') { res.writeHead(302, { Location: '/target' }); res.end(); }
     else res.end('x'.repeat(1000));
   });
   const bad = await request({ url: url + '/bad', method: 'GET', logs });
-  assert.equal(bad.body.error.code, 'invalid_response');
+  assert.equal(bad.body.skippedLines, 1); assert.deepEqual(bad.body.entries, []);
   const capped = await request({ url, method: 'GET', logs, budget: { maxBytes: 10 } });
   assert.equal(capped.body.stopped, 'byte_limit');
   const redirect = await request({ url: url + '/redirect', method: 'GET' });
-  assert.equal(redirect.body.error.code, 'network_error');
+  assert.equal(redirect.status, 302); assert.equal(redirect.body.error.status, 302);
 });
 test('Vercel, Stripe and Cloudflare errors include status/code/message and redact credentials', async t => {
   const url = await fixture(t, (req, res) => {
@@ -85,4 +85,32 @@ test('Vercel, Stripe and Cloudflare errors include status/code/message and redac
     assert.equal(out.status, 403); assert.equal(out.body.error.status, 403); assert.equal(out.body.error.code, 'forbidden');
     assert.doesNotMatch(JSON.stringify(out), /fixture-token|fixture-secret|hidden-value/);
   }
+});
+test('vendor error details stay bounded and retain useful parameter diagnostics', async t => {
+  const url = await fixture(t, (req, res) => {
+    res.writeHead(402);
+    res.end(JSON.stringify({ error: { code: 'card_declined', message: 'Unknown customer cus_123 for acct_123', param: 'payment_method', decline_code: 'insufficient_funds', long_message: 'Details ' + 'x'.repeat(500), secret: 'fixture-secret' } }));
+  });
+  const out = await request({ url, method: 'POST', secrets: ['fixture-secret'] });
+  assert.match(out.body.error.message, /cus_123.*acct_123/);
+  assert.equal(out.body.error.param, 'payment_method');
+  assert.equal(out.body.error.decline_code, 'insufficient_funds');
+  assert.ok(out.body.error.long_message.length <= 300);
+  assert.equal(out.body.error.secret, undefined);
+});
+test('network errors expose the transport cause without raw URLs', async () => {
+  const server = http.createServer();
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  const port = server.address().port;
+  await new Promise(resolve => server.close(resolve));
+  const out = await request({ url: `http://127.0.0.1:${port}`, method: 'GET' });
+  assert.equal(out.body.error.code, 'network_error');
+  assert.equal(out.body.error.cause, 'ECONNREFUSED');
+  assert.doesNotMatch(out.body.error.message, /127\.0\.0\.1/);
+});
+test('bad runtime lines preserve valid entries before and after them', async t => {
+  const url = await fixture(t, (req, res) => res.end('{"timestampInMs":150,"message":"before"}\ninvalid\nnull\n{"timestampInMs":160,"message":"after"}\n'));
+  const out = await request({ url, method: 'GET', logs: { ...logs, limit: 10 } });
+  assert.deepEqual(out.body.entries.map(x => x.message), ['before', 'after']);
+  assert.equal(out.body.skippedLines, 2);
 });

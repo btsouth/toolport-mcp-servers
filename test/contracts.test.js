@@ -5,8 +5,8 @@ const Ajv = require('ajv');
 const { compileContract, routingFor, nativeSchema } = require('../src/contracts');
 const { generate } = require('../src/generate');
 
-// An independent allowlist for the closed JSON Schema subset, including OpenAI
-// strict required/closed-object rules and Anthropic property-name restrictions.
+// Standard JSON Schema subset for Anthropic, OpenAI non-strict tools and
+// Gemini parametersJsonSchema. Required lists contain only API-required fields.
 const allowed = new Set(['type', 'description', 'properties', 'required', 'additionalProperties', 'items', 'enum', 'anyOf']);
 function dialect(s, root = true, depth = 0, totals = { properties: 0, enums: 0, strings: 0 }) {
   assert.ok(depth <= 10);
@@ -15,8 +15,9 @@ function dialect(s, root = true, depth = 0, totals = { properties: 0, enums: 0, 
   if (s.anyOf) { s.anyOf.forEach(x => dialect(x, false, depth, totals)); return totals; }
   assert.ok(['object', 'array', 'string', 'number', 'integer', 'boolean', 'null'].includes(s.type));
   if (s.type === 'object') {
-    assert.equal(s.additionalProperties, false);
-    assert.deepEqual([...s.required].sort(), Object.keys(s.properties).sort());
+    assert.ok(typeof s.additionalProperties === 'boolean' || typeof s.additionalProperties === 'object');
+    if (typeof s.additionalProperties === 'object') dialect(s.additionalProperties, false, depth + 1, totals);
+    for (const key of s.required) assert.ok(Object.hasOwn(s.properties, key));
     for (const [k, v] of Object.entries(s.properties)) {
       assert.match(k, /^[a-zA-Z0-9_.-]{1,64}$/);
       totals.properties++; totals.strings += k.length;
@@ -24,7 +25,7 @@ function dialect(s, root = true, depth = 0, totals = { properties: 0, enums: 0, 
     }
   }
   if (s.type === 'array') { assert.ok(s.items); dialect(s.items, false, depth + 1, totals); }
-  if (s.enum) { assert.ok(s.enum.every(x => typeof x === 'string')); totals.enums += s.enum.length; totals.strings += s.enum.join('').length; }
+  if (s.enum) { totals.enums += s.enum.length; totals.strings += s.enum.join('').length; }
   assert.ok(totals.properties <= 5000); assert.ok(totals.enums <= 1000); assert.ok(totals.strings <= 120000);
   return totals;
 }
@@ -79,10 +80,10 @@ test('oneOf, allOf, formats, enums and explicit nullable values retain API valid
   }, required: ['payload', 'count', 'mode', 'options'] };
   const contract = compileContract(schema, { path: '/items', pathParams: [] });
   dialect(contract.inputSchema);
-  const good = { payload: '{"name":"app"}', count: 2, value: 'null', mode: 'preview', options: '{"id":"ok"}' };
+  const good = { payload: '{"name":"app"}', count: 2, value: null, mode: 'preview', options: '{"id":"ok"}' };
   assert.equal(contract.decode(good).value, null);
   assert.equal(contract.decode({ ...good, value: 'legacy string' }).value, 'legacy string');
-  assert.equal(Object.hasOwn(contract.decode({ ...good, value: null }), 'value'), false);
+  assert.equal(contract.decode({ ...good, value: null }).value, null);
   for (const bad of [{ ...good, page: 5000001 }, { ...good, email: 'invalid email' }, { ...good, mode: 'bad' }, { ...good, count: 1 }, { ...good, options: '{"id":"x"}' }, { ...good, payload: '{"unknown":true}' }]) assert.throws(() => contract.decode(bad), /Invalid arguments/);
 });
 test('aliases restore original fields and reject ambiguous keys', () => {
@@ -91,12 +92,12 @@ test('aliases restore original fields and reject ambiguous keys', () => {
   assert.throws(() => contract.decode({ 'x-Cwd': 'app', "'x-Cwd'": 'other' }), /both original and alias/);
   assert.throws(() => compileContract({ properties: { "'x-Cwd'": {}, 'x-Cwd': {} } }, { path: '/file', pathParams: [] }), /collision/);
 });
-test('generator disambiguates long IDs and rejects duplicate operations', () => {
+test('generator preserves full internal IDs and rejects duplicate operations', () => {
   const prefix = 'a'.repeat(70);
   const spec = { paths: { '/a': { get: { operationId: prefix + 'A' } }, '/b': { get: { operationId: prefix + 'B' } } } };
   const out = generate(spec);
   assert.equal(new Set(out.tools.map(t => t.name)).size, 2);
-  assert.ok(out.tools.every(t => t.name.length <= 64));
+  assert.deepEqual(out.tools.map(t => t.name), [prefix + 'A', prefix + 'B']);
   spec.paths['/b'].get.operationId = prefix + 'A';
   assert.throws(() => generate(spec), /Duplicate operation identity/);
 });
@@ -111,4 +112,39 @@ test('numeric string exclusive bounds remain strict and request media matches it
   } } } } } });
   assert.equal(operations.createItem.contentType, 'application/json');
   assert.equal(tools[0].inputSchema.properties.body.type, 'object');
+});
+test('real nested inputs advertise their key fields and string-or-empty unions accept plain strings', () => {
+  for (const [vendor, name, keys] of [
+    ['vercel', 'create_project_env', ['key', 'value', 'target', 'type']],
+    ['vercel', 'add_project_member', ['uid', 'role']],
+    ...['create_dns_record', 'update_dns_record', 'patch_dns_record'].map(name => ['cloudflare', name, ['type', 'name', 'content', 'ttl', 'proxied']]),
+  ]) {
+    const tool = require(`../data/${vendor}-curated.tools.json`).find(t => t.name === name);
+    const map = require(`../data/${vendor}.namemap.json`), ops = require(`../data/${vendor}.operations.json`);
+    const op = Object.keys(map).find(k => map[k] === name);
+    const { inputSchema } = compileContract(tool.inputSchema, routingFor(ops, op));
+    const body = inputSchema.properties.body;
+    assert.notEqual(body.type, 'string', name);
+    for (const key of keys) assert.match(JSON.stringify(body), new RegExp(`"${key}"`), name);
+  }
+  const tools = require('../data/stripe-curated.tools.json');
+  const map = require('../data/stripe.namemap.json'), ops = require('../data/stripe.operations.json');
+  const tool = tools.find(t => t.name === 'preview_invoices_create');
+  const op = Object.keys(map).find(k => map[k] === tool.name);
+  const contract = compileContract(tool.inputSchema, routingFor(ops, op));
+  assert.equal(contract.inputSchema.properties.body.properties.on_behalf_of.type, 'string');
+  assert.equal(contract.decode({ body: { on_behalf_of: 'acct_123' } }).body.on_behalf_of, 'acct_123');
+});
+test('fallback summaries resolve refs, name required fields, and JSON errors include paths', () => {
+  const schema = { properties: { body: { not: { type: 'null' }, anyOf: [{ type: 'string' }], properties: { key: { type: 'string' }, value: { $ref: '#/$defs/value' } }, required: ['key'] } }, $defs: { value: { enum: ['a', 'b'] } } };
+  const c = compileContract(schema, { path: '/', pathParams: [] });
+  assert.match(c.inputSchema.properties.body.description, /key \(required\): string/);
+  assert.match(c.inputSchema.properties.body.description, /value\?: "a"\|"b"/);
+  assert.throws(() => c.decode({ body: 'not JSON' }), /at \/body/);
+});
+test('validation errors describe expected types, enum values and missing properties', () => {
+  const c = compileContract({ properties: { body: { type: 'object', properties: { count: { type: 'integer' }, mode: { enum: ['a', 'b'] } }, required: ['count'] } }, required: ['body'] }, { path: '/', pathParams: [] });
+  assert.throws(() => c.decode({ body: { count: 'wrong' } }), /\/body\/count: must be integer/);
+  assert.throws(() => c.decode({ body: {} }), /\/body\/count: must have required property/);
+  assert.throws(() => c.decode({ body: { count: 1, mode: 'bad' } }), /allowed values: \["a","b"\]/);
 });

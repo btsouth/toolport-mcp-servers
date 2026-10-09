@@ -113,46 +113,47 @@ are used here only to identify the API each server targets.
 
 ## API contracts and bounds
 
-Tool schemas are compiled from the bundled source schemas when the catalog loads. The
-compiler emits a small JSON Schema subset with valid property names, typed enums, closed
-objects, and all properties required for strict function calling. Optional fields accept
-`null`, which the adapter removes before sending the request. Existing callers can still
-omit optional fields and send native JSON objects.
+Tool schemas use standard JSON Schema with nested objects, typed enums, and real optional
+fields. Toolport and other clients own any strict-dialect conversion. Anthropic and OpenAI
+non-strict function tools can use these schemas directly; Gemini clients should use
+`parametersJsonSchema`. Local schema checks do not prove hosted acceptance for every client.
 
-Maps, conditional `oneOf`/`allOf` shapes, recursive or very deep values, and API-nullable
-fields use a JSON-encoded string where the client schema cannot represent them faithfully.
-The field description explains the expected shape. For example, a deployment `gitSource`
-can be `"{\"type\":\"github\",\"ref\":\"main\",\"repoId\":123}"`. For an API-nullable
-field, the string `"null"` sends an explicit null; an ordinary null omits an optional field.
-The adapter decodes these values and validates the original API constraints before HTTP.
-It does not silently flatten conditional schemas or discard arbitrary map keys.
+Objects, maps and representable unions stay native JSON. Object intersections advertise
+merged fields; the original API constraints, including oneOf exclusivity and allOf, are
+always validated locally before HTTP. Recursive, very deep or otherwise unrepresentable
+values use JSON text with bounded shape summaries naming fields, required keys and enums.
+Existing JSON-text structured calls remain accepted. Omit optional fields; explicit null
+is preserved where the API allows it. Legacy nulls on non-nullable optional fields omit them.
+Plain strings stay strings, including string-or-empty unions.
 
-Schemas target JSON Schema tool inputs, including Gemini's `parametersJsonSchema` path.
-Clients that convert them to Gemini's older OpenAPI `parameters` representation must map
-JSON Schema null branches and closed-object declarations to that representation. Local
-contract tests are not proof of acceptance by every hosted model or client version.
+`list_runtime_logs` reads Vercel's live `application/stream+json` endpoint. `since` and
+`until` are inclusive Unix-millisecond filters applied locally, not upstream query
+parameters. The default window runs from 15 minutes before call start through 10 seconds
+after it, so live arrivals are eligible even without historical backfill. Default limit:
+100 entries. Stop after that limit, a 750 ms idle gap, 10 seconds total, or 2 MiB. Return
+`entries`, the window, `stopped`, and `skippedLines` for malformed records. An empty result
+does not guarantee historical logs were available. The endpoint documents no backfill
+window: [Vercel's public OpenAPI](https://openapi.vercel.sh/).
 
-`list_runtime_logs` queries a bounded snapshot of Vercel's `application/stream+json`
-endpoint. `since` and `until` are inclusive Unix-millisecond filters applied locally to
-received entries, not undocumented upstream query parameters. Defaults are the last
-15 minutes through call start and 100 entries. The adapter stops after that limit, a
-750 ms idle gap, 10 seconds total, or 2 MiB, closes the stream, and returns `entries`, the
-window, and `stopped`. An empty result does not guarantee historical logs were available.
-It never follows the deployment indefinitely.
+Other calls have a 20-second deadline and an 8 MiB response cap. MCP cancellation and stdin
+closure abort HTTP; cancelled requests receive no reply. Redirects are returned with their
+HTTP status and never followed. Errors retain status, vendor code/message and bounded
+parameter, decline and long-message details. Network failures include a transport cause
+when available. Credentials, secret-like argument values and credential patterns are
+redacted; ordinary identifiers remain useful. Failed writes never replay automatically.
 
-Other API calls have a 20-second deadline and an 8 MiB response cap. MCP
-`notifications/cancelled` and stdin closure abort active HTTP requests. Toolport's
-`requestTimeoutMs` remains an outer bound; these adapter defaults fit its normal
-30-second budget. Cancellation and failed writes never trigger an automatic replay.
-Errors contain a short `error` object with `status`, vendor `code`, and sanitized `message`.
-A network-failed or interrupted write includes an uncertain-completion warning.
+Caller headers exclude Content-Length, Host, Authorization, Content-Type and
+Transfer-Encoding. The adapter supplies authentication/content type; fetch computes length.
+Raw uploads accept UTF-8 text bytes only, without binary or base64 decoding.
 
-YAML prep scripts require Python 3 and PyYAML. Generation runs locally from the fetched
-public spec with `src/generate.js`. It resolves
-local references and inherited parameters, derives required path fields from URL templates,
-and disambiguates long operation IDs before curation. `npm run prep:vercel`,
-`npm run prep:clerk`, and `npm run prep:cloudflare` use this generator. Stripe can be
-regenerated from its configured JSON spec with `VENDOR=stripe node src/generate.js`, then
+YAML prep scripts require Python 3 and PyYAML. The local `src/generate.js` pipeline resolves
+references and inherited parameters and derives required paths from URL templates. It
+preserves full internal operation identities. The committed `src/nameOverrides.js` assigns
+meaningful public names to long or lossy operations; curation refuses an unmapped long name.
+Old unambiguous names remain hidden call aliases, including names longer than 64 characters;
+the ambiguous Stripe `_desig_3` alias is rejected.
+
+Run `npm run prep:vercel`, `npm run prep:clerk`, or `npm run prep:cloudflare`. For Stripe,
+fetch its configured JSON spec, then run `VENDOR=stripe node src/generate.js` and
 `VENDOR=stripe node src/curate.js`. Generation writes `out/`; reviewed artifacts must be
-copied to `data/` to ship them. Unsupported request encodings fail explicitly rather than
-being mislabeled as JSON.
+copied to `data/` to ship them. Unsupported request encodings fail explicitly.

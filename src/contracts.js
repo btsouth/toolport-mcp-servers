@@ -42,20 +42,25 @@ function nativeSchema(schema) {
   return out;
 }
 
-function schemaSummary(s, depth = 0) {
-  if (depth > 2) return s.type || 'JSON';
-  if (s.$ref) return `reference ${s.$ref}`;
-  for (const k of ['oneOf', 'anyOf', 'allOf']) {
-    if (s[k]) return s[k].map(x => schemaSummary(x, depth + 1)).join(k === 'allOf' ? ' and ' : ' or ');
-  }
+function resolveLocal(s, root) {
+  if (!s.$ref?.startsWith('#/')) throw new Error(`Only local schema references are supported: ${s.$ref}`);
+  const target = s.$ref.slice(2).split('/').reduce((x, key) => x?.[key.replace(/~1/g, '/').replace(/~0/g, '~')], root);
+  if (!target) throw new Error(`Unresolved schema reference: ${s.$ref}`);
+  return { ...target, ...Object.fromEntries(Object.entries(s).filter(([k]) => k !== '$ref')) };
+}
+function schemaSummary(s, root, depth = 0, seen = new Set(), budget = { remaining: 60 }) {
+  if (depth > 4 || budget.remaining-- <= 0) return s.type || 'JSON';
+  if (s.$ref && !seen.has(s.$ref)) return schemaSummary(resolveLocal(s, root), root, depth, new Set([...seen, s.$ref]), budget);
   if (s.properties) {
     const required = new Set(s.required || []);
-    return '{' + Object.entries(s.properties).map(([k, v]) => `${k}${required.has(k) ? '' : '?'}: ${schemaSummary(v, depth + 1)}`).join(', ') + '}';
+    return '{' + Object.entries(s.properties).sort(([a], [b]) => Number(required.has(b)) - Number(required.has(a))).map(([k, v]) => `${k}${required.has(k) ? ' (required)' : '?'}: ${schemaSummary(v, root, depth + 1, seen, budget)}`).join(', ') + '}';
   }
   if (s.enum) return s.enum.map(x => JSON.stringify(x)).join('|');
-  if (s.items) return `array of ${schemaSummary(s.items, depth + 1)}`;
+  for (const k of ['oneOf', 'anyOf', 'allOf']) if (s[k]) return s[k].map(x => schemaSummary(x, root, depth + 1, seen, budget)).join(k === 'allOf' ? ' and ' : ' or ');
+  if (s.items) return `array of ${schemaSummary(s.items, root, depth + 1, seen, budget)}`;
   return s.type || 'JSON';
 }
+const forbiddenHeader = name => /^(content-length|host|authorization|content-type|transfer-encoding)$/i.test(name.replace(/^['"]|['"]$/g, ''));
 
 function compileContract(source, meta) {
   const schema = structuredClone(source);
@@ -63,82 +68,91 @@ function compileContract(source, meta) {
   schema.properties ||= {};
   schema.required ||= [];
   schema.additionalProperties = false;
+  for (const header of meta.headerParams || []) {
+    if (forbiddenHeader(header)) { delete schema.properties[header]; schema.required = schema.required.filter(x => x !== header); }
+  }
   for (const [, name] of meta.path.matchAll(/\{([^}]+)\}/g)) {
     schema.properties[name] ||= { type: 'string' };
-    schema.properties[name].description = compact(`${schema.properties[name].description || ''} Required path parameter ${name}; use its exact name.`);
+    schema.properties[name].description = compact(`${schema.properties[name].description || ''} Required path parameter ${name}.`);
     if (!schema.required.includes(name)) schema.required.push(name);
   }
   const native = nativeSchema(schema);
   let validate;
   const budget = { properties: 0, enums: 0, strings: 0 };
   function visit(s, depth = 0, root = false, active = new Set()) {
-    if (s.$ref && !active.has(s.$ref)) {
-      if (!s.$ref.startsWith('#/')) throw new Error('Only local schema references are supported');
-      const target = s.$ref.slice(2).split('/').reduce((x, key) => x?.[key.replace(/~1/g, '/').replace(/~0/g, '~')], schema);
-      if (!target) throw new Error(`Unresolved schema reference: ${s.$ref}`);
-      return visit({ ...target, ...Object.fromEntries(Object.entries(s).filter(([k]) => k !== '$ref')) }, depth, root, new Set([...active, s.$ref]));
+    if (s.$ref && !active.has(s.$ref)) return visit(resolveLocal(s, schema), depth, root, new Set([...active, s.$ref]));
+    if (s.nullable) return visit(nativeSchema(s), depth, root, active);
+    // Flatten object intersections for field guidance, retaining the original
+    // intersection for authoritative local validation.
+    if (s.allOf && !s.$ref && depth < 7) {
+      const parts = s.allOf.map(x => x.$ref && !active.has(x.$ref) ? resolveLocal(x, schema) : x);
+      if (parts.every(x => x.properties || x.type === 'object')) {
+        const properties = { ...s.properties };
+        for (const part of parts) for (const [key, child] of Object.entries(part.properties || {})) properties[key] = { ...properties[key], ...child };
+        return visit({ ...s, allOf: undefined, type: 'object', properties, required: [...new Set([...(s.required || []), ...parts.flatMap(x => x.required || [])])] }, depth, root, active);
+      }
+    }
+    const branches = s.anyOf || s.oneOf;
+    if (branches && !s.$ref && !s.allOf && !s.not && depth < 7 && budget.properties < 400) {
+      if (branches.every(x => x.type === 'string')) {
+        return { schema: { type: 'string', ...(s.description ? { description: compact(s.description) } : {}),
+          ...(branches.every(x => x.enum) ? { enum: [...new Set(branches.flatMap(x => x.enum))] } : {}) }, decode: value => value };
+      }
+      const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active));
+      return { schema: { anyOf: plans.map(x => x.schema), ...(s.description ? { description: compact(s.description) } : {}) }, decode(value, field) {
+        // Legacy callers can still supply JSON text for structured unions.
+        if (typeof value === 'string' && !branches.some(x => x.type === 'string')) value = parse(value, field);
+        const type = value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
+        const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf);
+        const plan = matches.find(x => type === 'object' && Object.keys(value).some(k => Object.hasOwn(x.schema.properties || {}, k))) || matches[0];
+        return plan ? plan.decode(value, field) : value;
+      } };
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
-    // These shapes cannot be faithfully represented by a closed, shallow client
-    // schema. JSON text preserves maps, nullable values, compositions and deep refs.
-    const encoded = !root && (s.$ref || s.oneOf || s.allOf || s.anyOf || s.not || s.nullable ||
+    const encoded = !root && (s.$ref || s.oneOf || s.allOf || s.anyOf || s.not ||
       !type || Array.isArray(type) || depth >= 7 ||
-      (type === 'object' && (!s.properties || s.additionalProperties !== false)) ||
       (type === 'array' && (!s.items || Array.isArray(s.items))) ||
       budget.properties + Object.keys(s.properties || {}).length > 400 ||
-      budget.enums + (s.enum || []).length > 500 ||
-      budget.strings + JSON.stringify(s.enum || []).length > 12000);
-    if (encoded) {
-      return {
-        schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s)}. Original API constraints are validated before sending.`, 700) },
-        decode(value) {
-          if (typeof value !== 'string') return value; // existing MCP callers may send native JSON
-          try { return JSON.parse(value); } catch {
-            if (s.nullable && type === 'string') return value; // legacy nullable scalar calls
-            throw new Error('invalid JSON-encoded field');
-          }
-        },
-      };
-    }
+      budget.enums + (s.enum || []).length > 500 || budget.strings + JSON.stringify(s.enum || []).length > 12000);
+    if (encoded) return {
+      schema: { type: 'string', description: compact(`${s.description || ''} JSON-encoded value: ${schemaSummary(s, schema)}.`, 700) },
+      decode(value, field) { return typeof value === 'string' ? parse(value, field) : value; },
+    };
     const out = { type };
     if (s.description) out.description = compact(s.description);
     const hints = [];
     if (s.format) hints.push(`Format: ${s.format}`);
     for (const k of ['minimum', 'maximum', 'minLength', 'maxLength', 'minItems', 'maxItems']) if (s[k] !== undefined) hints.push(`${k}: ${s[k]}`);
-    if (s.enum && !s.enum.every(x => typeof x === 'string')) hints.push(`Allowed: ${JSON.stringify(s.enum)}`);
     if (hints.length) out.description = compact(`${out.description || ''} ${hints.join('; ')}.`, 500);
-    if (s.enum && s.enum.every(x => typeof x === 'string') && s.enum.length <= 250) {
-      out.enum = s.enum;
-      budget.enums += s.enum.length;
-      budget.strings += JSON.stringify(s.enum).length;
-    }
+    if (s.enum) { out.enum = s.enum; budget.enums += s.enum.length; budget.strings += JSON.stringify(s.enum).length; }
     if (type === 'object') {
       out.properties = {};
-      out.additionalProperties = false;
+      out.additionalProperties = s.additionalProperties !== false;
+      const additional = typeof s.additionalProperties === 'object' ? visit(s.additionalProperties, depth + 1, false, active) : null;
+      if (additional) out.additionalProperties = additional.schema;
       const fields = [];
       const required = new Set(s.required || []);
       for (const [original, child] of Object.entries(s.properties || {})) {
         const alias = keyName(original);
         if (Object.hasOwn(out.properties, alias)) throw new Error(`schema property alias collision: ${alias}`);
-        budget.properties++;
-        budget.strings += alias.length;
+        budget.properties++; budget.strings += alias.length;
         const plan = visit(child, depth + 1, false, active);
-        const optional = !required.has(original);
-        out.properties[alias] = optional
-          ? { anyOf: [plan.schema, { type: 'null' }], description: 'Optional. Use null to omit; JSON text "null" sends an explicit API null when allowed.' }
-          : plan.schema;
-        fields.push({ original, alias, plan, optional });
+        out.properties[alias] = plan.schema;
+        fields.push({ original, alias, plan, optional: !required.has(original), nullable: child.nullable || child.type === 'null' || (child.anyOf || child.oneOf || []).some(x => x.type === 'null') });
       }
-      out.required = Object.keys(out.properties);
-      return { schema: out, decode(value) {
+      out.required = fields.filter(x => !x.optional).map(x => x.alias);
+      return { schema: out, decode(value, field = '') {
+        if (typeof value === 'string') value = parse(value, field);
         if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
         const result = { ...value };
-        for (const { original, alias, plan, optional } of fields) {
-          if (original !== alias && Object.hasOwn(value, original) && Object.hasOwn(value, alias)) throw new Error(`both original and alias supplied: ${alias}`);
+        const known = new Set(fields.flatMap(x => [x.original, x.alias]));
+        if (additional) for (const [key, v] of Object.entries(value)) if (!known.has(key)) result[key] = additional.decode(v, `${field}/${key}`);
+        for (const { original, alias, plan, optional, nullable } of fields) {
+          if (original !== alias && Object.hasOwn(value, original) && Object.hasOwn(value, alias)) throw new Error(`both original and alias supplied: ${field}/${alias}`);
           const key = Object.hasOwn(value, alias) ? alias : original;
           if (!Object.hasOwn(value, key)) continue;
           delete result[key];
-          if (!(optional && value[key] === null)) result[original] = plan.decode(value[key]);
+          if (!(optional && !nullable && value[key] === null)) result[original] = plan.decode(value[key], `${field}/${alias}`);
         }
         return result;
       } };
@@ -146,9 +160,17 @@ function compileContract(source, meta) {
     if (type === 'array') {
       const child = visit(s.items, depth + 1, false, active);
       out.items = child.schema;
-      return { schema: out, decode: value => Array.isArray(value) ? value.map(child.decode) : value };
+      return { schema: out, decode(value, field) {
+        if (typeof value === 'string') value = parse(value, field);
+        return Array.isArray(value) ? value.map((v, i) => child.decode(v, `${field}/${i}`)) : value;
+      } };
     }
     return { schema: out, decode: value => value };
+  }
+  function parse(value, field) {
+    try { return JSON.parse(value); } catch {
+      throw Object.assign(new Error(`Invalid JSON-encoded field at ${field || '/'}`), { code: 'invalid_arguments', field: field || '/' });
+    }
   }
   const plan = visit(schema, 0, true);
   return {
@@ -164,8 +186,10 @@ function compileContract(source, meta) {
       validate ||= ajv.compile(native);
       if (!validate(decoded)) {
         const issue = validate.errors[0];
-        const e = new Error(`Invalid arguments at ${issue.instancePath || '/'}: ${issue.keyword}${issue.params.missingProperty ? ` (${issue.params.missingProperty})` : ''}`);
-        e.code = 'invalid_arguments'; throw e;
+        const detail = issue.keyword === 'enum' ? `allowed values: ${JSON.stringify(issue.params.allowedValues)}` : issue.message;
+        const field = `${issue.instancePath || ''}${issue.params.missingProperty ? '/' + issue.params.missingProperty : ''}` || '/';
+        const e = new Error(`Invalid arguments at ${field}: ${detail}`);
+        e.code = 'invalid_arguments'; e.field = field; throw e;
       }
       return decoded;
     },
@@ -180,4 +204,4 @@ function routingFor(operations, op) {
   if (candidates.length !== 1) throw new Error(`ambiguous or missing routing for ${op}`);
   return operations[candidates[0]];
 }
-module.exports = { compileContract, nativeSchema, opKey, routingFor, compact };
+module.exports = { compileContract, nativeSchema, opKey, routingFor, compact, forbiddenHeader, schemaSummary };

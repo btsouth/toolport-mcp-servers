@@ -16,6 +16,7 @@
 const fs = require('fs');
 const path = require('path');
 const { compact, compileContract } = require('./contracts');
+const nameOverrides = require('./nameOverrides');
 const { extractOperations } = require('./generate');
 const { humanize, humanizeVerb, humanizePath, splitCamel } = require('./humanize');
 
@@ -108,8 +109,9 @@ function curate() {
   const collisions = [];
 
   for (const { op, h } of order) {
-    let name = cfg.nameOverrides[op] || h.name;
-    const base = name.slice(0, 64);
+    let name = nameOverrides[VENDOR]?.[op] || cfg.nameOverrides[op] || h.name;
+    if (name.length > 64) throw new Error(`Missing meaningful name override: ${op} (${name})`);
+    const base = name;
     name = base;
     let n = 2;
     while (used.has(name)) {

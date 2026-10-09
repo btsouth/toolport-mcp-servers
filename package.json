@@ -14,11 +14,12 @@
     "vendors",
     "data",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
     "start": "node bin/cli.js",
-    "test": "node --test test",
+    "test": "node --test test/*.test.js",
     "prep:clerk": "bash scripts/prep-clerk.sh",
     "prep:vercel": "bash scripts/prep-vercel.sh",
     "prep:cloudflare": "bash scripts/prep-cloudflare.sh"

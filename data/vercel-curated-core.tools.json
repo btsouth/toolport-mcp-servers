@@ -5836,7 +5836,7 @@
     }
   },
   {
-    "name": "create_installations_by_integration_configuration_id_resources_b",
+    "name": "create_integration_resource_experimentation_item",
     "description": "Create a installations_by_integration_configuration_id_resources_by_resour. Create one or multiple experimentation items. Create one or multiple experimentation items",
     "inputSchema": {
       "type": "object",
@@ -5917,7 +5917,7 @@
     }
   },
   {
-    "name": "update_installations_by_integration_configuration_id_resources_b",
+    "name": "update_integration_resource_experimentation_item",
     "description": "Update a installations_by_integration_configuration_id_resources_by_resour. Patch an existing experimentation item. Patch an existing experimentation item",
     "inputSchema": {
       "type": "object",
@@ -5984,7 +5984,7 @@
     }
   },
   {
-    "name": "delete_installations_by_integration_configuration_id_resources_b",
+    "name": "delete_integration_resource_experimentation_item",
     "description": "Delete a installations_by_integration_configuration_id_resources_by_resour. Delete an existing experimentation item. Delete an existing experimentation item",
     "inputSchema": {
       "type": "object",
@@ -6008,7 +6008,7 @@
     }
   },
   {
-    "name": "get_installations_by_integration_configuration_id_resources_by_r",
+    "name": "get_integration_resource_edge_config",
     "description": "Retrieve a installations_by_integration_configuration_id_resources_by_resource_i. Get the data of a user-provided Edge Config. When the user enabled Edge Config syncing, then this endpoint can be used by the partner to fetch the contents of the Edge Config.",
     "inputSchema": {
       "type": "object",
@@ -6028,7 +6028,7 @@
     }
   },
   {
-    "name": "replace_installations_by_integration_configuration_id_resources_",
+    "name": "update_integration_resource_edge_config",
     "description": "Replace a installations_by_integration_configuration_id_resources_by_resou. Push data into a user-provided Edge Config. When the user enabled Edge Config syncing, then this endpoint can be used by the partner to push their configuration data into the relevant Edge Config.",
     "inputSchema": {
       "type": "object",
@@ -6062,7 +6062,7 @@
     }
   },
   {
-    "name": "head_installations_by_integration_configuration_id_resources_by_",
+    "name": "head_integration_resource_edge_config",
     "description": "Head a installations_by_integration_configuration_id_resources_by_resource. Get the data of a user-provided Edge Config. When the user enabled Edge Config syncing, then this endpoint can be used by the partner to fetch the contents of the Edge Config.",
     "inputSchema": {
       "type": "object",
@@ -8280,7 +8280,7 @@
     }
   },
   {
-    "name": "update_projects_by_project_id_rollback_by_deployment_id_update_d",
+    "name": "update_project_rollback_description",
     "description": "Update a projects_by_project_id_rollback_by_deployment_id_update_description. Updates the description for a rollback. Updates the reason for a rollback, without changing the rollback status itself.",
     "inputSchema": {
       "type": "object",

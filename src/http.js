@@ -15,7 +15,8 @@ function safeMessage(message, secrets = []) {
 function apiError(status, body, secrets) {
   const error = body?.error || body?.errors?.[0] || body;
   return { error: { status, code: safeMessage(error?.code || error?.type || 'http_error', secrets),
-    message: safeMessage(error?.message || (typeof error === 'string' ? error : `HTTP ${status}`), secrets) } };
+    message: safeMessage(error?.message || (typeof error === 'string' ? error : `HTTP ${status}`), secrets),
+    ...Object.fromEntries(['param', 'decline_code', 'long_message', 'type', 'request_id', 'documentation_url'].filter(k => typeof error?.[k] === 'string').map(k => [k, safeMessage(error[k], secrets)])) } };
 }
 async function readText(response, maxBytes) {
   const reader = response.body?.getReader();
@@ -36,18 +37,19 @@ async function readText(response, maxBytes) {
 async function readLogs(response, options, controller, budget = {}) {
   const reader = response.body?.getReader();
   const entries = [];
-  let reason = 'eof', buffer = '', bytes = 0, finished = false;
+  let reason = 'eof', buffer = '', bytes = 0, finished = false, skippedLines = 0;
   const decoder = new TextDecoder();
   const idleMs = budget.idleMs ?? LOG_IDLE_MS;
   const maxBytes = budget.maxBytes ?? LOG_BYTES;
-  if (!reader) return { entries, stopped: reason, ...options };
+  if (!reader) return { entries, stopped: reason, skippedLines, ...options };
   function line(text) {
     text = text.trim();
     if (!text || text.startsWith(':') || /^(event|id|retry):/.test(text)) return;
     if (text.startsWith('data:')) text = text.slice(5).trim();
     if (text === '[DONE]') { finished = true; return; }
     let entry;
-    try { entry = JSON.parse(text); } catch { const e = new Error('Invalid JSON in runtime log stream'); e.code = 'invalid_response'; throw e; }
+    try { entry = JSON.parse(text); } catch { skippedLines++; return; }
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) { skippedLines++; return; }
     const timestamp = entry.timestampInMs;
     if (typeof timestamp === 'number' && (timestamp < options.since || timestamp > options.until)) return;
     entries.push(entry);
@@ -84,7 +86,7 @@ async function readLogs(response, options, controller, budget = {}) {
       if (reason === 'limit' || finished) break;
     }
     if (controller.signal.aborted && controller.signal.reason?.code !== 'log_deadline') throw controller.signal.reason;
-    return { entries, stopped: reason, ...options };
+    return { entries, stopped: reason, skippedLines, ...options };
   } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
 }
 
@@ -97,7 +99,7 @@ async function request({ url, method, headers, body, signal, logs, secrets = [],
     code: logs ? 'log_deadline' : 'request_timeout',
   })), budget.requestMs ?? (logs ? LOG_MS : REQUEST_MS));
   try {
-    const response = await fetch(url, { method, headers, body, signal: controller.signal, redirect: 'error' });
+    const response = await fetch(url, { method, headers, body, signal: controller.signal, redirect: 'manual' });
     if (response.ok && logs) return { status: response.status, body: await readLogs(response, logs, controller, budget) };
     const text = await readText(response, MAX_BYTES);
     let parsed;
@@ -108,6 +110,7 @@ async function request({ url, method, headers, body, signal, logs, secrets = [],
     const reason = controller.signal.aborted ? controller.signal.reason : e;
     if (reason?.code === 'log_deadline') reason.code = 'request_timeout';
     return { status: 0, body: { error: { status: null, code: reason?.code || 'network_error',
+      ...(typeof reason?.cause?.code === 'string' ? { cause: safeMessage(reason.cause.code, secrets) } : {}),
       message: safeMessage(reason?.code ? reason.message : 'API network request failed', secrets),
       ...(method !== 'GET' && method !== 'HEAD' ? { completion: 'unknown; do not retry automatically' } : {}) } } };
   } finally { clearTimeout(timer); signal?.removeEventListener('abort', cancel); }

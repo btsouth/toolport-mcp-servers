@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const { stripeForm } = require('./stripeForm');
-const { compileContract, routingFor, compact } = require('./contracts');
+const { compileContract, routingFor, compact, forbiddenHeader } = require('./contracts');
 const { request, safeMessage } = require('./http');
 
 const VENDOR = process.env.VENDOR || 'stripe';
@@ -42,14 +42,20 @@ curated = curated.map(tool => {
     Object.assign(tool.inputSchema.properties, {
       limit: { type: 'integer', minimum: 1, maximum: 1000, description: 'Maximum entries; default 100.' },
       since: { type: 'integer', minimum: 0, description: 'Inclusive local timestamp filter in Unix milliseconds; default 15 minutes ago.' },
-      until: { type: 'integer', minimum: 0, description: 'Inclusive local timestamp filter in Unix milliseconds; default call start.' },
+      until: { type: 'integer', minimum: 0, description: 'Inclusive local timestamp filter in Unix milliseconds; default 10 seconds after call start (the bounded live window).' },
     });
-    tool.description = 'Query a bounded snapshot of deployment runtime logs. Filters streamed entries locally by since/until; no historical backfill guarantee. Default limit 100, 750 ms idle gap, 10 s total, 2 MiB cap. Returns entries and stopped reason; never follows indefinitely.';
+    tool.description = 'Query a bounded snapshot of deployment runtime logs. Filters streamed entries locally by since/until; no historical backfill guarantee. Default window: last 15 minutes through 10 seconds after call start. Default limit 100, 750 ms idle gap, 10 s total, 2 MiB cap. Returns entries and stopped reason; never follows indefinitely.';
   }
   const contract = compileContract(tool.inputSchema, meta);
   contracts.set(tool.name, contract);
   return { ...tool, description: compact(tool.description, 500), inputSchema: contract.inputSchema };
 });
+
+const canonicalByOp = Object.fromEntries(curated.map(tool => [opByName[tool.name], tool.name]));
+const aliases = require('./legacyAliases')[VENDOR] || {};
+for (const [alias, canonical] of Object.entries(aliases)) {
+  if (!Object.hasOwn(opByName, alias) && contracts.has(canonical)) opByName[alias] = opByName[canonical];
+}
 
 const API_KEY = process.env[cfg.apiKeyEnv] || '';
 const BASE = process.env.API_BASE_OVERRIDE || cfg.apiBase;
@@ -79,6 +85,7 @@ function buildRequest(op, args) {
   const url = BASE + p + (query.length ? `?${query.join('&')}` : '');
   const headers = {};
   for (const hp of meta.headerParams || []) {
+    if (forbiddenHeader(hp)) continue;
     const key = Object.keys(a).find(k => k.toLowerCase() === hp.toLowerCase());
     if (key !== undefined) headers[hp] = String(a[key]);
   }
@@ -98,22 +105,23 @@ function encodeBody(body, contentType) {
 async function callTool(name, args, signal) {
   const op = opByName[name];
   if (!op) throw new Error(`unknown tool: ${name}`);
-  args = contracts.get(name).decode(args);
+  const canonical = canonicalByOp[op];
+  args = contracts.get(canonical).decode(args);
   const { method, url, body, headers: parameterHeaders, contentType: bodyType } = buildRequest(op, args);
   const { encoded, contentType } = method !== 'GET' ? encodeBody(body, bodyType) : {};
   const headers = { ...parameterHeaders, Authorization: `Bearer ${API_KEY}` };
   if (contentType) headers['Content-Type'] = contentType;
   let logs;
-  if (VENDOR === 'vercel' && name === 'list_runtime_logs') {
+  if (VENDOR === 'vercel' && canonical === 'list_runtime_logs') {
     const now = Date.now();
-    logs = { limit: args.limit ?? 100, since: args.since ?? now - 15 * 60 * 1000, until: args.until ?? now };
+    logs = { limit: args.limit ?? 100, since: args.since ?? now - 15 * 60 * 1000, until: args.until ?? now + 10000 };
     if (logs.since > logs.until) throw Object.assign(new Error('since must be at or before until'), { code: 'invalid_arguments' });
   }
   if (!API_KEY) return { dryRun: true, op, method, url, body: encoded || '' };
   const secrets = [API_KEY];
   function collect(value, key = '') {
-    if (typeof value === 'string' && (value.length >= 4 || /secret|token|password|authorization|cookie|api.?key|private.?key/i.test(key))) secrets.push(value);
-    else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) collect(v, k);
+    if (typeof value === 'string' && /secret|token|password|authorization|cookie|api.?key|private.?key/i.test(key)) secrets.push(value);
+    else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) collect(v, /secret|token|password|authorization|cookie|api.?key|private.?key/i.test(key) ? key : k);
   }
   collect(args);
   return request({ url, method, headers, body: encoded, signal, logs, secrets });
@@ -141,11 +149,13 @@ async function handle(msg) {
       pending.set(id, controller);
       try {
         const out = await callTool(name, (params && params.arguments) || {}, controller.signal);
+        if (controller.signal.aborted) return;
         const text = out.dryRun
           ? `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${out.method} ${out.url}\n${out.body ? 'body: ' + out.body : '(no body)'}\n\n[curated tool ${name} -> ${out.op}]`
           : JSON.stringify(out.body, null, 2);
-        return result(id, { content: [{ type: 'text', text }], isError: !out.dryRun && (out.status === 0 || out.status >= 400) });
+        return result(id, { content: [{ type: 'text', text }], isError: !out.dryRun && (out.status === 0 || out.status >= 300) });
       } catch (e) {
+        if (controller.signal.aborted) return;
         return result(id, { content: [{ type: 'text', text: JSON.stringify({ error: { status: null, code: e.code || 'invalid_arguments', message: safeMessage(e.message, [API_KEY]), ...(e.field ? { field: e.field } : {}) } }) }], isError: true });
       } finally { pending.delete(id); }
     }

@@ -12,11 +12,13 @@ async function client(t, vendor, handler, token = 'fixture-token') {
     env: { PATH: process.env.PATH, VENDOR: vendor, API_BASE_OVERRIDE: `http://127.0.0.1:${server.address().port}`,
       [require(`../vendors/${vendor}`).apiKeyEnv]: token }, stdio: ['pipe', 'pipe', 'pipe'],
   });
+  const responses = [];
   let next = 1, stderr = '';
   const pending = new Map();
   child.stderr.on('data', b => { stderr += b; });
   readline.createInterface({ input: child.stdout }).on('line', line => {
     const response = JSON.parse(line);
+    responses.push(response);
     if (pending.has(response.id)) { pending.get(response.id)(response); pending.delete(response.id); }
   });
   child.on('exit', () => { for (const done of pending.values()) done({ error: { message: stderr } }); pending.clear(); });
@@ -31,7 +33,7 @@ async function client(t, vendor, handler, token = 'fixture-token') {
     send({ id, method: 'tools/call', params: { name, arguments: args } });
     return { id, response };
   };
-  return { call, send, pending };
+  return { call, send, pending, responses };
 }
 const text = response => JSON.parse(response.result.content[0].text);
 test('20 omitted deployment IDs fail locally; native and generated deployment inputs reach mock API', { timeout: 5000 }, async t => {
@@ -76,8 +78,11 @@ test('MCP cancellation bounds a live stream while a sibling call remains respons
   c.send({ id: 'ping', method: 'ping' });
   assert.deepEqual((await ping).result, {});
   c.send({ method: 'notifications/cancelled', params: { requestId: call.id } });
-  assert.equal(text(await call.response).error.code, 'cancelled');
   await closed;
+  const barrier = new Promise(resolve => c.pending.set('barrier', resolve));
+  c.send({ id: 'barrier', method: 'ping' });
+  await barrier;
+  assert.ok(c.responses.every(response => response.id !== call.id));
 });
 test('Cloudflare inherited path variable is encoded and replaced', { timeout: 5000 }, async t => {
   let url;
@@ -92,7 +97,7 @@ test('corrected Vercel header and query names reach mock HTTP; uploads use raw b
     req.on('data', b => { body += b; });
     req.on('end', () => { received = { url: req.url, headers: req.headers, body }; res.end('{"ok":true}'); });
   });
-  const uploaded = await c.call('upload_file', { 'content-Length': 5, 'x-Vercel-Digest': 'fixture-digest', body: 'hello' }).response;
+  const uploaded = await c.call('upload_file', { 'x-Vercel-Digest': 'fixture-digest', body: 'hello' }).response;
   assert.equal(uploaded.result.isError, false, JSON.stringify(uploaded));
   assert.equal(received.body, 'hello'); assert.equal(received.headers['content-type'], 'application/octet-stream');
   assert.equal(received.headers['x-vercel-digest'], 'fixture-digest'); assert.equal(received.headers['content-length'], '5');
@@ -107,7 +112,46 @@ test('advertised runtime-log schema includes bounded query controls', { timeout:
   assert.equal(tools.length, 333);
   const runtime = tools.find(t => t.name === 'list_runtime_logs');
   for (const field of ['projectId', 'deploymentId', 'limit', 'since', 'until']) {
-    assert.ok(runtime.inputSchema.properties[field]); assert.ok(runtime.inputSchema.required.includes(field));
+    assert.ok(runtime.inputSchema.properties[field]); assert.equal(runtime.inputSchema.required.includes(field), ['projectId', 'deploymentId'].includes(field));
   }
   assert.match(runtime.description, /750 ms idle gap, 10 s total, 2 MiB cap/);
+});
+test('redaction preserves ordinary arguments and removes secrets echoed by the vendor', { timeout: 5000 }, async t => {
+  const c = await client(t, 'vercel', (req, res) => { res.writeHead(400); res.end(JSON.stringify({ error: { code: 'invalid_env', message: 'project fixture-project secret fixture-password token fixture-token' } })); });
+  const response = await c.call('create_deployment', { body: { name: 'fixture-project', env: { PASSWORD: 'fixture-password' } } }).response;
+  assert.match(text(response).error.message, /fixture-project/);
+  assert.doesNotMatch(text(response).error.message, /fixture-token|fixture-password/);
+});
+test('controlled headers are absent from listing and caller values fail before HTTP', { timeout: 5000 }, async t => {
+  let calls = 0;
+  const c = await client(t, 'vercel', (req, res) => { calls++; res.end('{}'); });
+  const listing = new Promise(resolve => c.pending.set('headers-list', resolve));
+  c.send({ id: 'headers-list', method: 'tools/list' });
+  const upload = (await listing).result.tools.find(x => x.name === 'upload_file');
+  assert.match(upload.inputSchema.properties.body.description, /UTF-8 text/);
+  assert.ok(Object.keys(upload.inputSchema.properties).every(x => !/^(content-length|host|authorization|content-type|transfer-encoding)$/i.test(x)));
+  const response = await c.call('upload_file', { 'content-Length': 99, 'x-Vercel-Digest': 'fixture-digest', body: 'hello' }).response;
+  assert.equal(response.result.isError, true); assert.equal(calls, 0);
+});
+test('old tool names route as hidden aliases and ambiguous names stay rejected', { timeout: 5000 }, async t => {
+  const c = await client(t, 'stripe', (req, res) => res.end('{}'), '');
+  const aliases = require('../src/legacyAliases').stripe;
+  const old = 'create_test_helpers_treasury_outbound_transfers_outbound_transfer_fail';
+  const args = { outbound_transfer: 'obt_123' };
+  const canonical = await c.call(aliases[old], args).response;
+  const legacy = await c.call(old, args).response;
+  assert.equal(legacy.result.isError, canonical.result.isError);
+  assert.match(legacy.result.content[0].text, /\/fail/);
+  const ambiguous = await c.call('create_test_helpers_issuing_personalization_designs_personalization_desig_3', {}).response;
+  assert.equal(ambiguous.result.isError, true);
+  const listing = new Promise(resolve => c.pending.set('aliases-list', resolve));
+  c.send({ id: 'aliases-list', method: 'tools/list' });
+  assert.ok((await listing).result.tools.every(x => !Object.hasOwn(aliases, x.name)));
+});
+test('default runtime window includes live entries after call start', { timeout: 5000 }, async t => {
+  const c = await client(t, 'vercel', (req, res) => res.end(JSON.stringify({ timestampInMs: Date.now() + 100, message: 'live' }) + '\n'));
+  const response = await c.call('list_runtime_logs', { projectId: 'p', deploymentId: 'd' }).response;
+  const body = text(response);
+  assert.equal(body.entries[0].message, 'live');
+  assert.equal(body.until - body.since, 15 * 60 * 1000 + 10000);
 });

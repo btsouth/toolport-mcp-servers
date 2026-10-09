@@ -4741,14 +4741,6 @@
     ],
     "queryParams": []
   },
-  "PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond": {
-    "method": "POST",
-    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond",
-    "pathParams": [
-      "authorization"
-    ],
-    "queryParams": []
-  },
   "PostTestHelpersIssuingAuthorizationsAuthorizationIncrement": {
     "method": "POST",
     "path": "/v1/test_helpers/issuing/authorizations/{authorization}/increment",
@@ -4802,30 +4794,6 @@
     "path": "/v1/test_helpers/issuing/cards/{card}/shipping/submit",
     "pathParams": [
       "card"
-    ],
-    "queryParams": []
-  },
-  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate": {
-    "method": "POST",
-    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate",
-    "pathParams": [
-      "personalization_design"
-    ],
-    "queryParams": []
-  },
-  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate": {
-    "method": "POST",
-    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate",
-    "pathParams": [
-      "personalization_design"
-    ],
-    "queryParams": []
-  },
-  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject": {
-    "method": "POST",
-    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject",
-    "pathParams": [
-      "personalization_design"
     ],
     "queryParams": []
   },
@@ -4991,38 +4959,6 @@
     "path": "/v1/test_helpers/treasury/outbound_payments/{id}/return",
     "pathParams": [
       "id"
-    ],
-    "queryParams": []
-  },
-  "PostTestHelpersTreasuryOutboundTransfersOutboundTransfer": {
-    "method": "POST",
-    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}",
-    "pathParams": [
-      "outbound_transfer"
-    ],
-    "queryParams": []
-  },
-  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail": {
-    "method": "POST",
-    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail",
-    "pathParams": [
-      "outbound_transfer"
-    ],
-    "queryParams": []
-  },
-  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost": {
-    "method": "POST",
-    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post",
-    "pathParams": [
-      "outbound_transfer"
-    ],
-    "queryParams": []
-  },
-  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn": {
-    "method": "POST",
-    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return",
-    "pathParams": [
-      "outbound_transfer"
     ],
     "queryParams": []
   },
@@ -5555,6 +5491,70 @@
     "path": "/v1/webhook_endpoints/{webhook_endpoint}",
     "pathParams": [
       "webhook_endpoint"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond",
+    "pathParams": [
+      "authorization"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransfer": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn": {
+    "method": "POST",
+    "path": "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return",
+    "pathParams": [
+      "outbound_transfer"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate",
+    "pathParams": [
+      "personalization_design"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate",
+    "pathParams": [
+      "personalization_design"
+    ],
+    "queryParams": []
+  },
+  "PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject": {
+    "method": "POST",
+    "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject",
+    "pathParams": [
+      "personalization_design"
     ],
     "queryParams": []
   }

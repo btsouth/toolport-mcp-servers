@@ -3,8 +3,8 @@
 // operation identity rules. It accepts a fetched JSON OpenAPI spec, without credentials.
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
-const { opKey, compileContract } = require('./contracts');
+const nameOverrides = require('./nameOverrides');
+const { compileContract, forbiddenHeader } = require('./contracts');
 const METHODS = new Set(['get', 'post', 'put', 'patch', 'delete', 'head', 'options']);
 function pointer(spec, ref) {
   if (!ref.startsWith('#/')) throw new Error('Only local OpenAPI references are supported');
@@ -33,18 +33,16 @@ function extractOperations(spec) {
       entries.push({ id: operation.operationId, method: method.toUpperCase(), path: p, operation, params: [...params.values()] });
     }
   }
-  const counts = new Map();
-  for (const entry of entries) counts.set(opKey(entry.id), (counts.get(opKey(entry.id)) || 0) + 1);
   const seen = new Set();
   return entries.map(entry => {
-    let key = opKey(entry.id);
-    if (counts.get(key) > 1) key = key.slice(0, 53) + '_' + crypto.createHash('sha256').update(entry.id).digest('hex').slice(0, 10);
+    const key = String(entry.id).replace(/[^A-Za-z0-9]+/g, '_');
     if (seen.has(key)) throw new Error(`Duplicate operation identity: ${entry.id}`);
     seen.add(key);
     return { ...entry, key };
   });
 }
-function generate(spec) {
+
+function generate(spec, vendor = process.env.VENDOR || 'stripe') {
   const tools = [], operations = {};
   for (const entry of extractOperations(spec)) {
     const { key, method, path: p, operation, params } = entry;
@@ -70,7 +68,7 @@ function generate(spec) {
       return out;
     }
     for (const param of params) {
-      if (!['path', 'query', 'header'].includes(param.in)) continue;
+      if (!['path', 'query', 'header'].includes(param.in) || (param.in === 'header' && forbiddenHeader(param.name))) continue;
       if (Object.hasOwn(schema.properties, param.name)) throw new Error(`Parameter location collision: ${param.name}`);
       schema.properties[param.name] = resolveSchema({ ...(param.schema || { type: 'string' }), ...(param.description ? { description: param.description } : {}) });
       if (param.required || param.in === 'path') schema.required.push(param.name);
@@ -87,17 +85,18 @@ function generate(spec) {
       const media = content[contentType];
       if (!media) throw new Error(`Missing request content type for ${key}`);
       schema.properties.body = resolveSchema(media.schema || {});
+      if (['text/plain', 'application/octet-stream'].includes(contentType)) schema.properties.body = { type: 'string', description: 'Raw UTF-8 text sent as bytes. Binary file or base64 decoding is not supported.' };
       if (body.required) schema.required.push('body');
     }
     if (Object.keys(definitions).length) schema.$defs = definitions;
     const meta = { method, path: p,
       pathParams: [...p.matchAll(/\{([^}]+)\}/g)].map(x => x[1]),
       queryParams: params.filter(x => x.in === 'query').map(x => x.name),
-      headerParams: params.filter(x => x.in === 'header').map(x => x.name),
+      headerParams: params.filter(x => x.in === 'header' && !forbiddenHeader(x.name)).map(x => x.name),
       ...(body ? { contentType } : {}),
     };
     compileContract(schema, meta); // fail generation if it cannot be served faithfully
-    tools.push({ name: key, description: [...new Set([operation.summary, operation.description].filter(Boolean))].join('. '), inputSchema: schema });
+    tools.push({ name: key, ...(nameOverrides[vendor]?.[entry.id] ? { nameOverride: nameOverrides[vendor][entry.id] } : {}), description: [...new Set([operation.summary, operation.description].filter(Boolean))].join('. '), inputSchema: schema });
     operations[key] = meta;
   }
   return { tools, operations };

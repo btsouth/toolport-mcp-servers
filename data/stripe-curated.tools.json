@@ -93025,7 +93025,7 @@
     }
   },
   {
-    "name": "create_test_helpers_issuing_authorization_fraud_challenge",
+    "name": "respond_test_helpers_issuing_authorization_fraud_challenge",
     "description": "Create a fraud_challenge. Respond to fraud challenge. Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.",
     "inputSchema": {
       "type": "object",
@@ -95523,7 +95523,7 @@
     }
   },
   {
-    "name": "create_test_helpers_treasury_outbound_transfers_outbound_transfe",
+    "name": "create_test_helpers_treasury_outbound_transfer",
     "description": "Create a test_helpers_treasury_outbound_transfers_outbound_transfer. Test mode: Update an OutboundTransfer. Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.",
     "inputSchema": {
       "type": "object",
@@ -95607,7 +95607,7 @@
     }
   },
   {
-    "name": "create_test_helpers_treasury_outbound_transfers_outbound_trans_2",
+    "name": "fail_test_helpers_treasury_outbound_transfer",
     "description": "Create a test_helpers_treasury_outbound_transfers_outbound_transfer_fail. Test mode: Fail an OutboundTransfer. Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.",
     "inputSchema": {
       "type": "object",
@@ -95639,7 +95639,7 @@
     }
   },
   {
-    "name": "create_test_helpers_treasury_outbound_transfers_outbound_trans_3",
+    "name": "post_test_helpers_treasury_outbound_transfer",
     "description": "Create a test_helpers_treasury_outbound_transfers_outbound_transfer_post. Test mode: Post an OutboundTransfer. Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.",
     "inputSchema": {
       "type": "object",
@@ -95671,7 +95671,7 @@
     }
   },
   {
-    "name": "return_test_helpers_treasury_outbound_transfers_outbound_transfe",
+    "name": "return_test_helpers_treasury_outbound_transfer",
     "description": "Return a test_helpers_treasury_outbound_transfers_outbound_transfer. Test mode: Return an OutboundTransfer. Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.",
     "inputSchema": {
       "type": "object",
