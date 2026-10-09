@@ -57,11 +57,13 @@ function wireValue(s, value, encoded) {
   }));
   return value;
 }
-function advertisedAt(s, keys, value) {
+function advertisedAt(s, keys, args) {
+  let value = args;
   for (const k of keys) {
-    s = wireSchema(s, typeof k === 'number' ? [] : {});
+    s = wireSchema(s, value);
     if (/JSON-encoded value:/.test(s.description || '')) return null; // Scalar remains plain inside the encoded container.
     s = typeof k === 'number' ? s.items : s.properties?.[alias(k)] || (typeof s.additionalProperties === 'object' ? s.additionalProperties : null);
+    value = value?.[k];
     if (!s) return null;
   }
   return wireSchema(s, value);
@@ -95,6 +97,7 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
   const call = await dryClient(t, vendor);
   const listed = (await call('tools/list')).result.tools;
   let scalarFields = 0, scalarCases = 0, encodedFields = 0, encodedCases = 0;
+  const fixtureFailures = [];
   for (const tool of tools) {
     const meta = routingFor(ops, reverse[tool.name]);
     const source = structuredClone(tool.inputSchema);
@@ -108,8 +111,10 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
     for (const node of f.nodes().filter(x => x.path.length)) {
       const label = `${vendor}/${tool.name}/${node.path.join('/')}`;
       let value;
-      try { value = f.sample(node.schema); } catch (e) { throw new Error(`${label}: ${e.message}`); }
-      const advertised = advertisedAt(wire, node.path, value);
+      try { value = f.sample(node.schema); } catch (e) { fixtureFailures.push(`${label}: ${e.message}`); continue; }
+      let args;
+      try { args = f.sample(source, node.path, value, node.choices); } catch (e) { fixtureFailures.push(`${label}: ${e.message}`); continue; }
+      const advertised = advertisedAt(wire, node.path, args);
       const isEncoded = advertised && /JSON-encoded value:/.test(advertised.description || '');
       if (!node.scalar && !isEncoded) continue;
       if (node.scalar) {
@@ -118,13 +123,11 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
         scalarSeen.add(JSON.stringify(node.path)); scalarCases++;
       }
       if (isEncoded) { encodedSeen.add(JSON.stringify(node.path)); encodedCases++; }
-      let args;
-      try { args = f.sample(source, node.path, value, node.choices); } catch (e) { throw new Error(`${label}: ${e.message}`); }
       assert.equal(f.valid(source, args), true, `${label}: generated source fixture must be valid`);
       const encoded = { count: 0 };
       const input = wireValue(wire, args, encoded);
       let decoded;
-      try { decoded = contract.decode(input); } catch (e) { throw new Error(`${label}: ${e.message}`); }
+      try { decoded = contract.decode(input); } catch (e) { fixtureFailures.push(`${label}: ${e.message}`); continue; }
       assert.deepEqual(decoded, args, `${label}: decoded value changed`);
       if (isEncoded) assert.ok(encoded.count > 0, label);
       const response = await call('tools/call', { name: tool.name, arguments: input });
@@ -136,4 +139,5 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
     scalarFields += scalarSeen.size; encodedFields += encodedSeen.size;
   }
   t.diagnostic(JSON.stringify({ vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases }));
+  assert.deepEqual(fixtureFailures, [], 'Every source field must have a valid fixture');
 });

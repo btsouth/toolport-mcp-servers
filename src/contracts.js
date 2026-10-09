@@ -141,7 +141,7 @@ function compileContract(source, meta) {
       }
     }
     const branches = s.anyOf || s.oneOf;
-    if (branches && !s.$ref && !s.allOf && !s.not && depth < 7 && budget.properties < 400) {
+    if (branches && !s.$ref && !s.allOf && !s.not) {
 
       const validators = [];
       const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active));

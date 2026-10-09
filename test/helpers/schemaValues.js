@@ -52,7 +52,7 @@ function fixtures(root) {
     const union = s.anyOf || s.oneOf;
     if (union) {
       const base = { ...s }; delete base.anyOf; delete base.oneOf;
-      const selected = choices.get(JSON.stringify(here));
+      const selected = choices.get(union);
       for (const branch of selected === undefined ? union : [union[selected]]) {
         try { const value = sample(merge(base, branch), target, forced, choices, here, depth + 1); if (valid(original, value)) return value; } catch { /* Try another valid branch. */ }
       }
@@ -98,7 +98,7 @@ function fixtures(root) {
     const s = flatten(original, root), union = s.anyOf || s.oneOf;
     if (union) {
       const base = { ...s }; delete base.anyOf; delete base.oneOf;
-      return union.flatMap((branch, i) => fields(merge(base, branch), here, new Map([...choices, [JSON.stringify(here), i]]), active, all));
+      return union.flatMap((branch, i) => fields(merge(base, branch), here, new Map([...choices, [union, i]]), active, all));
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
     const scalar = [].concat(type).some(x => ['string', 'number', 'integer', 'boolean'].includes(x));
