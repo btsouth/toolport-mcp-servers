@@ -37,6 +37,7 @@ function shapeScore(s, value) {
   if (/JSON-encoded value:/.test(s.description || '')) return 0;
   if (s.type !== kind(value) && !(kind(value) === 'number' && s.type === 'integer')) return -100000;
   if (s.enum && !s.enum.includes(value)) return -100000;
+  if (s.type === 'object' && s.required?.some(k => !Object.hasOwn(value, k))) return -100000;
   if (value && typeof value === 'object' && !Array.isArray(value)) return Object.entries(value).reduce((score, [k, v]) => {
     const child = s.properties?.[alias(k)];
     return score + (child ? 10 + shapeScore(child, v) : 0);

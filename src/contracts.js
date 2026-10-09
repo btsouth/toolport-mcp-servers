@@ -167,7 +167,7 @@ function compileContract(source, meta) {
     const branches = s.anyOf || s.oneOf;
     if (branches && !s.$ref && !s.allOf && !s.not) {
 
-      const validators = [];
+      let unionValidate;
       const hasString = branches.some(x => allowsString(x));
       const plans = branches.map(x => visit({ ...x, ...(s.properties ? { properties: { ...s.properties, ...x.properties } } : {}) }, depth, false, active, hasString));
       return { schema: { anyOf: plans.map(x => x.schema), ...(s.description ? { description: compact(s.description) } : {}) }, decode(value, field) {
@@ -177,11 +177,10 @@ function compileContract(source, meta) {
         const score = plan => value && typeof value === 'object' && !Array.isArray(value) ? Object.keys(value).filter(k => Object.hasOwn(plan.schema.properties || {}, k)).length : 0;
         const matches = plans.filter(x => x.schema.type === type || (type === 'number' && x.schema.type === 'integer') || x.schema.anyOf).sort((a, b) => score(b) - score(a));
         for (const plan of matches) {
-          const index = plans.indexOf(plan);
           let decoded;
           try { decoded = plan.decode(value, field); } catch { continue; }
-          validators[index] ||= ajv.compile({ ...nativeSchema(branches[index]), ...(native.$defs ? { $defs: native.$defs } : {}), ...(native.definitions ? { definitions: native.definitions } : {}) });
-          if (validators[index](decoded)) return decoded;
+          unionValidate ||= ajv.compile({ ...nativeSchema(s), ...(native.$defs ? { $defs: native.$defs } : {}), ...(native.definitions ? { definitions: native.definitions } : {}) });
+          if (unionValidate(decoded)) return decoded;
         }
         return value;
       } };
