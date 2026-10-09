@@ -21,7 +21,12 @@ for (const vendor of ['stripe', 'vercel', 'clerk', 'cloudflare']) {
       const meta = routingFor(ops, id);
       const h = cfg.namingStyle === 'verb' ? humanizeVerb(id) : cfg.namingStyle === 'path-http' ? humanizePath(meta.method, meta.path) : humanize(id);
       if (h.name.length > 64) assert.ok(overrides[vendor][id] || cfg.nameOverrides[id], id);
-      const input = tool.inputSchema;
+      const input = structuredClone(tool.inputSchema);
+      // Reconstruct known upstream defects before testing generator repairs.
+      for (const rule of require('../src/schemaOverrideSources.json').filter(x => vendor === 'vercel' && x.operation === id)) {
+        const parent = rule.path.slice(0, -1).reduce((s, key) => s[key], input);
+        parent[rule.path.at(-1)] = structuredClone(rule.source);
+      }
       const operation = { operationId: id, description: tool.description, parameters: [] };
       for (const location of ['path', 'query', 'header']) for (const name of meta[`${location}Params`] || []) operation.parameters.push({ name, in: location, required: input.required.includes(name), schema: input.properties[name] });
       if (input.properties.body) operation.requestBody = { required: input.required.includes('body'), content: { [meta.contentType || (cfg.bodyFormat === 'form' ? 'application/x-www-form-urlencoded' : 'application/json')]: { schema: input.properties.body } } };

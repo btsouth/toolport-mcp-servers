@@ -264,7 +264,10 @@ test('Vercel DNS, expiration, Edge Config and attack-mode source repairs retain 
     assert.throws(() => c.decode({ ...paths, body: { [key]: {} } }), /Invalid arguments/);
     const { applySchemaOverrides } = require('../src/schemaOverrides');
     const source = structuredClone(tool.inputSchema);
-    source.properties.body.properties[key] = { oneOf: [{}, { type: 'integer' }] };
+    const operation = Object.keys(map).find(k => map[k] === name);
+    for (const rule of require('../src/schemaOverrideSources.json').filter(x => x.operation === operation)) {
+      rule.path.slice(0, -1).reduce((s, k) => s[k], source)[rule.path.at(-1)] = structuredClone(rule.source);
+    }
     applySchemaOverrides('vercel', Object.keys(map).find(k => map[k] === name), source);
     assert.equal(source.properties.body.properties[key].type, 'integer');
     assert.equal(source.properties.body.properties[key].oneOf, undefined);
@@ -284,7 +287,8 @@ test('Vercel project check source follows the official SDK non-exclusive union',
   for (const source of [{ kind: 'integration', externalResourceId: 'resource_fixture' }, { kind: 'webhook', webhookId: 'hook_fixture' }, { kind: 'git-provider', provider: 'github', externalCheckName: 'fixture' }]) {
     assert.deepEqual(c.decode({ projectIdOrName: 'project_fixture', body: { name: 'fixture', source, requires: 'deployment-url', blocks: 'deployment-alias', timeout: 300 } }).body.source, source);
   }
-  const { tools } = generate({ paths: { '/projects/{projectIdOrName}/checks': { post: { operationId: 'createProjectCheck', requestBody: { content: { 'application/json': { schema: { properties: { source: { type: 'object', oneOf: [{ properties: { kind: { type: 'string' } } }, { properties: { kind: { type: 'string' } }, required: ['kind'] }] } } } } } } } } } }, 'vercel');
+  const source = require('../src/schemaOverrideSources.json').find(x => x.operation === 'createProjectCheck').source;
+  const { tools } = generate({ paths: { '/projects/{projectIdOrName}/checks': { post: { operationId: 'createProjectCheck', requestBody: { content: { 'application/json': { schema: { properties: { source: structuredClone(source) } } } } } } } } }, 'vercel');
   assert.ok(tools[0].inputSchema.properties.body.properties.source.anyOf);
   assert.equal(tools[0].inputSchema.properties.body.properties.source.oneOf, undefined);
 });

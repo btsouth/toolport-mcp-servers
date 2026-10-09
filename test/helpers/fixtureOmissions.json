@@ -1,0 +1,1579 @@
+[
+  {
+    "vendor": "vercel",
+    "tool": "add_project_member",
+    "path": [
+      "body",
+      "username"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Branch 0 requires uid; including username also satisfies a rival required-only branch, violating oneOf.",
+    "sourceHash": "329af6ce79918bfc2bef200cc31b3d43d39c3f89d7e4e77797b866358f15293a"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "add_project_member",
+    "path": [
+      "body",
+      "email"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Branch 0 requires uid; including email also satisfies a rival required-only branch, violating oneOf.",
+    "sourceHash": "329af6ce79918bfc2bef200cc31b3d43d39c3f89d7e4e77797b866358f15293a"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "add_project_member",
+    "path": [
+      "body",
+      "uid"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Branch 1 requires username; including uid also satisfies a rival required-only branch, violating oneOf.",
+    "sourceHash": "329af6ce79918bfc2bef200cc31b3d43d39c3f89d7e4e77797b866358f15293a"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "add_project_member",
+    "path": [
+      "body",
+      "email"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Branch 1 requires username; including email also satisfies a rival required-only branch, violating oneOf.",
+    "sourceHash": "329af6ce79918bfc2bef200cc31b3d43d39c3f89d7e4e77797b866358f15293a"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "add_project_member",
+    "path": [
+      "body",
+      "uid"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 2
+      }
+    ],
+    "reason": "Branch 2 requires email; including uid also satisfies a rival required-only branch, violating oneOf.",
+    "sourceHash": "329af6ce79918bfc2bef200cc31b3d43d39c3f89d7e4e77797b866358f15293a"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "add_project_member",
+    "path": [
+      "body",
+      "username"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 2
+      }
+    ],
+    "reason": "Branch 2 requires email; including username also satisfies a rival required-only branch, violating oneOf.",
+    "sourceHash": "329af6ce79918bfc2bef200cc31b3d43d39c3f89d7e4e77797b866358f15293a"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "create_sandbox",
+    "path": [
+      "body",
+      "source",
+      "type"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body",
+          "source"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Every closed tarball object also satisfies the Git branch: both require type/url and the spec omits their discriminator values. No value can satisfy only the tarball branch.",
+    "sourceHash": "1374ad58cff810d3e59c0ac95399fb69d9a2046315e6ecc6b86625b6f32c292b"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "create_sandbox",
+    "path": [
+      "body",
+      "source",
+      "url"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body",
+          "source"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Every closed tarball object also satisfies the Git branch: both require type/url and the spec omits their discriminator values. No value can satisfy only the tarball branch.",
+    "sourceHash": "1374ad58cff810d3e59c0ac95399fb69d9a2046315e6ecc6b86625b6f32c292b"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "update_firewall_config",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 13
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "The log-headers value has two identical string branches in oneOf. Every string matches both, so neither string alternative is source-valid.",
+    "sourceHash": "cef28da1bfb5e90b6a42a0839a42074142fd661775a2429ee104a63a8a738472"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "update_firewall_config",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 13
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 2
+      }
+    ],
+    "reason": "The log-headers value has two identical string branches in oneOf. Every string matches both, so neither string alternative is source-valid.",
+    "sourceHash": "cef28da1bfb5e90b6a42a0839a42074142fd661775a2429ee104a63a8a738472"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "add_bypass_ip",
+    "path": [
+      "body",
+      "projectScope"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Branch 0 requires domain; including projectScope satisfies both required-only oneOf branches.",
+    "sourceHash": "d986e51dab6af579b56774f189dbb8aee4b3ac87cd75dc4191ab90552fc9a2d3"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "add_bypass_ip",
+    "path": [
+      "body",
+      "domain"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Branch 1 requires projectScope; including domain satisfies both required-only oneOf branches.",
+    "sourceHash": "d986e51dab6af579b56774f189dbb8aee4b3ac87cd75dc4191ab90552fc9a2d3"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "delete_bypass_ip",
+    "path": [
+      "body",
+      "projectScope"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Branch 0 requires domain; including projectScope satisfies both required-only oneOf branches.",
+    "sourceHash": "1b0629f2dc977b4b5d59b7db5bfea91234db3882b8b2aae9dc6ffd8864fa075c"
+  },
+  {
+    "vendor": "vercel",
+    "tool": "delete_bypass_ip",
+    "path": [
+      "body",
+      "domain"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Branch 1 requires projectScope; including domain satisfies both required-only oneOf branches.",
+    "sourceHash": "1b0629f2dc977b4b5d59b7db5bfea91234db3882b8b2aae9dc6ffd8864fa075c"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "create_access_app",
+    "path": [
+      "body",
+      "policies",
+      0
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body",
+          "policies",
+          0
+        ],
+        "index": 2
+      }
+    ],
+    "reason": "Full policy objects also match policy branch 0, an open object with optional id/precedence of the same types. Every descendant of full-policy branch 2 is excluded by oneOf.",
+    "subtree": true,
+    "sourceHash": "89eaef727e69157cf9b5f97581764656b227de05a8f11ee2bde703980e6cf26a"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "update_access_app",
+    "path": [
+      "body",
+      "policies",
+      0
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body",
+          "policies",
+          0
+        ],
+        "index": 2
+      }
+    ],
+    "reason": "Full policy objects also match policy branch 0, an open object with optional id/precedence of the same types. Every descendant of full-policy branch 2 is excluded by oneOf.",
+    "subtree": true,
+    "sourceHash": "f1fe7afdec5308fc068700e91eb70cd4192e5c4802fcf2ebbe088543408147e3"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "get_access_app",
+    "path": [
+      "app_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "app_id"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Identifier strings of at most 32 characters always satisfy the rival string branch with maxLength 36. Branch 0 cannot satisfy oneOf.",
+    "sourceHash": "5cc059c5742d0481cb62d662378fb553da28fae6d209640e20d2ecf452c83cb3"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "update_access_app",
+    "path": [
+      "app_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "app_id"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Identifier strings of at most 32 characters always satisfy the rival string branch with maxLength 36. Branch 0 cannot satisfy oneOf.",
+    "sourceHash": "f1fe7afdec5308fc068700e91eb70cd4192e5c4802fcf2ebbe088543408147e3"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "delete_access_app",
+    "path": [
+      "app_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "app_id"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Identifier strings of at most 32 characters always satisfy the rival string branch with maxLength 36. Branch 0 cannot satisfy oneOf.",
+    "sourceHash": "5cc059c5742d0481cb62d662378fb553da28fae6d209640e20d2ecf452c83cb3"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "create_access_apps_revoke_token",
+    "path": [
+      "app_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "app_id"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Identifier strings of at most 32 characters always satisfy the rival string branch with maxLength 36. Branch 0 cannot satisfy oneOf.",
+    "sourceHash": "5cc059c5742d0481cb62d662378fb553da28fae6d209640e20d2ecf452c83cb3"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "update_access_apps_settings",
+    "path": [
+      "app_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "app_id"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Identifier strings of at most 32 characters always satisfy the rival string branch with maxLength 36. Branch 0 cannot satisfy oneOf.",
+    "sourceHash": "75f71bc97520800b4866549b9c2c1c2b913e8b927776303e7b6f8610d187bb79"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_access_apps_settings",
+    "path": [
+      "app_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "app_id"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Identifier strings of at most 32 characters always satisfy the rival string branch with maxLength 36. Branch 0 cannot satisfy oneOf.",
+    "sourceHash": "75f71bc97520800b4866549b9c2c1c2b913e8b927776303e7b6f8610d187bb79"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "list_access_apps_user_policy_checks",
+    "path": [
+      "app_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "app_id"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Identifier strings of at most 32 characters always satisfy the rival string branch with maxLength 36. Branch 0 cannot satisfy oneOf.",
+    "sourceHash": "5cc059c5742d0481cb62d662378fb553da28fae6d209640e20d2ecf452c83cb3"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "get_d1_database",
+    "path": [
+      "database_id"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "database_id"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Every database-name string also satisfies the unconstrained database-ID string branch, violating oneOf.",
+    "sourceHash": "357394530fff2e40eee4d3daf068f353f44e83a6a783d1e914187e9e3d0c643b"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 0
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 0 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 1
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 1 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 2
+      }
+    ],
+    "reason": "Object branch 2 also matches branch 29: enabled is optional there and has the same boolean type. Extra properties are allowed. Every descendant fails oneOf.",
+    "subtree": true,
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 3
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 3 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 4
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 4 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 5
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 5 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 6
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 6 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 7
+      }
+    ],
+    "reason": "Numeric branch 7 is a subset of the unconstrained number branch 39; every value matches both in oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 8
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 8 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 10
+      }
+    ],
+    "reason": "Numeric branch 10 is a subset of the unconstrained number branch 39; every value matches both in oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 11
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 11 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 12
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 12 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 15
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 15 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 16
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 16 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 17
+      }
+    ],
+    "reason": "Numeric branch 17 is a subset of the unconstrained number branch 39; every value matches both in oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 18
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 18 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 20
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 20 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 21
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 21 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 22
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 22 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 24
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 24 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 25
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 25 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 26
+      }
+    ],
+    "reason": "Numeric branch 26 is a subset of the unconstrained number branch 39; every value matches both in oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 28
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 28 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 30
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 30 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 31
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 31 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 32
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 32 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 33
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 33 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 34
+      }
+    ],
+    "reason": "Numeric branch 34 is a subset of the unconstrained number branch 39; every value matches both in oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 37
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 37 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 38
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 38 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 41
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 41 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 42
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 42 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 43
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 43 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 44
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 44 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 45
+      }
+    ],
+    "reason": "Object branch 45 also matches branch 29: enabled is optional there and has the same boolean type. Extra properties are allowed. Every descendant fails oneOf.",
+    "subtree": true,
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 46
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 46 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 49
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 49 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 50
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 50 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 51
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 51 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 53
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 53 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 55
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 55 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 56
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 56 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 57
+      }
+    ],
+    "reason": "Every enum value (on, off) matches a rival string branch, so branch 57 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 58
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 58 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  },
+  {
+    "vendor": "cloudflare",
+    "tool": "patch_setting",
+    "path": [
+      "body",
+      "value"
+    ],
+    "alternatives": [
+      {
+        "path": [
+          "body"
+        ],
+        "index": 1
+      },
+      {
+        "path": [
+          "body",
+          "value"
+        ],
+        "index": 59
+      }
+    ],
+    "reason": "Every enum value (off, on) matches a rival string branch, so branch 59 cannot satisfy oneOf.",
+    "sourceHash": "71ef20108bfbbb793bd6c601ad6e9c657685fac583d7cd0065d29aaab4f92185"
+  }
+]

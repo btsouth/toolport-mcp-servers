@@ -4,8 +4,11 @@ const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
 const readline = require('node:readline');
 const path = require('node:path');
+const { createHash } = require('node:crypto');
+const omissions = require('./helpers/fixtureOmissions.json');
 const { compileContract, routingFor, schemaSummary, compact, nativeSchema } = require('../src/contracts');
 const { fixtures } = require('./helpers/schemaValues');
+const { alternativeKey: coverageKey, missingAlternatives } = require('./helpers/alternativeCoverage');
 const vendors = ['stripe', 'vercel', 'clerk', 'cloudflare'];
 
 async function dryClient(t, vendor) {
@@ -121,6 +124,8 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
   let scalarFields = 0, scalarCases = 0, encodedFields = 0, encodedCases = 0;
   const fixtureFailures = [];
   const requestFailures = [];
+  const allowed = omissions.filter(x => x.vendor === vendor), omitted = new Set();
+  let omittedCases = 0;
   for (const tool of tools) {
     const meta = routingFor(ops, reverse[tool.name]);
     const source = structuredClone(tool.inputSchema);
@@ -131,14 +136,15 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
     const f = fixtures(source), contract = compileContract(source, meta);
     const wire = listed.find(x => x.name === tool.name).inputSchema;
     const scalarSeen = new Set(), encodedSeen = new Set(), expectedScalar = new Set();
-    const expectedEncoded = encodedPaths(wire);
-    const failures = new Map();
+    const expectedEncoded = encodedPaths(wire), omittedEncoded = new Set(), eligibleEncoded = new Set();
+    const failures = new Map(), expectedAlternatives = new Map(), checkedAlternatives = new Set();
     for (const node of f.nodes().filter(x => x.path.length)) {
       const fieldKey = JSON.stringify(node.path);
       const advertisedKey = JSON.stringify(node.path.map(k => typeof k === 'number' ? k : alias(k)));
-      if (node.scalar) expectedScalar.add(fieldKey);
       if (!node.scalar && !expectedEncoded.has(advertisedKey)) continue;
-      const label = `${vendor}/${tool.name}/${node.path.join('/')}`;
+      const alternativeKey = coverageKey(node);
+      const label = `${vendor}/${tool.name}/${node.path.join('/')} branches=${JSON.stringify(node.alternatives)}`;
+      expectedAlternatives.set(alternativeKey, { field: label, scalar: node.scalar });
       let value, args;
       for (const candidate of f.values(node.schema)) {
         if (node.path.length === 1 && meta.pathParams.includes(node.path[0]) && (candidate === '' || candidate === null)) continue;
@@ -146,16 +152,33 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
           args = f.sample(source, node.path, candidate, node.choices);
           value = candidate;
           break;
-        } catch (e) { failures.set(fieldKey, { field: label, scalar: node.scalar, error: e.message }); }
+        } catch (e) { failures.set(alternativeKey, { field: label, scalar: node.scalar, error: e.message }); }
       }
-      if (!args) continue;
+      const omission = allowed.find(x => x.tool === tool.name && (x.subtree
+        ? x.path.every((key, i) => node.path[i] === key) && x.alternatives.every(a => node.alternatives.some(b => JSON.stringify(a) === JSON.stringify(b)))
+        : coverageKey(x) === alternativeKey));
+      if (omission) {
+        assert.ok(omission.reason, label);
+        assert.equal(createHash('sha256').update(JSON.stringify(tool.inputSchema)).digest('hex'), omission.sourceHash, `${label}: omission source changed`);
+        assert.equal(args, undefined, `${label}: omission is stale; this alternative now has a fixture`);
+        omitted.add(omission); omittedCases++;
+        omittedEncoded.add(advertisedKey);
+        if (node.scalar) assert.doesNotMatch(JSON.stringify(compileContract({ properties: { field: node.schema } }, { path: '/', pathParams: [] }).inputSchema.properties.field), /JSON-encoded value:/, label);
+        expectedAlternatives.delete(alternativeKey);
+        continue;
+      }
+      if (node.scalar) expectedScalar.add(fieldKey);
+      else eligibleEncoded.add(advertisedKey);
+      if (!args) {
+        failures.set(alternativeKey, failures.get(alternativeKey) || { field: label, scalar: node.scalar, error: 'No source-valid fixture for this alternative' });
+        continue;
+      }
       const preferEncoded = !node.scalar && expectedEncoded.has(advertisedKey);
       if (preferEncoded) args = f.scaffold(args, node, value);
       const descriptions = new Set([node.schema, f.flatten(node.schema), f.guidance(node.schema), nativeSchema(node.schema)].map(s => compact(`JSON-encoded value: ${schemaSummary(s, source)}.`, 100000)));
-      const advertised = advertisedAt(wire, node.path, args, preferEncoded, descriptions);
+      let advertised = advertisedAt(wire, node.path, args, preferEncoded, descriptions);
+      if (preferEncoded && !describes(advertised, descriptions)) advertised = advertisedAt(wire, node.path, args);
       const isEncoded = advertised && /JSON-encoded value:/.test(advertised.description || '');
-      if (preferEncoded && !describes(advertised, descriptions)) continue;
-      if (!node.scalar && !isEncoded) continue;
       try {
         if (node.scalar) {
           assert.ok(value !== null && ['string', 'number', 'boolean'].includes(typeof value), label);
@@ -187,14 +210,46 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
         if (media === 'application/json' && request.body !== '') assert.deepEqual(JSON.parse(body), JSON.parse(request.body), label);
         else if (media === 'application/x-www-form-urlencoded') assert.deepEqual([...new URLSearchParams(body)].sort(), [...new URLSearchParams(request.body)].sort(), label);
         else assert.equal(body, String(request.body), label);
+        checkedAlternatives.add(alternativeKey);
         if (node.scalar) { scalarSeen.add(JSON.stringify(node.path)); scalarCases++; }
         if (isEncoded) { encodedSeen.add(advertisedKey); encodedCases++; }
       } catch (e) { requestFailures.push({ field: label, error: e.message }); }
     }
-    for (const key of expectedScalar) if (!scalarSeen.has(key)) fixtureFailures.push(failures.get(key) || { field: `${vendor}/${tool.name}/${JSON.parse(key).join('/')}`, scalar: true, error: 'No scalar fixture checked' });
-    for (const key of expectedEncoded) if (!encodedSeen.has(key)) fixtureFailures.push({ field: `${vendor}/${tool.name}/${JSON.parse(key).join('/')}`, scalar: false, error: 'No encoded fixture checked' });
+    fixtureFailures.push(...missingAlternatives(expectedAlternatives, checkedAlternatives, failures));
+    for (const key of expectedScalar) if (!scalarSeen.has(key)) fixtureFailures.push({ field: `${vendor}/${tool.name}/${JSON.parse(key).join('/')}`, scalar: true, error: 'No scalar fixture checked' });
+    for (const key of expectedEncoded) if (!encodedSeen.has(key) && !(omittedEncoded.has(key) && !eligibleEncoded.has(key))) fixtureFailures.push({ field: `${vendor}/${tool.name}/${JSON.parse(key).join('/')}`, scalar: false, error: 'No encoded fixture checked' });
     scalarFields += scalarSeen.size; encodedFields += encodedSeen.size;
   }
-  t.diagnostic(JSON.stringify({ vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases, failedScalarFields: new Set(fixtureFailures.filter(x => x.scalar).map(x => x.field)).size, failedFixtureCases: fixtureFailures.length }));
+  assert.equal(omitted.size, allowed.length, 'Every documented omission must still be encountered');
+  t.diagnostic(JSON.stringify({ explainedOmissions: omittedCases, omissionRules: omitted.size, vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases, failedScalarFields: new Set(fixtureFailures.filter(x => x.scalar).map(x => x.field)).size, failedFixtureCases: fixtureFailures.length }));
   assert.equal(fixtureFailures.length + requestFailures.length, 0, 'Every field needs a source-valid fixture and an exact dry run: ' + JSON.stringify({ fixtureFailures, requestFailures }));
+});
+
+test('Vercel toast strings and self-served drain sources reach exact MCP dry-run requests', async t => {
+  const cfg = require('../vendors/vercel'), tools = require('../data/vercel-curated.tools.json');
+  const map = require('../data/vercel.namemap.json'), ops = require('../data/vercel.operations.json');
+  const call = await dryClient(t, 'vercel');
+  const cases = [
+    ['updateProject', { idOrName: 'project_fixture', body: { dismissedToasts: [{ key: 'toast', dismissedAt: 100, action: 'accept', value: 'plain' }] } }],
+    ['createDrain', { body: { name: 'fixture', projects: 'all', schemas: {}, source: { kind: 'self-served' } } }],
+    ['updateDrain', { id: 'drain_fixture', body: { source: { kind: 'self-served' } } }],
+  ];
+  for (const [id, args] of cases) await t.test(id, async () => {
+    const tool = tools.find(x => x.name === map[id]), meta = routingFor(ops, id);
+    assert.deepEqual(compileContract(tool.inputSchema, meta).decode(args), args);
+    const response = await call('tools/call', { name: tool.name, arguments: args });
+    assert.equal(response.result?.isError, false, JSON.stringify(response));
+    const expected = expectedRequest('vercel', cfg, meta, args);
+    assert.equal(response.result.content[0].text,
+      `DRY RUN (no ${cfg.apiKeyEnv} set). Would call:\n${meta.method} ${expected.url}\nbody: ${expected.body}\n\n[curated tool ${tool.name} -> ${id}]`);
+    if (id === 'updateProject') {
+      const invalid = structuredClone(args); invalid.body.dismissedToasts[0].value = {};
+      assert.equal((await call('tools/call', { name: tool.name, arguments: invalid })).result.isError, true);
+    } else {
+      const invalid = structuredClone(args); invalid.body.source.kind = 100;
+      assert.equal((await call('tools/call', { name: tool.name, arguments: invalid })).result.isError, true);
+      invalid.body.source = { kind: 'self-served', typo: true };
+      assert.equal((await call('tools/call', { name: tool.name, arguments: invalid })).result.isError, true);
+    }
+  });
 });

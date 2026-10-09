@@ -1,0 +1,1153 @@
+[
+  {
+    "operation": "createProjectCheck",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "source"
+    ],
+    "repair": "union",
+    "source": {
+      "type": "object",
+      "oneOf": [
+        {
+          "properties": {
+            "kind": {
+              "type": "string",
+              "default": "integration"
+            },
+            "externalResourceId": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "kind": {
+              "type": "string"
+            },
+            "webhookId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "properties": {
+            "kind": {
+              "type": "string"
+            },
+            "externalCheckName": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string",
+              "enum": [
+                "github"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "externalCheckName",
+            "provider"
+          ]
+        }
+      ]
+    },
+    "alternatives": [
+      {
+        "type": "object",
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "type": "string",
+                "default": "integration"
+              },
+              "integrationId": {
+                "type": "string"
+              },
+              "integrationConfigurationId": {
+                "type": "string"
+              },
+              "resourceId": {
+                "type": "string"
+              },
+              "externalResourceId": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "webhookId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          {
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "externalCheckName": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string",
+                "enum": [
+                  "github"
+                ]
+              }
+            },
+            "required": [
+              "kind",
+              "externalCheckName",
+              "provider"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "operation": "createRecord",
+    "path": [
+      "properties",
+      "body"
+    ],
+    "repair": "dns",
+    "source": {
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "A",
+            "AAAA",
+            "ALIAS",
+            "CAA",
+            "CNAME",
+            "HTTPS",
+            "MX",
+            "SRV",
+            "TXT",
+            "NS"
+          ]
+        }
+      },
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "value",
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "A"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "value",
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "AAAA"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string",
+              "format": "ipv6"
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "value",
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "ALIAS"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string"
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "value",
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "CAA"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string"
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "CNAME"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string"
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "value",
+            "name",
+            "mxPriority"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "MX"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string"
+            },
+            "mxPriority": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "srv"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "SRV"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "srv": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "weight",
+                "port",
+                "priority",
+                "target"
+              ],
+              "properties": {
+                "priority": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 65535
+                    }
+                  ],
+                  "nullable": true
+                },
+                "weight": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 65535
+                    }
+                  ],
+                  "nullable": true
+                },
+                "port": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 65535
+                    }
+                  ],
+                  "nullable": true
+                },
+                "target": {
+                  "type": "string"
+                }
+              }
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "value",
+            "name"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "TXT"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string"
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "NS"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "value": {
+              "type": "string"
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "https"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "HTTPS"
+              ]
+            },
+            "ttl": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 2147483647
+            },
+            "https": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "priority",
+                "target"
+              ],
+              "properties": {
+                "priority": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 65535
+                    }
+                  ],
+                  "nullable": true
+                },
+                "target": {
+                  "type": "string"
+                },
+                "params": {
+                  "type": "string"
+                }
+              }
+            },
+            "comment": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createDrain",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "source"
+    ],
+    "repair": "drain",
+    "source": {
+      "type": "object",
+      "oneOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "default": "integration"
+                },
+                "externalResourceId": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "externalResourceId"
+              ]
+            },
+            {
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "default": "integration"
+                },
+                "resourceId": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "resourceId"
+              ]
+            },
+            {
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "default": "integration"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "kind"
+              ]
+            }
+          ]
+        },
+        {
+          "properties": {
+            "kind": {
+              "type": "string",
+              "default": "self-served"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "operation": "updateDrain",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "source"
+    ],
+    "repair": "drain",
+    "source": {
+      "type": "object",
+      "oneOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "default": "integration"
+                },
+                "externalResourceId": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "externalResourceId"
+              ]
+            },
+            {
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "default": "integration"
+                },
+                "resourceId": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "resourceId"
+              ]
+            },
+            {
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "default": "integration"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "kind"
+              ]
+            }
+          ]
+        },
+        {
+          "properties": {
+            "kind": {
+              "type": "string",
+              "default": "self-served"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "operation": "updateProject",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "dismissedToasts",
+      "items",
+      "properties",
+      "value"
+    ],
+    "repair": "union",
+    "source": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "previousValue",
+            "currentValue"
+          ],
+          "properties": {
+            "previousValue": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "currentValue": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesV2",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "snapshotExpiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesV2",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "keepLastSnapshots",
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "updateSandbox",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "snapshotExpiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "updateSandbox",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "keepLastSnapshots",
+      "oneOf",
+      1,
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesSessionsBySessionIdSnapshotV2",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesByNameForkV2",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "snapshotExpiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesByNameForkV2",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "keepLastSnapshots",
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesV3",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "snapshotExpiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesV3",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "keepLastSnapshots",
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesSessionsBySessionIdSnapshotV3",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesByNameForkV3",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "snapshotExpiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesByNameForkV3",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "keepLastSnapshots",
+      "oneOf",
+      1,
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesV4",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "snapshotExpiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxesV4",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "keepLastSnapshots",
+      "oneOf",
+      1,
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "updateAttackChallengeMode",
+    "path": [
+      "properties",
+      "body"
+    ],
+    "repair": "union",
+    "source": {
+      "type": "object",
+      "oneOf": [
+        {
+          "required": [
+            "projectId",
+            "attackModeEnabled",
+            "attackModeActiveUntil"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string"
+            },
+            "attackModeEnabled": {
+              "type": "boolean"
+            },
+            "attackModeActiveUntil": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "projectId",
+            "attackModeEnabled"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string"
+            },
+            "attackModeEnabled": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSessionSnapshot",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "patchEdgeConfigItems",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "items",
+      "items",
+      "oneOf",
+      0,
+      "properties",
+      "description"
+    ],
+    "repair": "description",
+    "source": {
+      "oneOf": [
+        {
+          "type": "string",
+          "maxLength": 512
+        },
+        {}
+      ],
+      "nullable": true
+    },
+    "alternatives": [
+      {
+        "type": "string",
+        "maxLength": 512,
+        "nullable": true
+      }
+    ]
+  },
+  {
+    "operation": "createSandboxes",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "snapshotExpiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "createSandboxes",
+    "path": [
+      "properties",
+      "body",
+      "properties",
+      "keepLastSnapshots",
+      "properties",
+      "expiration"
+    ],
+    "repair": "expiration",
+    "source": {
+      "oneOf": [
+        {},
+        {
+          "type": "integer"
+        }
+      ]
+    }
+  }
+]

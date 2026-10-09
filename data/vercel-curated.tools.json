@@ -7227,9 +7227,9 @@
             },
             "source": {
               "type": "object",
-              "oneOf": [
+              "anyOf": [
                 {
-                  "oneOf": [
+                  "anyOf": [
                     {
                       "properties": {
                         "kind": {
@@ -7693,9 +7693,9 @@
             },
             "source": {
               "type": "object",
-              "oneOf": [
+              "anyOf": [
                 {
-                  "oneOf": [
+                  "anyOf": [
                     {
                       "properties": {
                         "kind": {
@@ -17598,7 +17598,7 @@
                     "description": "Whether the toast was dismissed, the action was accepted, or the dismissal with this key should be removed"
                   },
                   "value": {
-                    "oneOf": [
+                    "anyOf": [
                       {
                         "type": "string"
                       },

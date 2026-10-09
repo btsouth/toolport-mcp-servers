@@ -79,7 +79,7 @@ function fixtures(root) {
     if (union) {
       const selected = choices.get(union);
       const plans = unionShapes(s);
-      const ordered = selected === undefined ? plans : [plans[selected], ...plans.filter((_, i) => i !== selected)];
+      const ordered = selected === undefined ? plans : [plans[selected]];
       const failures = [];
       for (const branch of ordered) {
         try {
@@ -127,7 +127,7 @@ function fixtures(root) {
     if (types.includes('object')) {
       const value = {};
       for (const [key, child] of Object.entries(s.properties || {})) {
-        if (shape(child).enum?.length === 1 || (s.required || []).includes(key) || (here.every((x, i) => target[i] === x) && target[here.length] === key)) value[key] = sample(child, target, forced, choices, [...here, key], depth + 1);
+        if ((shape(child).enum?.length === 1 && s.maxProperties === undefined) || (s.required || []).includes(key) || (here.every((x, i) => target[i] === x) && target[here.length] === key)) value[key] = sample(child, target, forced, choices, [...here, key], depth + 1);
       }
       for (const key of s.required || []) if (!Object.hasOwn(value, key) && !s.properties?.[key] && s.additionalProperties !== false) value[key] = 'fixture';
       const targetKey = target[here.length];
@@ -168,26 +168,32 @@ function fixtures(root) {
     }
     throw new Error(`No valid ${type} fixture at /${here.join('/')}: ${JSON.stringify(s).slice(0, 300)}`);
   }
-  function fields(original = root, here = [], choices = new Map(), active = new Set(), all = false) {
+  function fields(original = root, here = [], choices = new Map(), active = new Set(), all = false, alternatives = []) {
     if (original.$ref && active.has(original.$ref)) return [];
     if (original.$ref) active = new Set([...active, original.$ref]);
     const s = shape(original), union = s.anyOf || s.oneOf;
     if (union) {
-      return [...(all ? [{ path: here, schema: original, choices, scalar: false }] : []), ...unionShapes(s).flatMap((branch, i) => fields(branch, here, new Map([...choices, [union, i]]), active, all))];
+      return [...(all ? [{ path: here, schema: original, choices, alternatives, scalar: false }] : []), ...unionShapes(s).flatMap((branch, i) => fields(branch, here, new Map([...choices, [union, i]]), active, all, [...alternatives, { path: here, index: i }]))];
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
     const scalar = [].concat(type).some(x => ['string', 'number', 'integer', 'boolean'].includes(x));
-    const out = scalar || all ? [{ path: here, schema: original, choices, scalar }] : [];
-    for (const [key, child] of Object.entries(s.properties || {})) out.push(...fields(child, [...here, key], choices, active, all));
-    if (s.items) out.push(...fields(s.items, [...here, 0], choices, active, all));
-    if (typeof s.additionalProperties === 'object') out.push(...fields(s.additionalProperties, [...here, 'fixture_key'], choices, active, all));
+    const out = scalar || all ? [{ path: here, schema: original, choices, alternatives, scalar }] : [];
+    for (const [key, child] of Object.entries(s.properties || {})) out.push(...fields(child, [...here, key], choices, active, all, alternatives));
+    if (s.items) out.push(...fields(s.items, [...here, 0], choices, active, all, alternatives));
+    if (typeof s.additionalProperties === 'object') out.push(...fields(s.additionalProperties, [...here, 'fixture_key'], choices, active, all, alternatives));
     return out;
   }
   function values(s) {
     const candidates = [];
     try { candidates.push(sample(s)); } catch { /* Other candidates may satisfy this branch. */ }
+    const flat = shape(s);
+    candidates.push(...(flat.enum || []), flat.example, flat.default);
+    if (['integer', 'number'].includes(flat.type)) {
+      candidates.push(flat.minimum, flat.maximum, Number(flat.minimum ?? 0) + 1, Number(flat.maximum ?? 1) - 1);
+      if (flat.type === 'number') candidates.push(0.5, 1.5, Number(flat.minimum ?? 0) + 0.5);
+    }
     candidates.push(...strings, '/', 0, 1, true, false, {}, [], null);
-    return candidates.filter((value, i) => candidates.findIndex(x => JSON.stringify(x) === JSON.stringify(value)) === i && valid(s, value));
+    return candidates.filter((value, i) => value !== undefined && candidates.findIndex(x => JSON.stringify(x) === JSON.stringify(value)) === i && valid(s, value));
   }
   let nodes;
   const allNodes = () => nodes ||= fields(root, [], new Map(), new Set(), true);
