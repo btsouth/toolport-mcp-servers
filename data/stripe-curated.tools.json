@@ -93305,7 +93305,7 @@
     }
   },
   {
-    "name": "create_test_helpers_issuing_personalization_designs_personalization_desig_3",
+    "name": "activate_test_helpers_issuing_personalization_design",
     "description": "Create a test_helpers_issuing_personalization_designs_personalization_desig. Activate a testmode personalization design. Updates the status of the specified testmode personalization design object to active .",
     "inputSchema": {
       "type": "object",
@@ -93337,7 +93337,7 @@
     }
   },
   {
-    "name": "create_test_helpers_issuing_personalization_designs_personalization_desig_3",
+    "name": "deactivate_test_helpers_issuing_personalization_design",
     "description": "Create a test_helpers_issuing_personalization_designs_personalization_desig. Deactivate a testmode personalization design. Updates the status of the specified testmode personalization design object to inactive .",
     "inputSchema": {
       "type": "object",
@@ -93369,7 +93369,7 @@
     }
   },
   {
-    "name": "create_test_helpers_issuing_personalization_designs_personalization_desig_3",
+    "name": "reject_test_helpers_issuing_personalization_design",
     "description": "Create a test_helpers_issuing_personalization_designs_personalization_desig. Reject a testmode personalization design. Updates the status of the specified testmode personalization design object to rejected .",
     "inputSchema": {
       "type": "object",
@@ -95523,7 +95523,7 @@
     }
   },
   {
-    "name": "create_test_helpers_treasury_outbound_transfers_outbound_transfer",
+    "name": "create_test_helpers_treasury_outbound_transfers_outbound_transfe",
     "description": "Create a test_helpers_treasury_outbound_transfers_outbound_transfer. Test mode: Update an OutboundTransfer. Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.",
     "inputSchema": {
       "type": "object",
@@ -95607,7 +95607,7 @@
     }
   },
   {
-    "name": "create_test_helpers_treasury_outbound_transfers_outbound_transfer_fail",
+    "name": "create_test_helpers_treasury_outbound_transfers_outbound_trans_2",
     "description": "Create a test_helpers_treasury_outbound_transfers_outbound_transfer_fail. Test mode: Fail an OutboundTransfer. Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.",
     "inputSchema": {
       "type": "object",
@@ -95639,7 +95639,7 @@
     }
   },
   {
-    "name": "create_test_helpers_treasury_outbound_transfers_outbound_transfer_post",
+    "name": "create_test_helpers_treasury_outbound_transfers_outbound_trans_3",
     "description": "Create a test_helpers_treasury_outbound_transfers_outbound_transfer_post. Test mode: Post an OutboundTransfer. Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.",
     "inputSchema": {
       "type": "object",
@@ -95671,7 +95671,7 @@
     }
   },
   {
-    "name": "return_test_helpers_treasury_outbound_transfers_outbound_transfer",
+    "name": "return_test_helpers_treasury_outbound_transfers_outbound_transfe",
     "description": "Return a test_helpers_treasury_outbound_transfers_outbound_transfer. Test mode: Return an OutboundTransfer. Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.",
     "inputSchema": {
       "type": "object",

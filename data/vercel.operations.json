@@ -137,6 +137,10 @@
     "queryParams": [
       "teamId",
       "slug"
+    ],
+    "headerParams": [
+      "x-artifact-client-ci",
+      "x-artifact-client-interactive"
     ]
   },
   "status": {
@@ -157,7 +161,17 @@
     "queryParams": [
       "teamId",
       "slug"
-    ]
+    ],
+    "headerParams": [
+      "Content-Length",
+      "x-artifact-duration",
+      "x-artifact-client-ci",
+      "x-artifact-client-interactive",
+      "x-artifact-tag",
+      "x-artifact-sha",
+      "x-artifact-dirty-hash"
+    ],
+    "contentType": "application/octet-stream"
   },
   "downloadArtifact": {
     "method": "GET",
@@ -168,6 +182,10 @@
     "queryParams": [
       "teamId",
       "slug"
+    ],
+    "headerParams": [
+      "x-artifact-client-ci",
+      "x-artifact-client-interactive"
     ]
   },
   "artifactExists": {
@@ -1304,9 +1322,9 @@
       "projectId",
       "ids",
       "exclude_ids",
-      "'exclude-ids'",
+      "exclude-ids",
       "exclude_projectId",
-      "'exclude-projectId'",
+      "exclude-projectId",
       "teamId",
       "slug"
     ]
@@ -3013,6 +3031,9 @@
     "queryParams": [
       "teamId",
       "slug"
+    ],
+    "headerParams": [
+      "x-cwd"
     ]
   },
   "createSessionSnapshot": {
@@ -3300,7 +3321,14 @@
     "queryParams": [
       "teamId",
       "slug"
-    ]
+    ],
+    "headerParams": [
+      "Content-Length",
+      "x-vercel-digest",
+      "x-now-digest",
+      "x-now-size"
+    ],
+    "contentType": "application/octet-stream"
   },
   "listAuthTokens": {
     "method": "GET",
