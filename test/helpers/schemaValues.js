@@ -158,7 +158,7 @@ function fixtures(root) {
     if (original.$ref) active = new Set([...active, original.$ref]);
     const s = shape(original), union = s.anyOf || s.oneOf;
     if (union) {
-      return unionShapes(s).flatMap((branch, i) => fields(branch, here, new Map([...choices, [union, i]]), active, all));
+      return [...(all ? [{ path: here, schema: original, choices, scalar: false }] : []), ...unionShapes(s).flatMap((branch, i) => fields(branch, here, new Map([...choices, [union, i]]), active, all))];
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
     const scalar = [].concat(type).some(x => ['string', 'number', 'integer', 'boolean'].includes(x));
@@ -176,6 +176,13 @@ function fixtures(root) {
   }
   let nodes;
   const allNodes = () => nodes ||= fields(root, [], new Map(), new Set(), true);
+  function mergeScaffold(current, generated) {
+    if (Array.isArray(current) && Array.isArray(generated)) return Array.from({ length: Math.max(current.length, generated.length) }, (_, i) => mergeScaffold(current[i], generated[i]));
+    if (current && generated && typeof current === 'object' && typeof generated === 'object' && !Array.isArray(current) && !Array.isArray(generated)) {
+      return Object.fromEntries([...new Set([...Object.keys(current), ...Object.keys(generated)])].map(key => [key, mergeScaffold(current[key], generated[key])]));
+    }
+    return current === undefined ? generated : current;
+  }
   function scaffold(args, node, forced) {
     for (const parent of allNodes().filter(x => x.path.length && x.path.length < node.path.length &&
       x.path.every((key, i) => node.path[i] === key) && [...x.choices].every(([key, value]) => node.choices.get(key) === value)).sort((a, b) => b.path.length - a.path.length)) {
@@ -183,7 +190,7 @@ function fixtures(root) {
         const value = sample(parent.schema, node.path, forced, node.choices, parent.path);
         const candidate = structuredClone(args);
         const container = parent.path.slice(0, -1).reduce((x, key) => x[key], candidate);
-        container[parent.path.at(-1)] = value;
+        container[parent.path.at(-1)] = mergeScaffold(container[parent.path.at(-1)], value);
         if (valid(root, candidate)) args = candidate;
       } catch { /* Another source alternative may supply the required scaffold. */ }
     }
