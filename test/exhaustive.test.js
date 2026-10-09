@@ -58,7 +58,7 @@ function describes(s, summaries) {
 }
 function wireSchema(s, value, encodedKeys, descriptions) {
   if (!s.anyOf) return s;
-  const candidates = encodedKeys ? s.anyOf.filter(x => hasEncodedAt(x, encodedKeys, descriptions)) : s.anyOf;
+  const candidates = encodedKeys ? s.anyOf.filter(x => hasEncodedAt(x, encodedKeys, descriptions) && shapeScore(x, value) >= 0) : s.anyOf;
   return wireSchema([...(candidates.length ? candidates : s.anyOf)].sort((a, b) => shapeScore(b, value) - shapeScore(a, value))[0], value, encodedKeys, descriptions);
 }
 function wireValue(s, value, encoded, encodedKeys, descriptions) {
