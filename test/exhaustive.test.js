@@ -169,5 +169,5 @@ for (const vendor of vendors) test(`${vendor}: every scalar and JSON-encoded fie
     scalarFields += scalarSeen.size; encodedFields += encodedSeen.size;
   }
   t.diagnostic(JSON.stringify({ vendor, tools: tools.length, scalarFields, scalarCases, encodedFields, encodedCases, failedScalarFields: new Set(fixtureFailures.filter(x => x.scalar).map(x => x.field)).size, failedFixtureCases: fixtureFailures.length }));
-  assert.equal(fixtureFailures.length, 0, 'Every source field must have a valid fixture: ' + JSON.stringify(fixtureFailures.slice(0, 5)));
+  assert.equal(fixtureFailures.length, 0, 'Every source field must have a valid fixture: ' + JSON.stringify(fixtureFailures));
 });

@@ -75,7 +75,7 @@ function fixtures(root) {
           if (value && typeof value === 'object' && !Array.isArray(value)) {
             const own = shape(branch).properties || {};
             const rivals = plans.flatMap(x => Object.keys(shape(x).properties || {})).filter(k => !own[k] && value[k] === undefined);
-            for (const key of new Set(rivals)) for (const invalid of [null, {}, false, 0, '']) {
+            for (const key of new Set(rivals)) for (const invalid of [{}, false, 0, '', null]) {
               const candidate = { ...value, [key]: invalid };
               if (valid(original, candidate)) return candidate;
             }
