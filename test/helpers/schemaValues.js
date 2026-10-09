@@ -40,7 +40,18 @@ function flatten(s, root) {
 function fixtures(root) {
   const ajv = new Ajv({ strict: false, validateFormats: true, logger: false });
   addFormats(ajv);
-  const validators = new WeakMap();
+  const validators = new WeakMap(), shapes = new WeakMap(), unions = new WeakMap();
+  function shape(original) {
+    if (!shapes.has(original)) shapes.set(original, flatten(original, root));
+    return shapes.get(original);
+  }
+  function unionShapes(s) {
+    if (!unions.has(s)) {
+      const base = { ...s }; delete base.anyOf; delete base.oneOf;
+      unions.set(s, (s.anyOf || s.oneOf).map(branch => merge(base, branch)));
+    }
+    return unions.get(s);
+  }
   function valid(s, value) {
     if (!validators.has(s)) validators.set(s, ajv.compile({ ...nativeSchema(s), ...(root.$defs ? { $defs: nativeSchema(root.$defs) } : {}), ...(root.definitions ? { definitions: root.definitions } : {}) }));
     return validators.get(s)(value);
@@ -48,13 +59,12 @@ function fixtures(root) {
   function sample(original, target = [], forced, choices = new Map(), here = [], depth = 0) {
     if (depth > 20) throw new Error('Fixture recursion exceeded');
     if (target.length && JSON.stringify(target) === JSON.stringify(here)) return forced;
-    const s = flatten(original, root);
+    const s = shape(original);
     const union = s.anyOf || s.oneOf;
     if (union) {
-      const base = { ...s }; delete base.anyOf; delete base.oneOf;
       const selected = choices.get(union);
-      for (const branch of selected === undefined ? union : [union[selected]]) {
-        try { const value = sample(merge(base, branch), target, forced, choices, here, depth + 1); if (valid(original, value)) return value; } catch { /* Try another valid branch. */ }
+      for (const branch of selected === undefined ? unionShapes(s) : [unionShapes(s)[selected]]) {
+        try { const value = sample(branch, target, forced, choices, here, depth + 1); if (valid(original, value)) return value; } catch { /* Try another valid branch. */ }
       }
       throw new Error(`No union fixture at /${here.join('/')}`);
     }
@@ -101,10 +111,9 @@ function fixtures(root) {
   function fields(original = root, here = [], choices = new Map(), active = new Set(), all = false) {
     if (original.$ref && active.has(original.$ref)) return [];
     if (original.$ref) active = new Set([...active, original.$ref]);
-    const s = flatten(original, root), union = s.anyOf || s.oneOf;
+    const s = shape(original), union = s.anyOf || s.oneOf;
     if (union) {
-      const base = { ...s }; delete base.anyOf; delete base.oneOf;
-      return union.flatMap((branch, i) => fields(merge(base, branch), here, new Map([...choices, [union, i]]), active, all));
+      return unionShapes(s).flatMap((branch, i) => fields(branch, here, new Map([...choices, [union, i]]), active, all));
     }
     const type = s.type || (s.properties ? 'object' : s.items ? 'array' : s.enum ? typeof s.enum[0] : null);
     const scalar = [].concat(type).some(x => ['string', 'number', 'integer', 'boolean'].includes(x));
@@ -114,6 +123,6 @@ function fixtures(root) {
     if (typeof s.additionalProperties === 'object') out.push(...fields(s.additionalProperties, [...here, 'fixture_key'], choices, active, all));
     return out;
   }
-  return { sample, fields, nodes: () => fields(root, [], new Map(), new Set(), true), valid, flatten: s => flatten(s, root) };
+  return { sample, fields, nodes: () => fields(root, [], new Map(), new Set(), true), valid, flatten: shape };
 }
 module.exports = { fixtures };
